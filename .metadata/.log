@@ -21,3 +21,6 @@ org.eclipse.core.internal.resources.ResourceException: Resource '/llevaMe_eclips
 	at org.eclipse.core.internal.jobs.Worker.run(Worker.java:53)
 !SUBENTRY 1 org.eclipse.core.resources 4 368 2014-08-19 18:10:37.123
 !MESSAGE Resource '/llevaMe_eclipse/res' does not exist.
+
+!ENTRY org.eclipse.ui 2 2 2014-08-20 13:04:15.948
+!MESSAGE Invalid property category path: ValidationPropertiesPage (bundle: org.eclipse.wst.xml.ui, propertyPage: org.eclipse.wst.xml.ui.propertyPage.project.validation)
