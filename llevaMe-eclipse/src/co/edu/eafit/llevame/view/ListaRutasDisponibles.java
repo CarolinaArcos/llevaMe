@@ -1,17 +1,35 @@
-package co.edu.eafit.llevame;
+package co.edu.eafit.llevame.view;
+
+import java.util.ArrayList;
+
+import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.model.Ruta;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
 
-public class MainActivity extends Activity {
+public class ListaRutasDisponibles extends Activity {
 
+	//lista en la UI
+	ListView lista;
+
+	//lista de la BDs
+	ArrayList<Ruta> rutas;
+	
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        
+        //lista de rutas
+        lista = (ListView) findViewById(R.id.listaRutas);
+        
+//        lista.add
     }
 
 
@@ -33,4 +51,7 @@ public class MainActivity extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    
+    
+    
 }
