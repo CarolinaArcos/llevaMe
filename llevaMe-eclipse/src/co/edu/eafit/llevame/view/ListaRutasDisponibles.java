@@ -4,6 +4,7 @@ import android.R.string;
 import android.app.Activity;
 import android.database.Cursor;
 import android.database.MatrixCursor;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.Menu;
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.database.DatabaseHandler;
 
 
 public class ListaRutasDisponibles extends Activity {
@@ -35,16 +37,35 @@ public class ListaRutasDisponibles extends Activity {
 //                android.R.layout.simple_list_item_1, test);
 //        
         
+        //handler
+        DatabaseHandler dbHandler = new DatabaseHandler(this);
         
+        //base de datos
+        SQLiteDatabase db = dbHandler.getReadableDatabase();
+        
+        dbHandler.fillWithTestingData(dbHandler.getWritableDatabase());
+        
+        String[] selectColumns = {DatabaseHandler.KEY_ID,
+				        		DatabaseHandler.KEY_NAME,
+				        		DatabaseHandler.KEY_DATE,
+				        		DatabaseHandler.KEY_HOUR,
+				        		DatabaseHandler.KEY_CAPACITY};
         
         //resultado del query de la BDs
-        Cursor cursor;
+        Cursor cursor = db.query(DatabaseHandler.TABLE_ROUTES,
+        			selectColumns, null, null, null, null, null);
         
         //columnas del query a mostrar
-        String[] fromColumns;
+        String[] fromColumns = {DatabaseHandler.KEY_NAME,
+				        		DatabaseHandler.KEY_DATE,
+				        		DatabaseHandler.KEY_HOUR,
+				        		DatabaseHandler.KEY_CAPACITY};
         
         //a que vistas van los datos del query
-        int[] toView;
+        int[] toView = {R.id.tituloRuta,
+        				R.id.diaRuta,
+        				R.id.hora,
+        				R.id.capacidad};
         
         //adaptador de datos a lista
         SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.elemento_lista_rutas,
