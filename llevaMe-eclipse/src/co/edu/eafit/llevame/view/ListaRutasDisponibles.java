@@ -2,6 +2,7 @@ package co.edu.eafit.llevame.view;
 
 import android.R.string;
 import android.app.Activity;
+import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -28,10 +29,26 @@ public class ListaRutasDisponibles extends Activity {
         
         //ejemplo con array adapter---------------------
 //        TODO: borrar y coger datos de la BDs
-        String[] test = {"hola", "mundo", "otro", "uno "};
+//        String[] test = {"hola", "mundo", "otro", "uno "};
+//        
+//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+//                android.R.layout.simple_list_item_1, test);
+//        
         
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-                android.R.layout.simple_list_item_1, test);
+        
+        
+        //resultado del query de la BDs
+        Cursor cursor;
+        
+        //columnas del query a mostrar
+        String[] fromColumns;
+        
+        //a que vistas van los datos del query
+        int[] toView;
+        
+        //adaptador de datos a lista
+        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.elemento_lista_rutas,
+        													cursor, fromColumns, toView, 0);
         
         lista.setAdapter(adapter);
 
