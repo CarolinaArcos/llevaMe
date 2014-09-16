@@ -1,35 +1,41 @@
 package co.edu.eafit.llevame.view;
 
-import java.util.ArrayList;
-
-import co.edu.eafit.llevame.R;
-import co.edu.eafit.llevame.model.Ruta;
-
+import android.R.string;
 import android.app.Activity;
+import android.database.MatrixCursor;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import co.edu.eafit.llevame.R;
 
 
 public class ListaRutasDisponibles extends Activity {
 
 	//lista en la UI
-	ListView lista;
-
-	//lista de la BDs
-	ArrayList<Ruta> rutas;
+	private ListView lista;
 	
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.lista_rutas);
         
         //lista de rutas
         lista = (ListView) findViewById(R.id.listaRutas);
         
-//        lista.add
+        //ejemplo con array adapter---------------------
+//        TODO: borrar y coger datos de la BDs
+        String[] test = {"hola", "mundo", "otro", "uno "};
+        
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_list_item_1, test);
+        
+        lista.setAdapter(adapter);
+
+
     }
 
 
