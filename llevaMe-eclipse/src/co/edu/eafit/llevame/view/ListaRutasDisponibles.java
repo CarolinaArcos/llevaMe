@@ -35,7 +35,6 @@ public class ListaRutasDisponibles extends Activity {
         
         lista.setAdapter(adapter);
 
-
     }
 
 
