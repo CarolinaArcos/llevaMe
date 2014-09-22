@@ -2,6 +2,7 @@ package co.edu.eafit.llevame.view;
 
 import android.R.string;
 import android.app.Activity;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.MatrixCursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -43,7 +44,7 @@ public class ListaRutasDisponibles extends Activity {
         //base de datos
         SQLiteDatabase db = dbHandler.getReadableDatabase();
         
-        dbHandler.fillWithTestingData(dbHandler.getWritableDatabase());
+        
         
         String[] selectColumns = {DatabaseHandler.KEY_ID,
 				        		DatabaseHandler.KEY_NAME,
@@ -91,6 +92,10 @@ public class ListaRutasDisponibles extends Activity {
         int id = item.getItemId();
         if (id == R.id.action_settings) {
             return true;
+        } else if(id == R.id.crear_ruta){
+        	Intent formularioRuta = new Intent(this, FormularioCrearRuta.class);
+        	startActivity(formularioRuta);
+        	return true;
         }
         return super.onOptionsItemSelected(item);
     }

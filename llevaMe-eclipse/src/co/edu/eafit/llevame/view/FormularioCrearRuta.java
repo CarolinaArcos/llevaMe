@@ -1,6 +1,7 @@
 package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -36,7 +37,12 @@ public class FormularioCrearRuta extends Activity {
 		return super.onOptionsItemSelected(item);
 	}
 	
-	public void enviarFormulario(View view) {
+	public void onAceptar(View view){
+		enviarFormulario();
+		lanzarListaRutas();
+	}
+	
+	public void enviarFormulario() {
 		EditText hora = (EditText) findViewById(R.id.horaFormulario);
 		EditText fecha = (EditText) findViewById(R.id.fechaFormulario);
 		EditText cupo = (EditText) findViewById(R.id.cupoFormulario);
@@ -58,5 +64,10 @@ public class FormularioCrearRuta extends Activity {
 		Ruta ruta = new Ruta(dataName, dataFecha, dataHora, Integer.parseInt(dataCupo), dataPlaca, dataDescripcion);
 		
 		ruta.insertarEnDB(this);
+	}
+	
+	public void lanzarListaRutas(){
+		Intent lista = new Intent(this, ListaRutasDisponibles.class);
+		startActivity(lista);
 	}
 }
