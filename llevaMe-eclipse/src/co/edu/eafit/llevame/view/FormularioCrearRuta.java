@@ -53,6 +53,8 @@ public class FormularioCrearRuta extends Activity {
 		String dataHora = hora.getText().toString();
 		String dataFecha = fecha.getText().toString();
 		String dataCupo = cupo.getText().toString();
+		int numeroCupo = -1;
+		if(!dataCupo.equals("")) numeroCupo = Integer.parseInt(dataCupo);
 		String dataPlaca = placa.getText().toString();
 		String dataDescripcion = descripcion.getText().toString();
 		String dataName = nombre.getText().toString();
@@ -61,7 +63,7 @@ public class FormularioCrearRuta extends Activity {
 		
 		//TODO: obtener mapa
 		
-		Ruta ruta = new Ruta(dataName, dataFecha, dataHora, Integer.parseInt(dataCupo), dataPlaca, dataDescripcion);
+		Ruta ruta = new Ruta(dataName, dataFecha, dataHora, numeroCupo, dataPlaca, dataDescripcion);
 		
 		ruta.insertarEnDB(this);
 	}
