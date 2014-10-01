@@ -2,9 +2,11 @@ package co.edu.eafit.llevame.view;
 
 import android.R.id;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.LayoutInflater;
 import android.widget.EditText;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Ruta;
@@ -46,9 +48,19 @@ public class DetallesRuta extends Activity{
 		descripcion.setText(desctiption);
 		conductor.setText("NN");
 		
+		//AlertDialog
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		 LayoutInflater inflater = this.getLayoutInflater();
 		
+		builder.setTitle("Detalles Ruta");
+		builder.setPositiveButton("llevame",null); // en null poner el listener
+		builder.setNegativeButton("Cancelar", null); // en null poner listener
+		builder.setView(inflater.inflate(R.layout.activity_detalles_ruta,null));
+		builder.create();
+		builder.show();
 		
 	}
+	
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
