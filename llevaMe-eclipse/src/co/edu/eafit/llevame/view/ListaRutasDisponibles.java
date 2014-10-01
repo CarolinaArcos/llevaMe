@@ -1,16 +1,18 @@
 package co.edu.eafit.llevame.view;
 
-import android.R.string;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.MatrixCursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.database.DatabaseHandler;
@@ -75,10 +77,29 @@ public class ListaRutasDisponibles extends Activity {
         													cursor, fromColumns, toView, 0);
         
         lista.setAdapter(adapter);
+        
+        lista.setOnItemClickListener(new OnItemClickListener() {
+        	
+            @Override
+            public void onItemClick(AdapterView<?> pariente, View view, int posicion, long id) {
+            	desplegarDetalles();
+            }
+         });
 
     }
-
-
+    
+    public void desplegarDetalles(){
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		LayoutInflater inflater = this.getLayoutInflater();
+		
+		builder.setTitle("Detalles Ruta");
+		builder.setPositiveButton("llevame",null); // en null poner el listener
+		builder.setNegativeButton("Cancelar", null); // en null poner listener
+		builder.setView(inflater.inflate(R.layout.activity_detalles_ruta,null));
+		builder.create();
+		builder.show();
+    }
+    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -101,13 +122,5 @@ public class ListaRutasDisponibles extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
-    
-    //@Override
-    //public void onItemClick() {
-    	
-    	
-    //}
-    
-    
     
 }
