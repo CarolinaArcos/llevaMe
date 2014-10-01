@@ -23,3 +23,7 @@ local.properties
 proguard/
 
 .metadata/
+/server/llevameWebServer/nbproject/private/
+/server/llevame_Server/target/
+
+*.DS_Store
