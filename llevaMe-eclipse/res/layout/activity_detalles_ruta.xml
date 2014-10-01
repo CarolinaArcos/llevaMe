@@ -1,0 +1,118 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="co.edu.eafit.llevame.view.DetallesRuta" >
+
+
+         <TextView
+            android:id="@+id/lblConductor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Conductor" />
+         
+        <EditText
+            android:id="@+id/conductorDetalles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="13" />
+        
+        <TextView
+            android:id="@+id/lblNombre"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Ruta" />
+        
+         <EditText
+            android:id="@+id/nombreDetalles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="13" />
+
+    <LinearLayout
+        android:id="@+id/horaYFehaRow"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+     	>
+        
+        <TextView
+            android:id="@+id/lblHora"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Hora" />
+        
+         <EditText
+            android:id="@+id/horaDetalles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="7" />
+        
+         <TextView
+            android:id="@+id/lblFecha"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fecha" />
+         
+		<EditText
+            android:id="@+id/fechaDetalles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="9" />
+
+    </LinearLayout>
+    
+	<LinearLayout
+	    android:id="@+id/cupoYPlacaRow"
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="horizontal"
+	    >
+		<TextView
+            android:id="@+id/lblCupo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cupo" />
+
+        <EditText
+            android:id="@+id/cupoDetalles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="7" />
+        
+        <TextView
+            android:id="@+id/lblPlaca"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Placa" />
+	    
+		<EditText
+            android:id="@+id/placaDetalles"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="9" />
+		
+	</LinearLayout>
+	
+		
+	    <TextView
+            android:id="@+id/lblDescripcion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripcion" />
+	    
+	     <EditText
+            android:id="@+id/descripcionDetalles"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="15" />
+
+</LinearLayout>
