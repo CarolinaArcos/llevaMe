@@ -49,16 +49,16 @@ public class DetallesRuta extends Activity{
 		conductor.setText("NN");
 		
 		//AlertDialog
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		 LayoutInflater inflater = this.getLayoutInflater();
-		
-		builder.setTitle("Detalles Ruta");
-		builder.setPositiveButton("llevame",null); // en null poner el listener
-		builder.setNegativeButton("Cancelar", null); // en null poner listener
-		builder.setView(inflater.inflate(R.layout.activity_detalles_ruta,null));
-		builder.create();
-		builder.show();
-		
+//		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+//		 LayoutInflater inflater = this.getLayoutInflater();
+//		
+//		builder.setTitle("Detalles Ruta");
+//		builder.setPositiveButton("llevame",null); // en null poner el listener
+//		builder.setNegativeButton("Cancelar", null); // en null poner listener
+//		builder.setView(inflater.inflate(R.layout.activity_detalles_ruta,null));
+//		builder.create();
+//		builder.show();
+//		
 	}
 	
 
