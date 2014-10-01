@@ -29,6 +29,8 @@ public class ListaRutasDisponibles extends Activity {
         
         //lista de rutas
         lista = (ListView) findViewById(R.id.listaRutas);
+       
+        
         
         //ejemplo con array adapter---------------------
 //        TODO: borrar y coger datos de la BDs
@@ -99,6 +101,12 @@ public class ListaRutasDisponibles extends Activity {
         }
         return super.onOptionsItemSelected(item);
     }
+    
+    //@Override
+    //public void onItemClick() {
+    	
+    	
+    //}
     
     
     
