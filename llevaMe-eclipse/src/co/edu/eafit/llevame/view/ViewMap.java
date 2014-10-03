@@ -54,6 +54,7 @@ public class ViewMap extends Activity {
 			// Enable / Disable zooming functionality
 			googleMap.getUiSettings().setZoomGesturesEnabled(true);
 			
+			
 			//MarkerOptions marker = new MarkerOptions().position(new LatLng(googleMap.getMyLocation().getLatitude(),googleMap.getMyLocation().getLongitude()));
 			LatLng UniEafit = new LatLng(6.200696,-75.578433);
 			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UniEafit, 1000));
@@ -88,4 +89,6 @@ public class ViewMap extends Activity {
 			}
 		}
 	}
+	
+	//GoogleMap.OnMapClickListener
 }

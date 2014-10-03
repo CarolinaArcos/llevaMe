@@ -8,10 +8,23 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="co.edu.eafit.llevame.view.FormularioCrearRuta" >
 
+            
+   
+            
+            
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical" >
+        
+         <FrameLayout 
+        	android:layout_width="match_parent"
+        	android:layout_height="250dp">
+        
+        	<include layout="@layout/activity_view_map" />
+        
+    	</FrameLayout>
+        
 
         <GridLayout
             android:layout_width="match_parent"
@@ -139,13 +152,7 @@
                 android:layout_alignParentBottom="true"
                 android:layout_gravity="center_horizontal|bottom"
                 android:ems="10"
-                android:inputType="textMultiLine"
-                android:text="
-                
-                
-                " >
-
-                <requestFocus />
+                android:inputType="textMultiLine">
             </EditText>
         </RelativeLayout>
 
@@ -156,6 +163,7 @@
             android:layout_gravity="center_horizontal"
             android:onClick="onAceptar"
             android:text="Aceptar" />
+
     </LinearLayout>
 
 </ScrollView>

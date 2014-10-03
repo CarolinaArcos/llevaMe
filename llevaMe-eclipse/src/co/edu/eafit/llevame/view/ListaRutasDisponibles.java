@@ -1,21 +1,24 @@
 package co.edu.eafit.llevame.view;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.database.DatabaseHandler;
+import co.edu.eafit.llevame.model.Ruta;
 
 
 public class ListaRutasDisponibles extends Activity {
@@ -24,13 +27,17 @@ public class ListaRutasDisponibles extends Activity {
 	private ListView lista;
 	
 	
+	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_rutas);
         
         //lista de rutas
+        ArrayList<Ruta> rutas = new ArrayList<Ruta>();
         lista = (ListView) findViewById(R.id.listaRutas);
+        ArrayAdapter<Ruta> adapter = new ArrayAdapter<Ruta>(this, R.layout.elemento_lista_rutas, rutas );
+        lista.setAdapter(adapter);
        
         
         
@@ -72,17 +79,13 @@ public class ListaRutasDisponibles extends Activity {
         				R.id.hora,
         				R.id.capacidad};
         
-        //adaptador de datos a lista
-        SimpleCursorAdapter adapter = new SimpleCursorAdapter(this, R.layout.elemento_lista_rutas,
-        													cursor, fromColumns, toView, 0);
-        
-        lista.setAdapter(adapter);
         
         lista.setOnItemClickListener(new OnItemClickListener() {
         	
             @Override
             public void onItemClick(AdapterView<?> pariente, View view, int posicion, long id) {
             	desplegarDetalles();
+            	System.out.print(lista.getItemAtPosition(posicion));
             }
          });
 
