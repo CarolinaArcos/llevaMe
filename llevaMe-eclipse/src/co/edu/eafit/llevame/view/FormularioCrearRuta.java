@@ -1,21 +1,40 @@
 package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Ruta;
 
 public class FormularioCrearRuta extends Activity {
+	
+	private ImageButton mapa;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_formulario_crear_ruta);
+		
+		
+		mapa = (ImageButton) findViewById(R.id.image);
+		mapa.setOnClickListener(new OnClickListener() {
+			 
+			@Override
+			public void onClick(View arg0) {
+				desplegarMapa();
+ 
+			}
+ 
+		});
+	
 	}
 
 	@Override
@@ -71,5 +90,15 @@ public class FormularioCrearRuta extends Activity {
 	public void lanzarListaRutas(){
 		Intent lista = new Intent(this, ListaRutasDisponibles.class);
 		startActivity(lista);
+	}
+	
+	public void desplegarMapa() {
+    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		LayoutInflater inflater = this.getLayoutInflater();
+		
+		builder.setPositiveButton("Aceptar",null); // en null poner el listener
+		builder.setView(inflater.inflate(R.layout.activity_view_map,null));
+		builder.create();
+		builder.show();
 	}
 }
