@@ -1,16 +1,16 @@
 package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.widget.Toast;
-
 import co.edu.eafit.llevame.R;
+
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.MapFragment;
-import com.google.android.gms.maps.model.BitmapDescriptorFactory;
-import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -54,6 +54,8 @@ public class ViewMap extends Activity {
 			// Enable / Disable zooming functionality
 			googleMap.getUiSettings().setZoomGesturesEnabled(true);
 			
+			
+			
 			//MarkerOptions marker = new MarkerOptions().position(new LatLng(googleMap.getMyLocation().getLatitude(),googleMap.getMyLocation().getLongitude()));
 			LatLng UniEafit = new LatLng(6.200696,-75.578433);
 			googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(UniEafit, 1000));
@@ -88,4 +90,5 @@ public class ViewMap extends Activity {
 			}
 		}
 	}
+	
 }
