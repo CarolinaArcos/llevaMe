@@ -34,5 +34,4 @@
             android:layout_toRightOf="@+id/button2"
             android:onClick="addMarker"
             android:text="Añadir marcador" />
-    
 </RelativeLayout>
