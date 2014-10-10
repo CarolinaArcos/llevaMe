@@ -9,6 +9,7 @@
         android:protectionLevel="signature" />
 
     <uses-permission android:name="co.edu.eafit.llevame.permission.MAPS_RECEIVE" />
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -35,10 +36,7 @@
             android:name=".view.FormularioCrearRuta"
             android:label="@string/title_activity_formulario_crear_ruta" >
             
-             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+
             
         </activity>
         <activity
@@ -47,7 +45,12 @@
         </activity>
         <activity
             android:name=".view.DetallesRuta"
-            android:label="@string/title_activity_detalles_ruta" >    
+            android:label="@string/title_activity_detalles_ruta" >
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <!-- Google API Key -->
@@ -56,7 +59,7 @@
             android:value="AIzaSyBCBcBxMjwUnXqvpebGPfZ_AmBCR5t7kaY" />
         <meta-data
             android:name="com.google.android.gms.version"
-            android:value="@integer/google_play_services_version" />
+            android:value="@integer/google-play-services_lib" />
 
         <activity
             android:name="co.edu.eafit.llevame.view.ViewMap"
