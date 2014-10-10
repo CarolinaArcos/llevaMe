@@ -64,13 +64,12 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		       
 		       @Override
 		       public void onLocationChanged(Location location) {
-		    	   mapa.clear();
 		        // TODO Auto-generated method stub
 		    	   if(latti == 0.0 && longi == 0.0) {
 		    		   latti = location.getLatitude();
 		    		   longi = location.getLongitude();
 		    		   LatLng current = new LatLng(latti, longi);
-		    		   mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 65));
+		    		   mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 17));
 		    	   }
 		        System.out.print("latti :"+latti+"\n"+"longi :"+longi);
 		        
@@ -82,7 +81,7 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		      //      .findFragmentById(R.id.map)).getMap();
 		      mapa = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		      mapa.setMapType(GoogleMap.MAP_TYPE_HYBRID);
-		      mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(EAFIT, 15));
+		      mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(EAFIT, 17));
 		      mapa.setMyLocationEnabled(true);
 		      
 		      mapa.getUiSettings().setZoomControlsEnabled(false);
@@ -98,14 +97,14 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		 
 		   public void moveCamera(View view) {
 			   current = new LatLng(latti, longi);
-			   mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 65));
+			   mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 17));
 		   }
 		 
 		   public void animateCamera(View view) {
 		      if (mapa.getMyLocation() != null)
 		         mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(
 		            new LatLng( mapa.getMyLocation().getLatitude(), 
-		            		mapa.getMyLocation().getLongitude()), 15));
+		            		mapa.getMyLocation().getLongitude()), 17));
 		   }
 		 
 		   public void addMarker(View view) {
@@ -118,7 +117,7 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		   public void onMapClick(LatLng puntoPulsado) {
 			   Marker point = mapa.addMarker(new MarkerOptions().position(puntoPulsado).
 		         icon(BitmapDescriptorFactory
-		            .defaultMarker(BitmapDescriptorFactory.HUE_CYAN)));
+		            .defaultMarker(BitmapDescriptorFactory.HUE_AZURE)));
 		      listMarkers(point);
 		   }
 		   @Override
