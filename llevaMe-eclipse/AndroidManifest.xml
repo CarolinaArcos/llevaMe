@@ -35,11 +35,6 @@
             android:name=".view.FormularioCrearRuta"
             android:label="@string/title_activity_formulario_crear_ruta" >
             
-             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-            
         </activity>
         <activity
             android:name=".view.ListaRutasDisponibles"
@@ -62,6 +57,11 @@
             android:name="co.edu.eafit.llevame.view.ViewMap"
             android:label="@string/title_activity_view_map" >
             
+            
+             <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
             
         </activity>
     </application>
