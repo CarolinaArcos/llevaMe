@@ -30,9 +30,7 @@ public class FormularioCrearRuta extends Activity {
 			@Override
 			public void onClick(View arg0) {
 				desplegarMapa();
- 
 			}
- 
 		});
 	
 	}
