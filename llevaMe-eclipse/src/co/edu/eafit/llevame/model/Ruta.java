@@ -1,69 +1,39 @@
 package co.edu.eafit.llevame.model;
 
-import java.util.ArrayList;
-
-import co.edu.eafit.llevame.database.DatabaseHandler;
-
-import android.content.ContentValues;
-import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-
 public class Ruta {
-	
-	//nombre de la ruta
+	private int id;
 	private String nombre;
-	
-	//fecha en que ocurre la ruta (TODO: definir el tipo de dato)
 	private String fecha;
-	
-	//hora en que ocurre la ruta (TODO: verificar si en fecha se incluye la hora)
-	private String hora;
-	
-	//capacidad maxima de la ruta
 	private int capacidad;
-	
-	//placa del vehiculo
-	private String placa;
-	
-	//descripcion de la ruta
 	private String descripcion;
 	
-	//ruta como tal a llevar a cabo
-	private ArrayList<Ubicacion> ruta;
-	
-	private int id;
-	
-	public Ruta(String name, String date, String hour, int capacity,
-			String placa, String descripcion) {
+	public Ruta(){
 		
-		this.nombre = name;
-		this.fecha = date;
-		this.hora = hour;
-		this.capacidad = capacity;
-		this.placa = placa;
+	}
+
+	public Ruta(int id, String nombre, String fecha, int capacidad){
+		this.id = id;
+		this.nombre = nombre;
+		this.fecha = fecha;
+		this.capacidad = capacidad;
+		
+		this.descripcion = "";
+	}
+	
+	public Ruta(int id, String nombre, String fecha, int capacidad, String descripcion){
+		this.id = id;
+		this.nombre = nombre;
+		this.fecha = fecha;
+		this.capacidad = capacidad;
 		this.descripcion = descripcion;
 	}
 	
-
-	public void insertarEnDB(Context context) {
+	public void Iniciar(){
 		
-		DatabaseHandler dbh = new DatabaseHandler(context);
-		SQLiteDatabase db = dbh.getReadableDatabase();
+	}
+	
+	public void Terminar(){
 		
-		ContentValues values = new ContentValues();
-		values.put(DatabaseHandler.KEY_NAME, this.nombre);
-		values.put(DatabaseHandler.KEY_DATE, this.fecha);
-		values.put(DatabaseHandler.KEY_HOUR, this.hora);
-		values.put(DatabaseHandler.KEY_CAPACITY, this.capacidad);
-		values.put(DatabaseHandler.KEY_NUMBERPLATE, this.placa);
-		values.put(DatabaseHandler.KEY_DETAILS, this.descripcion);
-		
-		//TODO: put mapa
-		// TODO: put puntos mapa
-		
-		
-		db.insert(DatabaseHandler.TABLE_ROUTES, null, values);
-
 	}
 	
 	public int getId() {
@@ -103,13 +73,5 @@ public class Ruta {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-	
-	public String getHora() {
-		return hora;
-	}
-	
-	public String getPlaca() {
-		return placa;
 	}
 }

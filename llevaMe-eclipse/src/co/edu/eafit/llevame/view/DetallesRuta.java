@@ -1,60 +1,49 @@
 package co.edu.eafit.llevame.view;
 
-import android.R.id;
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.LayoutInflater;
 import android.widget.EditText;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.services.ServiciosRuta;
 
 
 
 public class DetallesRuta extends Activity{
 
-	Ruta r = new Ruta("hola", "septiembre 10", "10:10", 3, "AAA111", "hola mundo");;
+	EditText conductor;
+	EditText nombre;
+	EditText fecha;
+	EditText hora;
+	EditText cupo;
+	EditText placa;
+	EditText descripcion;
 
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalles_ruta);
-		//Guardar referencia
-		EditText conductor = (EditText) findViewById(R.id.conductorDetalles);
-		EditText nombre = (EditText) findViewById(R.id.nombreDetalles);
-		EditText fecha = (EditText) findViewById(R.id.fechaDetalles);
-		EditText hora = (EditText) findViewById(R.id.horaDetalles);
-		EditText cupo = (EditText) findViewById(R.id.cupoDetalles);
-		EditText placa = (EditText) findViewById(R.id.placaDetalles);
-		EditText descripcion = (EditText) findViewById(R.id.descripcionDetalles);
 		
-		//Tomar valores de r
-		String name = r.getNombre();
-		String date = r.getFecha();
-		String hour = r.getHora();
-		String capacity = r.getCapacidad() + "";
-		String pla = r.getPlaca();
-		String desctiption = r.getDescripcion();
-		
-		//mostrar informacion
-		nombre.setText(name);
-		fecha.setText(date);
-		hora.setText(hour);
-		cupo.setText(capacity);
-		placa.setText(pla);
-		descripcion.setText(desctiption);
-		conductor.setText("NN");
-		
+		conductor = (EditText) findViewById(R.id.conductorDetalles);
+		nombre = (EditText) findViewById(R.id.nombreDetalles);
+		fecha = (EditText) findViewById(R.id.fechaDetalles);
+		hora = (EditText) findViewById(R.id.horaDetalles);
+		cupo = (EditText) findViewById(R.id.cupoDetalles);
+		placa = (EditText) findViewById(R.id.placaDetalles);
+		descripcion = (EditText) findViewById(R.id.descripcionDetalles);
+
 	}
-	
+
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.detalles_ruta, menu);
+		new TraerRuta().execute("1");
 		return true;
 	}
 
@@ -68,5 +57,41 @@ public class DetallesRuta extends Activity{
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+
+
+
+	private class TraerRuta extends AsyncTask<String, Void, Ruta> {
+
+		public TraerRuta(){
+			super();
+		}
+
+		@Override
+		protected Ruta doInBackground(String...params) {
+			// TODO Auto-generated method stub
+			return ServiciosRuta.obtenerInstancia().getRuta(params[0]);
+		}
+
+		@Override
+		protected void onPostExecute(Ruta r){
+
+			//Tomar valores de r
+			String name = r.getNombre();
+			String date = r.getFecha();
+			String capacity = Integer.toString(r.getCapacidad());
+			//String pla = r.getPlaca();
+			String desctiption = r.getDescripcion();
+
+			nombre.setText(name);
+			fecha.setText(date);
+			//hora.setText(hour);
+			cupo.setText(capacity);
+			//placa.setText(pla);
+			descripcion.setText(desctiption);
+			//conductor.setText();
+		}
+
+
 	}
 }

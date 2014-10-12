@@ -80,9 +80,9 @@ public class FormularioCrearRuta extends Activity {
 		
 		//TODO: obtener mapa
 		
-		Ruta ruta = new Ruta(dataName, dataFecha, dataHora, numeroCupo, dataPlaca, dataDescripcion);
+		//Ruta ruta = new Ruta(dataName, dataFecha, dataHora, numeroCupo, dataPlaca, dataDescripcion);
 		
-		ruta.insertarEnDB(this);
+		//ruta.insertarEnDB(this);
 	}
 	
 	public void lanzarListaRutas(){
