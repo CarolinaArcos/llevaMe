@@ -18,9 +18,8 @@
 				android:layout_width="match_parent"
         		android:layout_height="250dp">
         		
-            <include layout="@layout/activity_view_map"/>"
-
-    	</FrameLayout>
+            <include layout="@layout/activity_view_map"/>
+		</FrameLayout>
     
     
          <TextView
@@ -131,6 +130,14 @@
             android:layout_height="wrap_content"
             android:editable="false"
             android:ems="15" />
+	     
+	     <Button 
+	         android:id="@+id/llevameDetalles"
+	         android:layout_width="match_parent"
+	         android:layout_height="wrap_content"
+	         android:layout_gravity="center_horizontal"
+            android:onClick="onllevaMe"
+	         android:text="llevaMe"/>
 
 
 	</LinearLayout>

@@ -3,10 +3,11 @@ package co.edu.eafit.llevame.view;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.Toast;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.services.ServiciosRuta;
@@ -39,6 +40,8 @@ public class DetallesRuta extends Activity{
 		cupo = (EditText) findViewById(R.id.cupoDetalles);
 		placa = (EditText) findViewById(R.id.placaDetalles);
 		descripcion = (EditText) findViewById(R.id.descripcionDetalles);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		
 		new TraerRuta().execute(""+id);
@@ -64,6 +67,13 @@ public class DetallesRuta extends Activity{
 		this.id = id;
 	}
 
+	public void onllevaMe(View view) {
+		Toast toast = Toast.makeText(this, "Ha solicitado un cupo para esta ruta", 3);
+		toast.show();
+		finish();
+		//TODO: solicitar cupo
+	}
+	
 	private class TraerRuta extends AsyncTask<String, Void, Ruta> {
 
 		public TraerRuta(){
