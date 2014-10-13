@@ -1,24 +1,24 @@
 package co.edu.eafit.llevame.view;
 
-import java.util.ArrayList;
-
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import co.edu.eafit.llevame.R;
-import co.edu.eafit.llevame.database.DatabaseHandler;
+import co.edu.eafit.llevame.handlers.RutaListAdapter;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.services.ServiciosRuta;
+
 
 
 public class ListaRutasDisponibles extends Activity {
@@ -33,80 +33,55 @@ public class ListaRutasDisponibles extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_rutas);
         
-        //lista de rutas
-        ArrayList<Ruta> rutas = new ArrayList<Ruta>();
+        
         lista = (ListView) findViewById(R.id.listaRutas);
-        ArrayAdapter<Ruta> adapter = new ArrayAdapter<Ruta>(this, R.layout.elemento_lista_rutas, rutas );
-        lista.setAdapter(adapter);
-       
-        
-        
-        //ejemplo con array adapter---------------------
-//        TODO: borrar y coger datos de la BDs
-//        String[] test = {"hola", "mundo", "otro", "uno "};
-//        
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
-//                android.R.layout.simple_list_item_1, test);
-//        
-        
-        //handler
-        DatabaseHandler dbHandler = new DatabaseHandler(this);
-        
-        //base de datos
-        SQLiteDatabase db = dbHandler.getReadableDatabase();
-        
-        
-        
-        String[] selectColumns = {DatabaseHandler.KEY_ID,
-				        		DatabaseHandler.KEY_NAME,
-				        		DatabaseHandler.KEY_DATE,
-				        		DatabaseHandler.KEY_HOUR,
-				        		DatabaseHandler.KEY_CAPACITY};
-        
-        //resultado del query de la BDs
-        Cursor cursor = db.query(DatabaseHandler.TABLE_ROUTES,
-        			selectColumns, null, null, null, null, null);
-        
-        //columnas del query a mostrar
-        String[] fromColumns = {DatabaseHandler.KEY_NAME,
-				        		DatabaseHandler.KEY_DATE,
-				        		DatabaseHandler.KEY_HOUR,
-				        		DatabaseHandler.KEY_CAPACITY};
-        
-        //a que vistas van los datos del query
-        int[] toView = {R.id.tituloRuta,
-        				R.id.diaRuta,
-        				R.id.hora,
-        				R.id.capacidad};
-        
         
         lista.setOnItemClickListener(new OnItemClickListener() {
         	
             @Override
             public void onItemClick(AdapterView<?> pariente, View view, int posicion, long id) {
-            	desplegarDetalles();
-            	System.out.print(lista.getItemAtPosition(posicion));
+            	//TODO: pasar parametro
+            	int theId = (int) id;
+            	//desplegarDetalles(theId);
+            	DialogdesplegarDetalles((int)id);
             }
+            
          });
 
     }
     
-    public void desplegarDetalles(){
+    public void desplegarDetalles(int id){
     	AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		LayoutInflater inflater = this.getLayoutInflater();
+		
+		//DetallesRuta detallesRuta = (DetallesRuta) inflater.inflate(R.layout.activity_detalles_ruta);
+		final View view = inflater.inflate(R.layout.activity_detalles_ruta, null, false);
+		//view.setTheId(id);
+		
 		
 		builder.setTitle("Detalles Ruta");
 		builder.setPositiveButton("llevame",null); // en null poner el listener
 		builder.setNegativeButton("Cancelar", null); // en null poner listener
-		builder.setView(inflater.inflate(R.layout.activity_detalles_ruta,null));
-		builder.create();
+		builder.setView(view);
+		builder.create();		
 		builder.show();
     }
+    
+    public void DialogdesplegarDetalles(int id){
+    	Intent intent = new Intent(this,DetallesRuta.class);
+    	int theId = intent.getIntExtra("id", 10);
+    	intent.putExtra("id", id);
+    	startActivity(intent);
+    }
+    
     
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
+       // getMenuInflater().inflate(R.menu.main, menu);
+        
+    	getMenuInflater().inflate(R.menu.main, menu);
+		new TraerListaRuta().execute("1");
         return true;
     }
 
@@ -126,4 +101,27 @@ public class ListaRutasDisponibles extends Activity {
         return super.onOptionsItemSelected(item);
     }
     
+    private class TraerListaRuta extends AsyncTask<String, Void, Ruta[]> {
+
+
+    	public TraerListaRuta(){
+    		super();
+    	}
+
+    	@Override
+    	protected Ruta[] doInBackground(String...params) {
+    		return ServiciosRuta.obtenerInstancia().getArregloRutas(params[0]);
+    	}
+
+    	@Override
+    	protected void onPostExecute(Ruta[] r){
+
+    			RutaListAdapter adapter = new RutaListAdapter(ListaRutasDisponibles.this, R.layout.elemento_lista_rutas, r);
+        		lista.setAdapter(adapter);
+    	}
+
+    }
+
 }
+
+

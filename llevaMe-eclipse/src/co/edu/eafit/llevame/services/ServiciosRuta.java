@@ -5,6 +5,7 @@ import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -48,6 +49,7 @@ public class ServiciosRuta {
 	}
 
 	public Ruta getRuta(String id) {
+		Log.d("the id in getRuta", id);
 		Ruta ruta = new Ruta();
 
 		String url = ServerHandler.IP.concat("/rutas/").concat(id);
@@ -66,7 +68,38 @@ public class ServiciosRuta {
 
 		return ruta;
 
-
+	}
+	
+	public Ruta[] getArregloRutas(String id) {
+		
+		Ruta[] rutas;
+		String url = ServerHandler.IP.concat("/rutas/");
+		
+		
+		try{
+			JSONArray lasRutas = new JSONArray(getServerResponse(url));
+			String rutasString[]= new String[lasRutas.length()];
+			rutas = new Ruta[rutasString.length];
+			
+			for (int i = 0; i<lasRutas.length(); i++) {
+				JSONObject ruta = lasRutas.getJSONObject(i);
+				Ruta oneRuta = new Ruta();
+				
+				oneRuta.setId(ruta.getInt("id"));
+				oneRuta.setNombre(ruta.getString("nombre"));
+				oneRuta.setFecha(ruta.getString("fecha"));
+				oneRuta.setDescripcion(ruta.getString("descripcion"));
+				oneRuta.setCapacidad(ruta.getInt("capacidad"));
+				rutas[i] = oneRuta;
+				
+			}
+			return rutas;
+			
+		} catch (Exception ex) {
+			Log.e("ServicioRest","Error!", ex);
+			return null;
+		}
+		
 
 	}
 

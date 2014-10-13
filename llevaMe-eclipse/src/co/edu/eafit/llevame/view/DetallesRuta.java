@@ -3,6 +3,7 @@ package co.edu.eafit.llevame.view;
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
@@ -14,20 +15,23 @@ import co.edu.eafit.llevame.services.ServiciosRuta;
 
 public class DetallesRuta extends Activity{
 
-	EditText conductor;
-	EditText nombre;
-	EditText fecha;
-	EditText hora;
-	EditText cupo;
-	EditText placa;
-	EditText descripcion;
+	private EditText conductor;
+	private EditText nombre;
+	private EditText fecha;
+	private EditText hora;
+	private EditText cupo;
+	private EditText placa;
+	private EditText descripcion;
+	private int id;
 
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalles_ruta);
-		
+		id = getIntent().getIntExtra("id",10);
+
 		conductor = (EditText) findViewById(R.id.conductorDetalles);
 		nombre = (EditText) findViewById(R.id.nombreDetalles);
 		fecha = (EditText) findViewById(R.id.fechaDetalles);
@@ -36,30 +40,29 @@ public class DetallesRuta extends Activity{
 		placa = (EditText) findViewById(R.id.placaDetalles);
 		descripcion = (EditText) findViewById(R.id.descripcionDetalles);
 
+		
+		new TraerRuta().execute(""+id);
 	}
 
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.detalles_ruta, menu);
-		new TraerRuta().execute("1");
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
 	}
-
-
+	
+	public void setTheId(int id) {
+		this.id = id;
+	}
 
 	private class TraerRuta extends AsyncTask<String, Void, Ruta> {
 
@@ -69,8 +72,7 @@ public class DetallesRuta extends Activity{
 
 		@Override
 		protected Ruta doInBackground(String...params) {
-			// TODO Auto-generated method stub
-			return ServiciosRuta.obtenerInstancia().getRuta(params[0]);
+			return ServiciosRuta.obtenerInstancia().getRuta(""+id);
 		}
 
 		@Override
@@ -78,20 +80,22 @@ public class DetallesRuta extends Activity{
 
 			//Tomar valores de r
 			String name = r.getNombre();
-			String date = r.getFecha();
+			String date = r.getFecha().substring(0, 10);
+			String hour = r.getFecha().substring(10);
 			String capacity = Integer.toString(r.getCapacidad());
 			//String pla = r.getPlaca();
 			String desctiption = r.getDescripcion();
 
 			nombre.setText(name);
 			fecha.setText(date);
-			//hora.setText(hour);
+			hora.setText(hour);
 			cupo.setText(capacity);
 			//placa.setText(pla);
 			descripcion.setText(desctiption);
 			//conductor.setText();
+			
+			
 		}
-
 
 	}
 }

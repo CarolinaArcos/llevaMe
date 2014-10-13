@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableRow xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:id="@+id/elemento_rutas" >
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -14,7 +15,7 @@
             android:layout_alignBaseline="@+id/hora"
             android:layout_alignBottom="@+id/hora"
             android:layout_alignLeft="@+id/tituloRuta"
-            android:text="Ago 27"
+            android:text="Date"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -25,17 +26,17 @@
             android:layout_alignParentTop="true"
             android:layout_marginLeft="30dp"
             android:layout_marginTop="26dp"
-            android:text="Inicio - Fin"
+            android:text="Name"
             android:textAppearance="?android:attr/textAppearanceLarge" />
 
         <TextView
             android:id="@+id/hora"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/nombreUsuario"
+            android:layout_below="@+id/tituloRuta"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="36dp"
-            android:text="20:30"
+            android:text="Hour"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
@@ -44,19 +45,11 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/hora"
             android:layout_alignBottom="@+id/hora"
-            android:layout_alignRight="@+id/nombreUsuario"
-            android:text="cupos: 3"
+            android:layout_marginLeft="26dp"
+            android:layout_toRightOf="@+id/hora"
+            android:text="Capacity"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
-        <TextView
-            android:id="@+id/nombreUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/tituloRuta"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="18dp"
-            android:text="Nombre de usuario"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
     </RelativeLayout>
 
 </TableRow>
