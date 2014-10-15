@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent" >
 
-        <TextView
+		<TextView
             android:id="@+id/diaRuta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,7 +17,7 @@
             android:layout_alignLeft="@+id/tituloRuta"
             android:text="Date"
             android:textAppearance="?android:attr/textAppearanceMedium" />
-
+        
         <TextView
             android:id="@+id/tituloRuta"
             android:layout_width="wrap_content"
@@ -45,8 +45,8 @@
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/hora"
             android:layout_alignBottom="@+id/hora"
-            android:layout_marginLeft="26dp"
-            android:layout_toRightOf="@+id/hora"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="18dp"
             android:text="Capacity"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 

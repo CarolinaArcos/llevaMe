@@ -11,8 +11,8 @@ import co.edu.eafit.llevame.model.Ruta;
 
 public class RutaListAdapter extends ArrayAdapter<Ruta>{
 	
-	Ruta[] rutas;
-	Context context;
+	private Ruta[] rutas;
+	private Context context;
 	
 	public RutaListAdapter(Context context, int layoutResourceId, Ruta[] rutas) {
 		super(context, layoutResourceId, rutas);

@@ -67,11 +67,13 @@ public class FormularioCrearRuta extends Activity {
 		EditText descripcion = (EditText) findViewById(R.id.descripcionFormulario);
 		EditText nombre = (EditText) findViewById(R.id.nombreRutaFormulario);
 		
+		//TODO: validar datos ingresados
+		
 		String dataHora = hora.getText().toString();
 		String dataFecha = fecha.getText().toString();
 		String dataCupo = cupo.getText().toString();
 		int numeroCupo = -1;
-		if(!dataCupo.equals("")) numeroCupo = Integer.parseInt(dataCupo);
+		if(!dataCupo.equals("") && (Integer.parseInt(dataCupo)>0)) numeroCupo = Integer.parseInt(dataCupo);
 		String dataPlaca = placa.getText().toString();
 		String dataDescripcion = descripcion.getText().toString();
 		String dataName = nombre.getText().toString();
@@ -91,12 +93,7 @@ public class FormularioCrearRuta extends Activity {
 	}
 	
 	public void desplegarMapa() {
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		LayoutInflater inflater = this.getLayoutInflater();
-		
-		builder.setPositiveButton("Aceptar",null); // en null poner el listener
-		builder.setView(inflater.inflate(R.layout.activity_view_map,null));
-		builder.create();
-		builder.show();
+    	Intent intent = new Intent(this,ViewMap.class);
+    	startActivity(intent);
 	}
 }

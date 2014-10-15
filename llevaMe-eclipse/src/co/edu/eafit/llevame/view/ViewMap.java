@@ -18,6 +18,7 @@ import android.view.LayoutInflater;
 import android.widget.EditText;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -62,7 +63,10 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		latti = 0.0;
 		longi = 0.0;
 		current = new LatLng(0, 0);
-
+	
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		// Acquire a reference to the system Location Manager
 		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 

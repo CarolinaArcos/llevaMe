@@ -67,7 +67,11 @@
 
         <activity
             android:name="co.edu.eafit.llevame.view.ViewMap"
-            android:label="@string/title_activity_view_map" >
+            android:label="@string/title_activity_view_map"
+            android:parentActivityName="co.edu.eafit.llevame.view.DetallesRuta" >
+			<meta-data 
+			    android:name="android.support.PARENT_ACIVITY"
+			    android:value="co.edu.eafit.llevame.view.DetallesRuta"/>
             
         </activity>
     </application>
