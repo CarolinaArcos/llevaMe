@@ -1,7 +1,7 @@
 package co.edu.eafit.llevame.view;
 
-import co.edu.eafit.llevame.model.DirectionsJSONParser;
-import co.edu.eafit.llevame.model.HttpConnection;
+import co.edu.eafit.llevame.handlers.DirectionsJSONParser;
+import co.edu.eafit.llevame.handlers.HttpConnection;
 
 import java.util.ArrayList;
 import java.util.HashMap;

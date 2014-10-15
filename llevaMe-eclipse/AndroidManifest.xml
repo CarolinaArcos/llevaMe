@@ -35,8 +35,6 @@
         <activity
             android:name=".view.FormularioCrearRuta"
             android:label="@string/title_activity_formulario_crear_ruta" >
-            
-
         </activity>
         <activity
             android:name=".view.ListaRutasDisponibles"
@@ -53,7 +51,6 @@
 			<meta-data 
 			    android:name="android.support.PARENT_ACIVITY"
 			    android:value="co.edu.eafit.llevame.view.ListaRutasDisponibles"/>
-			
         </activity>
 
         <!-- Google API Key -->
