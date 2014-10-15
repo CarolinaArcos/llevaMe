@@ -45,7 +45,7 @@
             android:layout_alignBaseline="@+id/hora"
             android:layout_alignBottom="@+id/hora"
             android:layout_alignRight="@+id/nombreUsuario"
-            android:text="cupos: 3"
+            android:text="Cupos: 3"
             android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView

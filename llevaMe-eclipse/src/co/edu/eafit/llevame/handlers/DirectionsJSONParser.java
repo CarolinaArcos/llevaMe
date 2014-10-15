@@ -1,4 +1,4 @@
-package co.edu.eafit.llevame.model;
+package co.edu.eafit.llevame.handlers;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -63,7 +63,6 @@ public class DirectionsJSONParser {
 	
 	/**
 	 * Method to decode polyline points 
-	 * Courtesy : jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java 
 	 * */
     private List<LatLng> decodePoly(String encoded) {
 

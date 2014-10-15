@@ -1,4 +1,4 @@
-package co.edu.eafit.llevame.model;
+package co.edu.eafit.llevame.handlers;
 
 import java.io.BufferedReader;
 import java.io.IOException;
