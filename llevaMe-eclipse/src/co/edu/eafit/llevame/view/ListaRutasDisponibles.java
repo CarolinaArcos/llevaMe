@@ -1,13 +1,9 @@
 package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -50,23 +46,6 @@ public class ListaRutasDisponibles extends Activity {
 
     }
     
-    public void desplegarDetalles(int id){
-    	AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		LayoutInflater inflater = this.getLayoutInflater();
-		
-		//DetallesRuta detallesRuta = (DetallesRuta) inflater.inflate(R.layout.activity_detalles_ruta);
-		final View view = inflater.inflate(R.layout.activity_detalles_ruta, null, false);
-		//view.setTheId(id);
-		
-		
-		builder.setTitle("Detalles Ruta");
-		builder.setPositiveButton("llevame",null); // en null poner el listener
-		builder.setNegativeButton("Cancelar", null); // en null poner listener
-		builder.setView(view);
-		builder.create();		
-		builder.show();
-    }
-    
     public void DialogdesplegarDetalles(int id){
     	Intent intent = new Intent(this,DetallesRuta.class);
     	int theId = intent.getIntExtra("id", 10);
@@ -81,7 +60,7 @@ public class ListaRutasDisponibles extends Activity {
        // getMenuInflater().inflate(R.menu.main, menu);
         
     	getMenuInflater().inflate(R.menu.main, menu);
-		new TraerListaRuta().execute("1");
+		new TraerListaRuta().execute();
         return true;
     }
 
@@ -101,7 +80,7 @@ public class ListaRutasDisponibles extends Activity {
         return super.onOptionsItemSelected(item);
     }
     
-    private class TraerListaRuta extends AsyncTask<String, Void, Ruta[]> {
+    private class TraerListaRuta extends AsyncTask<Void, Void, Ruta[]> {
 
 
     	public TraerListaRuta(){
@@ -109,8 +88,8 @@ public class ListaRutasDisponibles extends Activity {
     	}
 
     	@Override
-    	protected Ruta[] doInBackground(String...params) {
-    		return ServiciosRuta.obtenerInstancia().getArregloRutas(params[0]);
+    	protected Ruta[] doInBackground(Void... params) {
+    		return ServiciosRuta.obtenerInstancia().getArregloRutas();
     	}
 
     	@Override

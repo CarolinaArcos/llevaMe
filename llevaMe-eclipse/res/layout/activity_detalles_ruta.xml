@@ -70,7 +70,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:ems="7" />
+            android:ems="5" />
         
          <TextView
             android:id="@+id/lblFecha"
@@ -83,7 +83,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:ems="9" />
+            android:ems="11" />
 
     </LinearLayout>
     
@@ -104,7 +104,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:ems="7" />
+            android:ems="5" />
         
         <TextView
             android:id="@+id/lblPlaca"
@@ -117,7 +117,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:ems="9" />
+            android:ems="11" />
 		
 	</LinearLayout>
 	

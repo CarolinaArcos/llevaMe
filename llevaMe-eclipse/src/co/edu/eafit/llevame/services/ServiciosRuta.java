@@ -70,10 +70,10 @@ public class ServiciosRuta {
 
 	}
 	
-	public Ruta[] getArregloRutas(String id) {
+	public Ruta[] getArregloRutas() {
 		
 		Ruta[] rutas;
-		String url = ServerHandler.IP.concat("/rutas/");
+		String url = ServerHandler.IP.concat("/rutas");
 		
 		
 		try{
@@ -99,8 +99,11 @@ public class ServiciosRuta {
 			Log.e("ServicioRest","Error!", ex);
 			return null;
 		}
-		
 
+	}
+	
+	public void addRuta(Ruta ruta) {
+		
 	}
 
 }
