@@ -35,7 +35,7 @@
         <activity
             android:name=".view.FormularioCrearRuta"
             android:label="@string/title_activity_formulario_crear_ruta" >
-			<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
@@ -46,30 +46,28 @@
         </activity>
         <activity
             android:name=".view.DetallesRuta"
-            android:label="@string/title_activity_detalles_ruta" 
-            android:parentActivityName="co.edu.eafit.llevame.view.ListaRutasDisponibles">
-			<meta-data 
-			    android:name="android.support.PARENT_ACIVITY"
-			    android:value="co.edu.eafit.llevame.view.ListaRutasDisponibles"/>
+            android:label="@string/title_activity_detalles_ruta"
+            android:parentActivityName=".view.ListaRutasDisponibles" >
+            <meta-data
+                android:name="android.support.PARENT_ACIVITY"
+                android:value="co.edu.eafit.llevame.view.ListaRutasDisponibles" />
         </activity>
 
         <!-- Google API Key -->
         <meta-data
             android:name="com.google.android.maps.v2.API_KEY"
             android:value="AIzaSyBCBcBxMjwUnXqvpebGPfZ_AmBCR5t7kaY" />
-        
         <meta-data
-		    android:name="com.google.android.gms.version"
-		    android:value="@integer/google_play_services_version" />
+            android:name="com.google.android.gms.version"
+            android:value="@integer/google_play_services_version" />
 
         <activity
-            android:name="co.edu.eafit.llevame.view.ViewMap"
+            android:name=".view.ViewMap"
             android:label="@string/title_activity_view_map"
-            android:parentActivityName="co.edu.eafit.llevame.view.DetallesRuta" >
-			<meta-data 
-			    android:name="android.support.PARENT_ACIVITY"
-			    android:value="co.edu.eafit.llevame.view.DetallesRuta"/>
-            
+            android:parentActivityName=".view.DetallesRuta" >
+            <meta-data
+                android:name="android.support.PARENT_ACIVITY"
+                android:value="co.edu.eafit.llevame.view.DetallesRuta" />
         </activity>
     </application>
 </manifest>
