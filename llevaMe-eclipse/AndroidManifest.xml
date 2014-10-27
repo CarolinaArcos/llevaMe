@@ -35,7 +35,6 @@
         <activity
             android:name=".view.FormularioCrearRuta"
             android:label="@string/title_activity_formulario_crear_ruta" >
-            
         </activity>
         <activity
             android:name=".view.ListaRutasDisponibles"
@@ -79,13 +78,18 @@
             android:label="@string/title_activity_detalles_ruta_pasajero" >
         </activity>
         <activity
-            android:name="co.edu.eafit.llevame.view.DetallesRutaConductor"
+            android:name=".view.DetallesRutaConductor"
             android:label="@string/title_activity_detalles_ruta_conductor" >
-                        <intent-filter>
+          </activity>
+        <activity
+            android:name="co.edu.eafit.llevame.view.MisRutas"
+            android:label="@string/title_activity_mis_rutas" >
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+            
         </activity>
     </application>
 
