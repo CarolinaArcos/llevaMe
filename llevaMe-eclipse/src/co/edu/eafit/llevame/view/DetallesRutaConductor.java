@@ -17,6 +17,8 @@ public class DetallesRutaConductor extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detalles_ruta_conductor);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override

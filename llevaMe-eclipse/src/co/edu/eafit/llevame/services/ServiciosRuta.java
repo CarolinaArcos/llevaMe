@@ -61,7 +61,6 @@ public class ServiciosRuta {
 	}
 
 	public Ruta getRuta(String id) {
-		Log.d("the id in getRuta", id);
 		Ruta ruta = new Ruta();
 
 		String url = ServerHandler.IP.concat("/rutas/").concat(id);
@@ -82,11 +81,10 @@ public class ServiciosRuta {
 
 	}
 	
-	public Ruta[] getArregloRutas() {
+	public Ruta[] getArregloRutas(String urlRuta) {
 		
 		Ruta[] rutas;
-		String url = ServerHandler.IP.concat("/rutas");
-		
+		String url = ServerHandler.IP.concat(urlRuta);
 		
 		try{
 			JSONArray lasRutas = new JSONArray(getServerResponse(url));

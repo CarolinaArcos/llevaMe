@@ -17,6 +17,8 @@ public class DetallesRutaPasajero extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detalles_ruta_pasajero);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
