@@ -97,6 +97,7 @@ public class ServiciosRuta {
 			ruta.setFecha(laRuta.getString("fecha"));
 			ruta.setDescripcion(laRuta.getString("descripcion"));
 			ruta.setCapacidad(laRuta.getInt("capacidad"));
+			ruta.setPlaca(laRuta.getString("placa"));
 
 		} catch (Exception ex) {
 			Log.e("ServicioRest","Error!", ex);
@@ -125,6 +126,7 @@ public class ServiciosRuta {
 				oneRuta.setFecha(ruta.getString("fecha"));
 				oneRuta.setDescripcion(ruta.getString("descripcion"));
 				oneRuta.setCapacidad(ruta.getInt("capacidad"));
+				oneRuta.setPlaca(ruta.getString("placa"));
 				rutas[i] = oneRuta;
 				
 			}

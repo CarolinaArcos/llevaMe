@@ -151,14 +151,14 @@ public class DetallesRutaPasajero extends Activity {
 			String date = r.getFecha().substring(0, 10);
 			String hour = r.getFecha().substring(10);
 			String capacity = Integer.toString(r.getCapacidad());
-			//String pla = r.getPlaca();
+			String pla = r.getPlaca();
 			String desctiption = r.getDescripcion();
 
 			nombre.setText(name);
 			fecha.setText(date);
 			hora.setText(hour);
 			cupo.setText(capacity);
-			//placa.setText(pla);
+			placa.setText(pla);
 			descripcion.setText(desctiption);
 			//conductor.setText();
 			
