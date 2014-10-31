@@ -47,7 +47,6 @@ public class DetallesRutaPasajero extends Activity {
 				
 		}
 		lastId = id;
-		Log.d("id", "despues "+id);
 		
 		conductor = (EditText) findViewById(R.id.conductorPasajero);
 		nombre = (EditText) findViewById(R.id.nombrePasajero);
@@ -95,7 +94,6 @@ public class DetallesRutaPasajero extends Activity {
 		new DejarRutaPasajero(this).execute(""+id,""+idUsuario);
 		Toast toast = Toast.makeText(this, "Ha dejado esta ruta", 3);
 		toast.show();
-		finish();
 	}
 	
 	public void desplegarMapa() {

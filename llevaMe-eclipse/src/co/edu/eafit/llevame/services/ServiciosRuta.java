@@ -76,6 +76,14 @@ public class ServiciosRuta {
 			e.printStackTrace();
 		}
 	}
+
+	public HttpDelete getServerResponseDelete(String url) {
+		HttpClient httpClient = new DefaultHttpClient();
+		 
+		HttpDelete delete = new HttpDelete(url);
+		
+		return delete;
+	}
 	
 	public Ruta getRuta(String id) {
 		Ruta ruta = new Ruta();
@@ -162,6 +170,30 @@ public class ServiciosRuta {
 		
 		String url = ServerHandler.IP.concat("/rutas/").concat(urlRuta);
 		sendDelete(url);
+	}
+	
+	public void iniciarRuta(String urlRuta) {
+		String url = ServerHandler.IP.concat("/rutas/").concat(urlRuta);
+		HttpPost post = getServerResponsePost(url);
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		try {
+			httpClient.execute(post);
+		} catch (Exception ex){
+			Log.e("Error", "e");
+		}	
+	}
+	
+	public void finalizarRuta(String urlRuta) {
+		String url = ServerHandler.IP.concat("/rutas/").concat(urlRuta);
+		HttpDelete delete = getServerResponseDelete(url);
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		try {
+			httpClient.execute(delete);
+		} catch (Exception ex){
+			Log.e("Error", "e");
+		}
 		
 	}
 }

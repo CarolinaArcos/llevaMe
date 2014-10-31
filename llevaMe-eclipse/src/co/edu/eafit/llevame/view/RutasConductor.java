@@ -90,7 +90,6 @@ public class RutasConductor extends Activity {
 
     	@Override
     	protected void onPostExecute(Ruta[] r){
-
     			RutaListAdapter adapter = new RutaListAdapter(RutasConductor.this, R.layout.elemento_lista_rutas, r);
         		lista.setAdapter(adapter);
     	}
