@@ -103,12 +103,12 @@
           </activity>
         <activity
             android:name="co.edu.eafit.llevame.view.MisRutas"
-            android:label="@string/title_activity_mis_rutas" >     
-			<intent-filter>
+            android:label="@string/title_activity_mis_rutas" >  
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>       
+            </intent-filter>          
         </activity>
     </application>
 

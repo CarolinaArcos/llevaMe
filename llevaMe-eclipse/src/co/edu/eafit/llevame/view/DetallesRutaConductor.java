@@ -43,7 +43,14 @@ public class DetallesRutaConductor extends Activity {
 	public void onIniciar(View view) {
 		//TODO: iniciar ruta
 	}
+	
 	public void onllevaMe(View view) {
 		//TODO: finalziar ruta
 	}
+	
+	public void volverAMenu() {
+		finish();
+	}
+	
+	//TODO: En asyncTask poner volverAMenu()
 }

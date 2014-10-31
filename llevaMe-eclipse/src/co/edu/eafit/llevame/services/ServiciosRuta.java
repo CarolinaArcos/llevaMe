@@ -1,7 +1,11 @@
 package co.edu.eafit.llevame.services;
 
+import java.io.IOException;
+
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -60,6 +64,19 @@ public class ServiciosRuta {
 		return post;
 	}
 
+	public void sendDelete(String url) {
+		HttpClient httpClient = new DefaultHttpClient();
+		
+		HttpDelete delete = new HttpDelete(url);
+		try {
+			httpClient.execute(delete);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	
 	public Ruta getRuta(String id) {
 		Ruta ruta = new Ruta();
 
@@ -141,4 +158,10 @@ public class ServiciosRuta {
 		}
 	}
 
+	public void dejarRuta(String urlRuta) {
+		
+		String url = ServerHandler.IP.concat("/rutas/").concat(urlRuta);
+		sendDelete(url);
+		
+	}
 }

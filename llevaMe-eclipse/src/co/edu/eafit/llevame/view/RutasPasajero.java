@@ -71,6 +71,12 @@ public class RutasPasajero extends Activity {
         return super.onOptionsItemSelected(item);
 	}
 	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		new TraerListaRutaPasajero().execute();
+	}
+	
 	private class TraerListaRutaPasajero extends AsyncTask<Void, Void, Ruta[]> {
 
 

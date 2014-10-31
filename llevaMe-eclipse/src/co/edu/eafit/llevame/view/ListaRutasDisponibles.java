@@ -68,6 +68,11 @@ public class ListaRutasDisponibles extends Activity {
         return super.onOptionsItemSelected(item);
     }
     
+	@Override
+	protected void onResume() {
+		super.onResume();
+		new TraerListaRuta().execute();
+	}
     private class TraerListaRuta extends AsyncTask<Void, Void, Ruta[]> {
 
 

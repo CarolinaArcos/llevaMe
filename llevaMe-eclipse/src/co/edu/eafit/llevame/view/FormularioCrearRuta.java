@@ -69,8 +69,7 @@ public class FormularioCrearRuta extends Activity {
 			Ruta r = crearRuta();
 			new añadirRuta(r).execute();
     		Toast toast = Toast.makeText(this, "Su ruta ha sido creada exitosamente", 3);
-    		toast.show(); 
-			lanzarListaRutas();	
+    		toast.show(); 	
 		} else {
 			Log.d("error", "formulario invalido");
 			Toast toast = Toast.makeText(this, "Favor ingrese los datos correctos", 3);
@@ -259,6 +258,7 @@ public class FormularioCrearRuta extends Activity {
 
     	@Override
     	protected void onPostExecute(Void v){
+    		finish();
     	}
 
     }

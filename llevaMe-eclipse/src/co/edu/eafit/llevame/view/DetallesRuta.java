@@ -72,6 +72,7 @@ public class DetallesRuta extends Activity{
 		});
 		
 		new TraerRuta(this).execute(""+id);
+		
 	}
 
 
@@ -95,11 +96,12 @@ public class DetallesRuta extends Activity{
 	}
 
 	public void onllevaMe(View view) {
+		//TODO: consumir servicio solicitar cupo
 		Toast toast = Toast.makeText(this, "Ha solicitado un cupo para esta ruta", 3);
 		toast.show();
-		finish();
+		//TODO: poner esto en el asyncTast volverAMenu();
 		
-		//TODO: solicitar cupo
+		//TODO: enviar notificacion
 	}
 	
 	public void desplegarMapa() {
@@ -107,7 +109,11 @@ public class DetallesRuta extends Activity{
     	startActivity(intent);
 	}
 	
-	private class TraerRuta extends AsyncTask<String, Void, Ruta> {
+	public void volverAMenu() {
+		finish();
+	}
+	
+	public class TraerRuta extends AsyncTask<String, Void, Ruta> {
 
 		private Activity activity;
 		
@@ -118,7 +124,6 @@ public class DetallesRuta extends Activity{
 
 		@Override
 		protected Ruta doInBackground(String...params) {
-			Log.d("id in backG", ""+id);
 			return ServiciosRuta.obtenerInstancia().getRuta(""+id);
 		}
 
@@ -141,7 +146,7 @@ public class DetallesRuta extends Activity{
 			//placa.setText(pla);
 			descripcion.setText(desctiption);
 			//conductor.setText();
-			
+					
 			
 		}
 

@@ -14,7 +14,6 @@ import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.handlers.RutaListAdapter;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.services.ServiciosRuta;
-
 public class RutasConductor extends Activity {
 
 	private ListView lista;
@@ -69,6 +68,12 @@ public class RutasConductor extends Activity {
         	return true;
         }
         return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		new TraerListaRutaConductor().execute();
 	}
 	
 	private class TraerListaRutaConductor extends AsyncTask<Void, Void, Ruta[]> {
