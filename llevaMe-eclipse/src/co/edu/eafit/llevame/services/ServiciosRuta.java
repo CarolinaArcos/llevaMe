@@ -1,7 +1,11 @@
 package co.edu.eafit.llevame.services;
 
+import java.io.IOException;
+
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -60,8 +64,28 @@ public class ServiciosRuta {
 		return post;
 	}
 
+	public void sendDelete(String url) {
+		HttpClient httpClient = new DefaultHttpClient();
+		
+		HttpDelete delete = new HttpDelete(url);
+		try {
+			httpClient.execute(delete);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+
+	public HttpDelete getServerResponseDelete(String url) {
+		HttpClient httpClient = new DefaultHttpClient();
+		 
+		HttpDelete delete = new HttpDelete(url);
+		
+		return delete;
+	}
+	
 	public Ruta getRuta(String id) {
-		Log.d("the id in getRuta", id);
 		Ruta ruta = new Ruta();
 
 		String url = ServerHandler.IP.concat("/rutas/").concat(id);
@@ -73,6 +97,7 @@ public class ServiciosRuta {
 			ruta.setFecha(laRuta.getString("fecha"));
 			ruta.setDescripcion(laRuta.getString("descripcion"));
 			ruta.setCapacidad(laRuta.getInt("capacidad"));
+			ruta.setPlaca(laRuta.getString("placa"));
 
 		} catch (Exception ex) {
 			Log.e("ServicioRest","Error!", ex);
@@ -82,11 +107,10 @@ public class ServiciosRuta {
 
 	}
 	
-	public Ruta[] getArregloRutas() {
+	public Ruta[] getArregloRutas(String urlRuta) {
 		
 		Ruta[] rutas;
-		String url = ServerHandler.IP.concat("/rutas");
-		
+		String url = ServerHandler.IP.concat(urlRuta);
 		
 		try{
 			JSONArray lasRutas = new JSONArray(getServerResponse(url));
@@ -102,6 +126,7 @@ public class ServiciosRuta {
 				oneRuta.setFecha(ruta.getString("fecha"));
 				oneRuta.setDescripcion(ruta.getString("descripcion"));
 				oneRuta.setCapacidad(ruta.getInt("capacidad"));
+				oneRuta.setPlaca(ruta.getString("placa"));
 				rutas[i] = oneRuta;
 				
 			}
@@ -143,4 +168,34 @@ public class ServiciosRuta {
 		}
 	}
 
+	public void dejarRuta(String urlRuta) {
+		
+		String url = ServerHandler.IP.concat("/rutas/").concat(urlRuta);
+		sendDelete(url);
+	}
+	
+	public void iniciarRuta(String urlRuta) {
+		String url = ServerHandler.IP.concat("/rutas/").concat(urlRuta);
+		HttpPost post = getServerResponsePost(url);
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		try {
+			httpClient.execute(post);
+		} catch (Exception ex){
+			Log.e("Error", "e");
+		}	
+	}
+	
+	public void finalizarRuta(String urlRuta) {
+		String url = ServerHandler.IP.concat("/rutas/").concat(urlRuta);
+		HttpDelete delete = getServerResponseDelete(url);
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		try {
+			httpClient.execute(delete);
+		} catch (Exception ex){
+			Log.e("Error", "e");
+		}
+		
+	}
 }
