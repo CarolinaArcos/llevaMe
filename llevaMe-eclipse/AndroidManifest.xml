@@ -80,16 +80,24 @@
         <activity
             android:name=".view.DetallesRutaConductor"
             android:label="@string/title_activity_detalles_ruta_conductor" >
-          </activity>
+        </activity>
         <activity
-            android:name="co.edu.eafit.llevame.view.MisRutas"
+            android:name=".view.MisRutas"
             android:label="@string/title_activity_mis_rutas" >
+            
+        </activity>
+        <activity
+            android:name=".MenuTab"
+            android:label="@string/title_activity_menu_tab" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
+        </activity>
+        <activity
+            android:name=".NotificationsView"
+            android:label="@string/title_activity_menu_tab" >
         </activity>
     </application>
 

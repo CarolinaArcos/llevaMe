@@ -12,5 +12,6 @@
     <string name="title_activity_detalles_ruta_pasajero">DetallesRutaPasajero</string>
     <string name="title_activity_detalles_ruta_conductor">DetallesRutaConductor</string>
     <string name="title_activity_mis_rutas">MisRutas</string>
+    <string name="title_activity_menu_tab">MenuTab</string>
 
 </resources>
