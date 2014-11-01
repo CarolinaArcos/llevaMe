@@ -26,21 +26,6 @@ private ListView listaI;
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list_events);
-        
-        
-        listaI = (ListView) findViewById(R.id.listInvitations);
-        
-        listaI.setOnItemClickListener(new OnItemClickListener() {
-        	
-            @Override
-            public void onItemClick(AdapterView<?> pariente, View view, int posicion, long id) {
-            	//TODO: pasar parametro
-            	int theId = (int) id;
-            	//desplegarDetalles(theId);
-            	DialogdesplegarDetalles((int)id);
-            }
-            
-         });
 
     }
     
@@ -58,7 +43,6 @@ private ListView listaI;
        // getMenuInflater().inflate(R.menu.main, menu);
         
     	getMenuInflater().inflate(R.menu.main, menu);
-		new TraerListaRuta().execute();
         return true;
     }
 
@@ -77,26 +61,5 @@ private ListView listaI;
         }
         return super.onOptionsItemSelected(item);
     }
-    
-    private class TraerListaRuta extends AsyncTask<Void, Void, Ruta[]> {
-
-
-    	public TraerListaRuta(){
-    		super();
-    	}
-
-    	@Override
-    	protected Ruta[] doInBackground(Void... params) {
-    		return ServiciosRuta.obtenerInstancia().getArregloRutas();
-    	}
-
-    	@Override
-    	protected void onPostExecute(Ruta[] r){
-
-    			RutaListAdapter adapter = new RutaListAdapter(NotificationsView.this, R.layout.element_invitation, r);
-        		listaI.setAdapter(adapter);
-    	}
-
-    }
-	
+    	
 }
