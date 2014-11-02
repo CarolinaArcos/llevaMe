@@ -1,6 +1,6 @@
 package co.edu.eafit.llevame.view;
 
-import android.app.ListActivity;
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -13,9 +13,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 import co.edu.eafit.llevame.R;
 
-public class ListEvents extends ListActivity {
+public class ListEvents extends Activity {
 
-    private ListView listView;
+    private ListView listEvents;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,44 +23,44 @@ public class ListEvents extends ListActivity {
 
         setContentView(R.layout.activity_list_events);
 
-        listView = (ListView) findViewById(R.id.listEvents);
+        listEvents = (ListView) findViewById(R.id.listEvents);
 
-        final ListViewItem[] items = new ListViewItem[12];
+        final ListViewItem[] items = new ListViewItem[8];
 
         for (int i = 0; i < items.length; i++) {
             if (i % 2 == 0) {
-                items[i] = new ListViewItem("Notification " + i, CustomAdapter.TYPE_NOTIFICATION);
+                items[i] = new ListViewItem("#Usuario ha aceptado tu solicitud para la #ruta #Inicio - #Fin", CustomAdapter.TYPE_NOTIFICATION);
             } else {
-                items[i] = new ListViewItem("Invitation " + i, CustomAdapter.TYPE_INVITATION);
+                items[i] = new ListViewItem("#Usuario te ha agregado como amigo", CustomAdapter.TYPE_INVITATION);
             }
         }
 
         CustomAdapter customAdapter = new CustomAdapter(this, R.id.msj, items);
-        listView.setAdapter(customAdapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listEvents.setAdapter(customAdapter);
+        listEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Toast.makeText(getBaseContext(), items[i].getMsj(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), items[i].getText(), Toast.LENGTH_SHORT).show();
             }
         });
 
     }
 
     public class ListViewItem {
-        private String msj;
+        private String text;
         private int type;
 
-        public ListViewItem(String msj, int type) {
-            this.msj = msj;
+        public ListViewItem(String text, int type) {
+            this.text = text;
             this.type = type;
         }
 
-        public String getMsj() {
-            return msj;
+        public String getText() {
+            return text;
         }
 
-        public void setMsj(String msj) {
-            this.msj = msj;
+        public void setText(String text) {
+            this.text = text;
         }
 
         public int getType() {
@@ -70,14 +70,13 @@ public class ListEvents extends ListActivity {
         public void setType(int type) {
             this.type = type;
         }
-
     }
 
     public class CustomAdapter extends ArrayAdapter<ListViewItem> {
 
-        public static final int TYPE_NOTIFICATION = 0;
-        public static final int TYPE_INVITATION = 1;
-        
+        public static final int TYPE_INVITATION = 0;
+        public static final int TYPE_NOTIFICATION = 1;
+
         private ListViewItem[] objects;
 
         @Override
@@ -102,6 +101,7 @@ public class ListEvents extends ListActivity {
             ListViewItem listViewItem = objects[position];
             int listViewItemType = getItemViewType(position);
 
+
             if (convertView == null) {
 
                 if (listViewItemType == TYPE_NOTIFICATION) {
@@ -109,32 +109,30 @@ public class ListEvents extends ListActivity {
                 } else if (listViewItemType == TYPE_INVITATION) {
                     convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_invitation, null);
                 }
-
+                
                 TextView textView = (TextView) convertView.findViewById(R.id.msj);
                 viewHolder = new ViewHolder(textView);
-                convertView.setTag(viewHolder);
 
+                convertView.setTag(viewHolder);
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
-            viewHolder.getMsj().setText(listViewItem.getMsj());
+            viewHolder.getText().setText(listViewItem.getText());
             return convertView;
         }
     }
 
     public class ViewHolder {
-        TextView msj;
-
-        public ViewHolder(TextView msj) {
-            this.msj = msj;
+        TextView text;
+        
+        public ViewHolder(TextView text) {
+            this.text = text;
         }
-
-        public TextView getMsj() {
-            return msj;
+        public TextView getText() {
+            return text;
         }
-
-        public void setMsj(TextView msj) {
-            this.msj = msj;
+        public void setText(TextView text) {
+            this.text = text;
         }
     }
 }

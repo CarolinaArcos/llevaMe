@@ -7,7 +7,9 @@ import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import co.edu.eafit.llevame.R;
  
+@SuppressWarnings("deprecation")
 public class MenuTab extends TabActivity {
+	
     // TabSpec Names
     private static final String HOME = "Home";
     private static final String SOCIAL = "Social";
@@ -24,42 +26,42 @@ public class MenuTab extends TabActivity {
         TabHost tabHost = getTabHost();
          
         // Home Tab
-        TabSpec homeSpec = tabHost.newTabSpec(HOME);
+        TabSpec homeSpec = tabHost.newTabSpec(null);
         // Tab Icon
-        homeSpec.setIndicator(HOME);
+        homeSpec.setIndicator(null, getResources().getDrawable(R.drawable.home));
         Intent listRoutes = new Intent(this, ListaRutasDisponibles.class);
         // Tab Content
         homeSpec.setContent(listRoutes);
          
         // Routes Tab
-        TabSpec routesSpec = tabHost.newTabSpec(ROUTES);
-        routesSpec.setIndicator(ROUTES);
+        TabSpec routesSpec = tabHost.newTabSpec(null);
+        routesSpec.setIndicator(null, getResources().getDrawable(R.drawable.routes));
         Intent myRoutes = new Intent(this, MisRutas.class);
         routesSpec.setContent(myRoutes);
          
         // Social Tab
-        TabSpec socialSpec = tabHost.newTabSpec(SOCIAL);
-        socialSpec.setIndicator(SOCIAL);
+        TabSpec socialSpec = tabHost.newTabSpec(null);
+        socialSpec.setIndicator(null, getResources().getDrawable(R.drawable.social));
         Intent social = new Intent(this, FormularioCrearRuta.class); // Change to social view
         socialSpec.setContent(social);
         
      // Points Tab
-        TabSpec pointsSpec = tabHost.newTabSpec(POINTS);
+        TabSpec pointsSpec = tabHost.newTabSpec(null);
         // Tab Icon
-        pointsSpec.setIndicator(POINTS);
+        pointsSpec.setIndicator(null, getResources().getDrawable(R.drawable.points));
         Intent points = new Intent(this, FormularioCrearRuta.class); // Change to points view
         // Tab Content
         pointsSpec.setContent(points);
          
         // Notifications Tab
-        TabSpec notificationsSpec = tabHost.newTabSpec(NOTIFICATIONS);
-        notificationsSpec.setIndicator(NOTIFICATIONS);
-        Intent notifications = new Intent(this, NotificationsView.class);
-        routesSpec.setContent(myRoutes);
+        TabSpec notificationsSpec = tabHost.newTabSpec(null);
+        notificationsSpec.setIndicator(null, getResources().getDrawable(R.drawable.notifications));
+        Intent notifications = new Intent(this, ListEvents.class);
+        notificationsSpec.setContent(notifications);
          
         // Settings Tab
-        TabSpec settingsSpec = tabHost.newTabSpec(SETTINGS);
-        settingsSpec.setIndicator(SETTINGS);
+        TabSpec settingsSpec = tabHost.newTabSpec(null);
+        settingsSpec.setIndicator(null,getResources().getDrawable(R.drawable.settings));
         Intent settings = new Intent(this, FormularioCrearRuta.class); // Change to settings view
         settingsSpec.setContent(settings);
          

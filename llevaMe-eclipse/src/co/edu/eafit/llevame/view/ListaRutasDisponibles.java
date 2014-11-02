@@ -1,6 +1,7 @@
 package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -19,6 +20,7 @@ public class ListaRutasDisponibles extends Activity {
 
 	//lista en la UI
 	private ListView lista;
+	private ProgressDialog pDialog;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +75,18 @@ public class ListaRutasDisponibles extends Activity {
 		super.onResume();
 		new TraerListaRuta().execute();
 	}
+	
     private class TraerListaRuta extends AsyncTask<Void, Void, Ruta[]> {
-
+    	
+    	@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(ListaRutasDisponibles.this);
+            pDialog.setMessage("Loading Routes...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
 
     	public TraerListaRuta(){
     		super();
@@ -86,10 +98,14 @@ public class ListaRutasDisponibles extends Activity {
     	}
 
     	@Override
-    	protected void onPostExecute(Ruta[] r){
-
-    			RutaListAdapter adapter = new RutaListAdapter(ListaRutasDisponibles.this, R.layout.elemento_lista_rutas, r);
-        		lista.setAdapter(adapter);
+    	protected void onPostExecute(final Ruta[] r){
+    		pDialog.dismiss();
+    		runOnUiThread(new Runnable() {
+                public void run() {
+                	RutaListAdapter adapter = new RutaListAdapter(ListaRutasDisponibles.this, R.layout.elemento_lista_rutas, r);
+                	lista.setAdapter(adapter);
+                }
+            });
     	}
 
     }

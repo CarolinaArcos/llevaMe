@@ -12,8 +12,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
 
     <uses-sdk
-        android:minSdkVersion="14"
-        android:targetSdkVersion="19" />
+        android:minSdkVersion="16"
+        android:targetSdkVersion="20" />
 
     <uses-feature
         android:glEsVersion="0x00020000"
@@ -111,15 +111,11 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NotificationsView"
+            android:name=".view.MenuTab"
             android:label="@string/title_activity_menu_tab" >
         </activity>
         <activity
-            android:name=".MenuTab"
-            android:label="@string/title_activity_menu_tab" >
-        </activity>
-        <activity
-            android:name=".ListEvents"
+            android:name=".view.ListEvents"
             android:label="@string/title_activity_list_events" >
         </activity>
     </application>

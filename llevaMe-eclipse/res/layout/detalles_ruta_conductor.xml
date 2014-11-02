@@ -1,0 +1,167 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="co.edu.eafit.llevame.view.DetallesRutaConductor" >
+    
+    <LinearLayout 
+        android:layout_width="match_parent"
+	    android:layout_height="match_parent"
+	    android:orientation="vertical"
+	    android:id="@+id/general_linear_layout_conductor">
+
+        <FrameLayout
+				android:layout_width="match_parent"
+        		android:layout_height="250dp">
+        		
+            <ImageButton 
+                android:id="@+id/imageConductor"
+                android:layout_height="wrap_content"
+                android:layout_width="wrap_content"
+                android:src="@drawable/maps"/>
+
+    	</FrameLayout>    
+    
+         <TextView
+            android:id="@+id/lblPasajerosConductor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Pasajeros" />
+         
+        <EditText
+            android:id="@+id/pasajerosConductor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="13" />
+        
+        <TextView
+            android:id="@+id/lblNombreConductor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Nombre Ruta" />
+        
+         <EditText
+            android:id="@+id/nombreConductor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="13" />
+
+	    <LinearLayout
+	        android:id="@+id/horaYFehaRowConductor"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="horizontal">
+	        
+	        <TextView
+	            android:id="@+id/lblHoraConductor"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Hora" />
+	        
+	         <EditText
+	            android:id="@+id/horaConductor"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:editable="false"
+	            android:ems="5" />
+	        
+	         <TextView
+	            android:id="@+id/lblFechaConductor"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Fecha" />
+	         
+			<EditText
+	            android:id="@+id/fechaConductor"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:editable="false"
+	            android:ems="11" />
+	
+	    </LinearLayout>
+	    
+		<LinearLayout
+		    android:id="@+id/cupoYPlacaRowConductor"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="horizontal">
+			
+			<TextView
+	            android:id="@+id/lblCupoConductor"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Cupo" />
+	
+	        <EditText
+	            android:id="@+id/cupoConductor"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:editable="false"
+	            android:ems="5" />
+	        
+	        <TextView
+	            android:id="@+id/lblPlacaConductor"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Placa" />
+		    
+			<EditText
+	            android:id="@+id/placaConductor"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:editable="false"
+	            android:ems="11" />
+			
+		</LinearLayout>
+	
+		
+	    <TextView
+            android:id="@+id/lblDescripcionConductor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Descripcion" />
+	    
+	     <EditText
+            android:id="@+id/descripcionConductor"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:editable="false"
+            android:ems="15" />
+	     
+	    <LinearLayout 
+			android:id="@+id/botonesIniciarFinalizar"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="horizontal">
+			
+			<Button 
+		         android:id="@+id/iniciarConductor"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:layout_alignParentLeft="true"
+	        	 android:layout_alignParentBottom="true"
+	             android:onClick="onIniciar"
+	             android:ems="9"
+		         android:text="Iniciar"/>
+		     
+		     <Button 
+		         android:id="@+id/finalizarConductor"
+		         android:layout_width="wrap_content"
+		         android:layout_height="wrap_content"
+		         android:layout_alignParentRight="true"
+	        	 android:layout_alignParentBottom="true"
+	             android:onClick="onFinalizar"
+	             android:ems="11"
+		         android:text="Finalizar"/>
+		          
+		</LinearLayout>
+		
+    </LinearLayout>
+    
+</ScrollView>
