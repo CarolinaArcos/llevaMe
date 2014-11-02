@@ -17,6 +17,7 @@ import org.json.JSONObject;
 import android.util.Log;
 import co.edu.eafit.llevame.handlers.ServerHandler;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.model.Ubicacion;
 
 public class ServiciosRuta {
 
@@ -197,5 +198,37 @@ public class ServiciosRuta {
 			Log.e("Error", "e");
 		}
 		
+	}
+	
+	public void ingresarRecorrido(Ubicacion[] recorrido, int idRuta){
+		String url = ServerHandler.IP.concat("/rutas/"+idRuta+"/ubicaciones");
+		HttpPost post = getServerResponsePost(url);
+		try {
+			JSONArray listaUbicaciones = new JSONArray();
+			
+			for(Ubicacion u : recorrido){
+				JSONObject jsonU = new JSONObject();
+				jsonU.put("nombre", u.getNombre());
+				jsonU.put("longitud", u.getLongitud());
+				jsonU.put("latitud", u.getLatitud());
+				
+				listaUbicaciones.put(jsonU);
+			}
+			
+			Log.d("recorrido", listaUbicaciones.toString());
+			
+			StringEntity entity = new StringEntity(listaUbicaciones.toString());
+			post.setEntity(entity);
+		} catch (Exception ex) {
+			Log.e("ServicioRest","Error!", ex);
+		}
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		try {
+			HttpResponse resp = httpClient.execute(post);
+//			String respStr = EntityUtils.toString(resp.getEntity());
+		} catch (Exception ex){
+			Log.e("Error", "e");
+		}
 	}
 }

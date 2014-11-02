@@ -5,12 +5,9 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -23,6 +20,7 @@ public class ListEvents extends Activity {
     private ListView listEvents;
     private ProgressDialog pDialog;
     private int id = 1; //QUEMADO
+    private Evento[] eventos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,33 +31,38 @@ public class ListEvents extends Activity {
 
 //        listEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 //            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                Toast.makeText(getBaseContext(), items[i].getText(), Toast.LENGTH_SHORT).show();
+//            public void onItemClick(AdapterView<?> adapterView, View view, int posicion, long id) {
+//            	Log.d("Id", ""+id);
+//            	Log.d("Posicion", ""+posicion);
 //            }
 //        });
         
-        listEvents.setOnItemClickListener(new OnItemClickListener() {
-        	
-            @Override
-            public void onItemClick(AdapterView<?> pariente, View view, int posicion, long id) {
-            	Log.d("Id", ""+id);
-            	Log.d("Posicion", ""+posicion);
-            }
-            
-         });
+//        listEvents.setOnItemClickListener(new OnItemClickListener() {
+//        	
+//            @Override
+//            public void onItemClick(AdapterView<?> pariente, View view, int posicion, long id) {
+//            	Log.d("Id", ""+id);
+//            	Log.d("Posicion", ""+posicion);
+//            }
+//            
+//         });
         
         new TraerListaNotificaciones().execute();
 
     }
     
 	public void onAceptar(View view) {
-		Log.d("boton", "aceptado");
-		Log.d("Id view", ""+view.getId());
+//		Log.d("boton", "aceptado");
+//		Log.d("Id view", ""+view.getId());
+		
 	}
 	
 	public void onRechazar(View view) {
-		Log.d("boton", "rechazado");
+//		Log.d("boton", "rechazado");
 	}
+	
+	
+	
 
     public class TraerListaNotificaciones extends AsyncTask<Void, Void, Evento[]> {
     	
@@ -104,7 +107,7 @@ public class ListEvents extends Activity {
                 	ingresarElementosLista(e);
                 }
             });
-
+    		eventos = e;
     	}
     	
     	
