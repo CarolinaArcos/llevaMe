@@ -14,5 +14,6 @@
     <string name="title_activity_mis_rutas">MisRutas</string>
     <string name="title_activity_menu_tab">MenuTab</string>
     <string name="title_activity_list_events">ListEvents</string>
+    <string name="title_activity_invitacion">Invitacion</string>
 
 </resources>
