@@ -7,5 +7,13 @@
     <string name="title_activity_formulario_crear_ruta">FormularioCrearRuta</string>
     <string name="title_activity_detalles_ruta">DetallesRuta</string>
     <string name="title_activity_view_map">Mapa</string>
+    <string name="title_activity_rutas_conductor">RutasConductor</string>
+    <string name="title_activity_rutas_pasajero">RutasPasajero</string>
+    <string name="title_activity_detalles_ruta_pasajero">DetallesRutaPasajero</string>
+    <string name="title_activity_detalles_ruta_conductor">DetallesRutaConductor</string>
+    <string name="title_activity_mis_rutas">MisRutas</string>
+    <string name="title_activity_menu_tab">MenuTab</string>
+    <string name="title_activity_list_events">ListEvents</string>
+    <string name="title_activity_invitacion">Invitacion</string>
 
 </resources>

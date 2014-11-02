@@ -6,20 +6,20 @@
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="co.edu.eafit.llevame.view.DetallesRuta" >
+    tools:context="co.edu.eafit.llevame.view.DetallesRutaPasajero" >
     
     <LinearLayout 
         android:layout_width="match_parent"
 	    android:layout_height="match_parent"
 	    android:orientation="vertical"
-	    android:id="@+id/general_linear_layout">
+	    android:id="@+id/general_linear_layout_pasajero">
 
         <FrameLayout
 				android:layout_width="match_parent"
         		android:layout_height="250dp">
         		
             <ImageButton 
-                android:id="@+id/image"
+                android:id="@+id/imagePasajero"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
                 android:src="@drawable/maps"/>
@@ -27,59 +27,59 @@
     	</FrameLayout>    
     
          <TextView
-            android:id="@+id/lblConductor"
+            android:id="@+id/lblConductorPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre Conductor" />
          
         <EditText
-            android:id="@+id/conductorDetalles"
+            android:id="@+id/conductorPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
             android:ems="13" />
         
         <TextView
-            android:id="@+id/lblNombre"
+            android:id="@+id/lblNombrePasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre Ruta" />
         
          <EditText
-            android:id="@+id/nombreDetalles"
+            android:id="@+id/nombrePasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
             android:ems="13" />
 
     <LinearLayout
-        android:id="@+id/horaYFehaRow"
+        android:id="@+id/horaYFehaRowPasajero"
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:orientation="horizontal"
      	>
         
         <TextView
-            android:id="@+id/lblHora"
+            android:id="@+id/lblHoraPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Hora" />
         
          <EditText
-            android:id="@+id/horaDetalles"
+            android:id="@+id/horaPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
             android:ems="5" />
         
          <TextView
-            android:id="@+id/lblFecha"
+            android:id="@+id/lblFechaPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Fecha" />
          
 		<EditText
-            android:id="@+id/fechaDetalles"
+            android:id="@+id/fechaPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
@@ -88,32 +88,32 @@
     </LinearLayout>
     
 	<LinearLayout
-	    android:id="@+id/cupoYPlacaRow"
+	    android:id="@+id/cupoYPlacaRowPasajero"
     	android:layout_width="match_parent"
     	android:layout_height="wrap_content"
     	android:orientation="horizontal"
 	    >
 		<TextView
-            android:id="@+id/lblCupo"
+            android:id="@+id/lblCupoPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cupo" />
 
         <EditText
-            android:id="@+id/cupoDetalles"
+            android:id="@+id/cupoPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
             android:ems="5" />
         
         <TextView
-            android:id="@+id/lblPlaca"
+            android:id="@+id/lblPlacaPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Placa" />
 	    
 		<EditText
-            android:id="@+id/placaDetalles"
+            android:id="@+id/placaPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
@@ -123,26 +123,27 @@
 	
 		
 	    <TextView
-            android:id="@+id/lblDescripcion"
+            android:id="@+id/lblDescripcionPasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Descripcion" />
 	    
 	     <EditText
-            android:id="@+id/descripcionDetalles"
+            android:id="@+id/descripcionPasajero"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="false"
             android:ems="15" />
 	     
 	     <Button 
-	         android:id="@+id/llevameDetalles"
+	         android:id="@+id/dejarRutaPasajero"
 	         android:layout_width="match_parent"
 	         android:layout_height="wrap_content"
 	         android:layout_gravity="center_horizontal"
-             android:onClick="onllevaMe"
-	         android:text="llevaMe"/>
+            android:onClick="onDejarRuta"
+	         android:text="Dejar Ruta"/>
 
 
 	</LinearLayout>
 </ScrollView>
+

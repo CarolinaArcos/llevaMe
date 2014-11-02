@@ -6,24 +6,27 @@ public class Ruta {
 	private String fecha;
 	private int capacidad;
 	private String descripcion;
+	private String placa;
 	
 	public Ruta(){
 		
 	}
 
-	public Ruta(int id, String nombre, String fecha, int capacidad){
+	public Ruta(int id, String nombre, String fecha, int capacidad, String placa){
 		this.id = id;
 		this.nombre = nombre;
 		this.fecha = fecha;
 		this.capacidad = capacidad;
+		this.setPlaca(placa);
 		
 		this.descripcion = "";
 	}
 	
-	public Ruta(int id, String nombre, String fecha, int capacidad, String descripcion){
+	public Ruta(int id, String nombre, String fecha, int capacidad, String descripcion, String placa){
 		this.id = id;
 		this.nombre = nombre;
 		this.fecha = fecha;
+		this.setPlaca(placa);
 		this.capacidad = capacidad;
 		this.descripcion = descripcion;
 	}
@@ -73,5 +76,13 @@ public class Ruta {
 	}
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
+	}
+
+	public String getPlaca() {
+		return placa;
+	}
+
+	public void setPlaca(String placa) {
+		this.placa = placa;
 	}
 }

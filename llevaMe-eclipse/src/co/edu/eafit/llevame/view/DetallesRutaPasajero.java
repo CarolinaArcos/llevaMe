@@ -15,11 +15,10 @@ import android.widget.Toast;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.services.ServiciosRuta;
+import co.edu.eafit.llevame.view.DetallesRuta.TraerRuta;
 
-
-
-public class DetallesRuta extends Activity{
-
+public class DetallesRutaPasajero extends Activity {
+	
 	private EditText conductor;
 	private EditText nombre;
 	private EditText fecha;
@@ -29,14 +28,14 @@ public class DetallesRuta extends Activity{
 	private EditText descripcion;
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
 	private int id = -1;
+	private int idUsuario = 1;
 	
 	private ImageButton mapa;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_detalles_ruta);
+		setContentView(R.layout.detalles_ruta_pasajero);
 		
 		id = getIntent().getIntExtra("id",-2);
 		if (id==-2) {
@@ -48,37 +47,33 @@ public class DetallesRuta extends Activity{
 				
 		}
 		lastId = id;
-		Log.d("id", "despues "+id);
 		
-		conductor = (EditText) findViewById(R.id.conductorDetalles);
-		nombre = (EditText) findViewById(R.id.nombreDetalles);
-		fecha = (EditText) findViewById(R.id.fechaDetalles);
-		hora = (EditText) findViewById(R.id.horaDetalles);
-		cupo = (EditText) findViewById(R.id.cupoDetalles);
-		placa = (EditText) findViewById(R.id.placaDetalles);
-		descripcion = (EditText) findViewById(R.id.descripcionDetalles);
-		
-		
+		conductor = (EditText) findViewById(R.id.conductorPasajero);
+		nombre = (EditText) findViewById(R.id.nombrePasajero);
+		fecha = (EditText) findViewById(R.id.fechaPasajero);
+		hora = (EditText) findViewById(R.id.horaPasajero);
+		cupo = (EditText) findViewById(R.id.cupoPasajero);
+		placa = (EditText) findViewById(R.id.placaPasajero);
+		descripcion = (EditText) findViewById(R.id.descripcionPasajero);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		mapa = (ImageButton) findViewById(R.id.image);
-		mapa.setOnClickListener(new OnClickListener() {
-			 
-			@Override
-			public void onClick(View arg0) {
-				desplegarMapa();
-			}
-		});
+//		mapa.setOnClickListener(new OnClickListener() {
+//			 
+//			@Override
+//			public void onClick(View arg0) {
+//				desplegarMapa();
+//			}
+//		});
 		
 		new TraerRuta(this).execute(""+id);
-		
+				
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.detalles_ruta, menu);
+		getMenuInflater().inflate(R.menu.detalles_ruta_pasajero, menu);
 		return true;
 	}
 
@@ -95,13 +90,10 @@ public class DetallesRuta extends Activity{
 		this.id = id;
 	}
 
-	public void onllevaMe(View view) {
-		//TODO: consumir servicio solicitar cupo
-		Toast toast = Toast.makeText(this, "Ha solicitado un cupo para esta ruta", 3);
+	public void onDejarRuta(View view) {
+		new DejarRutaPasajero(this).execute(""+id,""+idUsuario);
+		Toast toast = Toast.makeText(this, "Ha dejado esta ruta", 3);
 		toast.show();
-		//TODO: poner esto en el asyncTast volverAMenu();
-		
-		//TODO: enviar notificacion
 	}
 	
 	public void desplegarMapa() {
@@ -111,6 +103,28 @@ public class DetallesRuta extends Activity{
 	
 	public void volverAMenu() {
 		finish();
+	}
+	
+	private class DejarRutaPasajero extends AsyncTask<String, Void, Void> {
+
+		private Activity activity;
+		
+		public DejarRutaPasajero(Activity activity){
+			super();
+			this.activity = activity;
+		}
+
+		@Override
+		protected Void doInBackground(String...params) {
+			//TODO: pasar usuario
+			ServiciosRuta.obtenerInstancia().dejarRuta("pasajeros?ruta="+id+"&usuario="+idUsuario);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void v){
+			volverAMenu();
+		}
 	}
 	
 	public class TraerRuta extends AsyncTask<String, Void, Ruta> {
@@ -125,6 +139,7 @@ public class DetallesRuta extends Activity{
 		@Override
 		protected Ruta doInBackground(String...params) {
 			return ServiciosRuta.obtenerInstancia().getRuta(""+id);
+			
 		}
 
 		@Override
@@ -146,9 +161,10 @@ public class DetallesRuta extends Activity{
 			placa.setText(pla);
 			descripcion.setText(desctiption);
 			//conductor.setText();
-					
+			
 			
 		}
 
 	}
+	
 }
