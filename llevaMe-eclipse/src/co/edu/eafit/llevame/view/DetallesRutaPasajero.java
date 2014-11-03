@@ -13,7 +13,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.model.Notificacion;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
 import co.edu.eafit.llevame.view.DetallesRuta.TraerRuta;
 
@@ -28,7 +30,10 @@ public class DetallesRutaPasajero extends Activity {
 	private EditText descripcion;
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
 	private int id = -1;
-	private int idUsuario = 1;
+	
+	//TODO: obtener (desquemar) los valores
+	private int idUsuario = 1; //id del usuario registrado
+	private int idConductor = 1;
 	
 	private ImageButton mapa;
 
@@ -124,6 +129,9 @@ public class DetallesRutaPasajero extends Activity {
 		@Override
 		protected void onPostExecute(Void v){
 			volverAMenu();
+			
+			Notificacion n = new Notificacion(-1, idUsuario+" ha dejado la ruta "+nombre, idConductor);
+			ServiciosEvento.obtenerInstancia().ingresarNotificacion(n);
 		}
 	}
 	

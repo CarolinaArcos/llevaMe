@@ -1,12 +1,5 @@
 package co.edu.eafit.llevame.view;
 
-import co.edu.eafit.llevame.R;
-import co.edu.eafit.llevame.R.id;
-import co.edu.eafit.llevame.R.layout;
-import co.edu.eafit.llevame.R.menu;
-import co.edu.eafit.llevame.model.Ruta;
-import co.edu.eafit.llevame.services.ServiciosRuta;
-import co.edu.eafit.llevame.view.DetallesRutaPasajero.TraerRuta;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -17,7 +10,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.Toast;
+import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.model.Notificacion;
+import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.services.ServiciosEvento;
+import co.edu.eafit.llevame.services.ServiciosRuta;
 
 public class DetallesRutaConductor extends Activity {
 	
@@ -31,6 +28,8 @@ public class DetallesRutaConductor extends Activity {
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
 	private int id = -1;
 	private int idUsuario = 1;
+	
+	private int[] idPasajeros = {1, 2};//TODO: obtener los pasajeros de la ruta
 	
 	private ImageButton mapa;
 
@@ -94,12 +93,10 @@ public class DetallesRutaConductor extends Activity {
 	
 	public void onIniciar(View view) {
 		new IniciarRuta(this).execute(""+id);
-		//TODO: iniciar ruta
 	}
 	
 	public void onFinalizar(View view) {
 		new FinalizarRuta(this).execute(""+id);
-		//TODO: finalziar ruta
 	}
 	
 	public void volverAMenu() {
@@ -164,7 +161,11 @@ public class DetallesRutaConductor extends Activity {
 		@Override
 		protected void onPostExecute(Void v){
 			volverAMenu();
-			//TODO: enviar notificaciones a pasajeros
+			
+			for(int idP : idPasajeros){//enviar notificacion a cada pasajero
+				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha iniciado", idP);
+				ServiciosEvento.obtenerInstancia().ingresarNotificacion(n);
+			}
 		}
 	}
 	
@@ -187,7 +188,11 @@ public class DetallesRutaConductor extends Activity {
 		@Override
 		protected void onPostExecute(Void v){
 			volverAMenu();
-			//TODO: enviar notificaciones a pasajeros
+			
+			for(int idP : idPasajeros){//enviar notificacion a cada pasajero
+				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha finalizado", idP);
+				ServiciosEvento.obtenerInstancia().ingresarNotificacion(n);
+			}
 		}
 	
 	}

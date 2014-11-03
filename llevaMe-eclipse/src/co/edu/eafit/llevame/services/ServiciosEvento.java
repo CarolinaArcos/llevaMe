@@ -132,5 +132,31 @@ public class ServiciosEvento {
 			Log.e("Error", "e");
 		}
 	}
+	
+	public void ingresarNotificacion(Notificacion notificacion) {
+			
+			String url = ServerHandler.IP.concat("/eventos");
+			HttpPost post = getServerResponsePost(url);
+			try {
+				JSONObject i = new JSONObject();
+				i.put("esNotificacion", notificacion.getEsNotificacion());
+				i.put("mensaje", notificacion.getMensaje());
+				i.put("idUsuario", notificacion.getIdUsuario());
+				
+				StringEntity entity = new StringEntity(i.toString());
+				Log.d("entity", i.toString());
+				post.setEntity(entity);
+			} catch (Exception ex) {
+				Log.e("ServicioRest","Error!", ex);
+			}
+			
+			HttpClient httpClient = new DefaultHttpClient();
+			try {
+				HttpResponse resp = httpClient.execute(post);
+				String respStr = EntityUtils.toString(resp.getEntity());
+			} catch (Exception ex){
+				Log.e("Error", "e");
+			}
+		}
 }
 
