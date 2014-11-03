@@ -3,6 +3,8 @@ package co.edu.eafit.llevame.services;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.util.EntityUtils;
 import org.json.JSONArray;
@@ -85,6 +87,45 @@ public class ServiciosEvento {
 		} catch (Exception ex) {
 			Log.e("ServicioRest","Error!", ex);
 			return null;
+		}
+	}
+
+	public HttpPost getServerResponsePost(String url) {
+		HttpClient httpClient = new DefaultHttpClient();
+		 
+		HttpPost post = new HttpPost(url);
+		 
+		post.setHeader("content-type", "application/json");
+		
+		return post;
+	}
+	
+	public void ingresarInvitacion(Invitacion invitacion) {
+		
+		String url = ServerHandler.IP.concat("/eventos");
+		HttpPost post = getServerResponsePost(url);
+		try {
+			JSONObject i = new JSONObject();
+			i.put("esNotificacion", invitacion.getEsNotificacion());
+			i.put("mensaje", invitacion.getMensaje());
+			i.put("aceptado", invitacion.isAceptado());
+			i.put("idUsuario", invitacion.getIdUsuario());
+			i.put("tipo", invitacion.getTipo());
+			i.put("idRef", invitacion.getIdRef());
+			
+			StringEntity entity = new StringEntity(i.toString());
+			Log.d("entity", i.toString());
+			post.setEntity(entity);
+		} catch (Exception ex) {
+			Log.e("ServicioRest","Error!", ex);
+		}
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		try {
+			HttpResponse resp = httpClient.execute(post);
+			String respStr = EntityUtils.toString(resp.getEntity());
+		} catch (Exception ex){
+			Log.e("Error", "e");
 		}
 	}
 }
