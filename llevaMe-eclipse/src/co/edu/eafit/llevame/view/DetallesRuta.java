@@ -17,7 +17,9 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.model.Invitacion;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
 
 
@@ -32,7 +34,9 @@ public class DetallesRuta extends Activity{
 	private EditText placa;
 	private EditText descripcion;
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
-	private int id = -1;
+	private int id = -1; //id de la ruta
+	private int idUsuario = 1; //QUEMADO usuario logeado
+	private int idConductor = 1;//QUEMADO id del conductor de la ruta
 	
 	private ImageButton mapa;
 	private String [] markerSnippet;
@@ -103,12 +107,11 @@ public class DetallesRuta extends Activity{
 	}
 
 	public void onllevaMe(View view) {
-		//TODO: consumir servicio solicitar cupo
-		Toast toast = Toast.makeText(this, "Ha solicitado un cupo para esta ruta", 3);
-		toast.show();
-		//TODO: poner esto en el asyncTast volverAMenu();
+		Invitacion invitacion = new Invitacion(-1, idUsuario+" ha solicitado un cupo en tu ruta",
+				idConductor, false, Invitacion.RUTA, idUsuario, id);
 		
-		//TODO: enviar notificacion
+		new SolicitarCupo().execute(invitacion);
+		
 	}
 	
 	public void desplegarMapa() {
@@ -153,8 +156,28 @@ public class DetallesRuta extends Activity{
 			placa.setText(pla);
 			descripcion.setText(desctiption);
 			//conductor.setText();
-					
+		}
+
+	}
+	
+	public class SolicitarCupo extends AsyncTask<Invitacion, Void, Void> {
+		
+		public SolicitarCupo(){
+			super();
+		}
+
+		@Override
+		protected Void doInBackground(Invitacion...params) {
+			ServiciosEvento.obtenerInstancia().ingresarInvitacion(params[0]);
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void v){
+			Toast toast = Toast.makeText(DetallesRuta.this, "Ha solicitado un cupo para esta ruta", 3);
+			toast.show();
 			
+			volverAMenu();
 		}
 
 	}

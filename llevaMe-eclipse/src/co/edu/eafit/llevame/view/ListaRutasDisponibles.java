@@ -5,6 +5,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +22,7 @@ public class ListaRutasDisponibles extends Activity {
 	//lista en la UI
 	private ListView lista;
 	private ProgressDialog pDialog;
+	private boolean cargado;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,12 +36,12 @@ public class ListaRutasDisponibles extends Activity {
         	
             @Override
             public void onItemClick(AdapterView<?> pariente, View view, int posicion, long id) {
-            	int theId = (int) id;
             	DialogdesplegarDetalles((int)id);
             }
             
          });
 
+		new TraerListaRuta().execute();
     }
     
     public void DialogdesplegarDetalles(int id){
@@ -53,7 +55,6 @@ public class ListaRutasDisponibles extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {       
     	getMenuInflater().inflate(R.menu.main, menu);
-		new TraerListaRuta().execute();
         return true;
     }
 
@@ -73,7 +74,11 @@ public class ListaRutasDisponibles extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
+		if (cargado) {
+			cargado = false;
+		} else {
 		new TraerListaRuta().execute();
+		}
 	}
 	
     private class TraerListaRuta extends AsyncTask<Void, Void, Ruta[]> {
@@ -81,11 +86,13 @@ public class ListaRutasDisponibles extends Activity {
     	@Override
         protected void onPreExecute() {
             super.onPreExecute();
+            
             pDialog = new ProgressDialog(ListaRutasDisponibles.this);
-            pDialog.setMessage("Loading Routes...");
+            pDialog.setMessage("Cargando Rutas...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
+            cargado = true;
         }
 
     	public TraerListaRuta(){
@@ -99,6 +106,7 @@ public class ListaRutasDisponibles extends Activity {
 
     	@Override
     	protected void onPostExecute(final Ruta[] r){
+    		Log.d("Post exc", "entro");
     		pDialog.dismiss();
     		runOnUiThread(new Runnable() {
                 public void run() {

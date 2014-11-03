@@ -18,5 +18,6 @@
     <string name="title_activity_login_view">LoginView</string>
     <string name="forgotUser"><u>Olvide mi usuario</u></string>
     <string name="forgotPass"><u>Olvide mi contraseña</u></string>
+    <string name="title_activity_invitacion">Invitacion</string>
 
 </resources>

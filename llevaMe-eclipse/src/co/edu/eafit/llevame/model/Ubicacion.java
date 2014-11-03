@@ -2,20 +2,9 @@ package co.edu.eafit.llevame.model;
 
 public class Ubicacion {
 	private int id;
-	private String titulo;
-	private double latitud;
-	private double longitud;
-	
-	public Ubicacion() {
-		
-	}
-
-	public Ubicacion(int id, String titulo, double latitud, double longitud){
-		this.id = id;
-		this.titulo = titulo;
-		this.longitud = longitud;
-		this.latitud = latitud;
-	}
+	private String nombre;
+	private float latitud;
+	private float longitud;
 	
 	public int getId() {
 		return id;
@@ -23,25 +12,23 @@ public class Ubicacion {
 	public void setId(int id) {
 		this.id = id;
 	}
-	
-	public String getTitulo() {
-		return titulo;
+
+	public String getNombre() {
+		return nombre;
 	}
-	public void setTitulo(String titulo) {
-		this.titulo = titulo;
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
-	
-	public double getLatitud() {
+	public float getLatitud() {
 		return latitud;
 	}
-	public void setLatitud(double latitud) {
+	public void setLatitud(float latitud) {
 		this.latitud = latitud;
 	}
-	
-	public double getLongitud() {
+	public float getLongitud() {
 		return longitud;
 	}
-	public void setLongitud(double longitud) {
+	public void setLongitud(float longitud) {
 		this.longitud = longitud;
 	}
 }
