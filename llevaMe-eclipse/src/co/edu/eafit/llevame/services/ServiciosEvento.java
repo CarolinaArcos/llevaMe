@@ -63,21 +63,25 @@ public class ServiciosEvento {
 			for (int i = 0; i<losEventos.length(); i++) {
 				JSONObject evento = losEventos.getJSONObject(i);
 				
-				if(!evento.getBoolean("esNotificacion")) {
+				if(!evento.getBoolean("esNotificacion")) { //invitacion
 					Invitacion oneEvento = new Invitacion();
 					oneEvento.setAceptado(evento.getBoolean("aceptado"));
 					oneEvento.setIdRef(evento.getInt("idRef"));
-					oneEvento.setTipo(evento.getInt("enum"));
+					oneEvento.setTipo(evento.getInt("tipo"));
 					oneEvento.setId(evento.getInt("id"));
 					oneEvento.setMensaje(evento.getString("mensaje"));
-					oneEvento.setIdUsuario(evento.getInt("usuario"));
+					oneEvento.setIdUsuario(evento.getInt("idUsuario"));
+					
+					if(oneEvento.getTipo()==Invitacion.RUTA){
+						oneEvento.setIdRef2(evento.getInt("idRef2"));
+					}
 					
 					eventos[i] = oneEvento;
-				}else {
+				}else { //notificacion
 					Notificacion oneEvento = new Notificacion();
 					oneEvento.setId(evento.getInt("id"));
 					oneEvento.setMensaje(evento.getString("mensaje"));
-					oneEvento.setIdUsuario(evento.getInt("usuario"));
+					oneEvento.setIdUsuario(evento.getInt("idUsuario"));
 					
 					eventos[i] = oneEvento;
 				}	
