@@ -25,6 +25,7 @@ public class Invitacion extends Evento{
 		this.idRef = idRef;
 	}
 	
+	//Solicitud de cupo para una ruta
 	public Invitacion(int id, String msj, int idUsr, boolean aceptado, int tipo,
 			int idRef, int idRef2){
 		

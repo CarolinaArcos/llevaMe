@@ -64,6 +64,7 @@ public class DetallesRutaPasajero extends Activity {
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		mapa = (ImageButton) findViewById(R.id.image);
+		//TODO: corregir
 //		mapa.setOnClickListener(new OnClickListener() {
 //			 
 //			@Override
@@ -72,7 +73,7 @@ public class DetallesRutaPasajero extends Activity {
 //			}
 //		});
 		
-		new TraerRuta(this).execute(""+id);
+		new TraerRuta().execute(""+id);
 				
 	}
 
@@ -90,13 +91,9 @@ public class DetallesRutaPasajero extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public void setTheId(int id) {
-		this.id = id;
-	}
 
 	public void onDejarRuta(View view) {
-		new DejarRutaPasajero(this).execute(""+id,""+idUsuario);
+		new DejarRutaPasajero().execute(""+id,""+idUsuario);
 		Toast toast = Toast.makeText(this, "Ha dejado esta ruta", 3);
 		toast.show();
 	}
@@ -112,11 +109,8 @@ public class DetallesRutaPasajero extends Activity {
 	
 	private class DejarRutaPasajero extends AsyncTask<String, Void, Void> {
 
-		private Activity activity;
-		
-		public DejarRutaPasajero(Activity activity){
+		public DejarRutaPasajero(){
 			super();
-			this.activity = activity;
 		}
 
 		@Override
@@ -136,24 +130,19 @@ public class DetallesRutaPasajero extends Activity {
 	}
 	
 	public class TraerRuta extends AsyncTask<String, Void, Ruta> {
-
-		private Activity activity;
 		
-		public TraerRuta(Activity activity){
+		public TraerRuta(){
 			super();
-			this.activity = activity;
 		}
 
 		@Override
 		protected Ruta doInBackground(String...params) {
 			return ServiciosRuta.getInstancia().getRuta(""+id);
-			
 		}
 
 		@Override
 		protected void onPostExecute(Ruta r){
 
-			Log.d("id in post", ""+id);
 			//Tomar valores de r
 			String name = r.getNombre();
 			String date = r.getFecha().substring(0, 10);
@@ -168,9 +157,7 @@ public class DetallesRutaPasajero extends Activity {
 			cupo.setText(capacity);
 			placa.setText(pla);
 			descripcion.setText(desctiption);
-			//conductor.setText();
-			
-			
+			//TODO: conductor.setText();
 		}
 
 	}

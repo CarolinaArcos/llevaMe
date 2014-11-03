@@ -22,8 +22,6 @@ import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
 
-
-
 public class DetallesRuta extends Activity{
 
 	private EditText conductor;
@@ -57,10 +55,8 @@ public class DetallesRuta extends Activity{
 			}else {
 				id = lastId;
 			}
-				
 		}
 		lastId = id;
-		Log.d("id", "despues "+id);
 		
 		conductor = (EditText) findViewById(R.id.conductorDetalles);
 		nombre = (EditText) findViewById(R.id.nombreDetalles);
@@ -69,7 +65,6 @@ public class DetallesRuta extends Activity{
 		cupo = (EditText) findViewById(R.id.cupoDetalles);
 		placa = (EditText) findViewById(R.id.placaDetalles);
 		descripcion = (EditText) findViewById(R.id.descripcionDetalles);
-		
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
@@ -82,10 +77,8 @@ public class DetallesRuta extends Activity{
 			}
 		});
 		
-		new TraerRuta(this).execute(""+id);
-		
+		new TraerRuta().execute(""+id);
 	}
-
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -101,17 +94,12 @@ public class DetallesRuta extends Activity{
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	public void setTheId(int id) {
-		this.id = id;
-	}
 
 	public void onllevaMe(View view) {
 		Invitacion invitacion = new Invitacion(-1, idUsuario+" ha solicitado un cupo en tu ruta",
 				idConductor, false, Invitacion.RUTA, idUsuario, id);
 		
-		new SolicitarCupo().execute(invitacion);
-		
+		new SolicitarCupo().execute(invitacion);	
 	}
 	
 	public void desplegarMapa() {
@@ -125,11 +113,8 @@ public class DetallesRuta extends Activity{
 	
 	public class TraerRuta extends AsyncTask<String, Void, Ruta> {
 
-		private Activity activity;
-		
-		public TraerRuta(Activity activity){
+		public TraerRuta(){
 			super();
-			this.activity = activity;
 		}
 
 		@Override
@@ -140,7 +125,6 @@ public class DetallesRuta extends Activity{
 		@Override
 		protected void onPostExecute(Ruta r){
 
-			Log.d("id in post", ""+id);
 			//Tomar valores de r
 			String name = r.getNombre();
 			String date = r.getFecha().substring(0, 10);
@@ -155,9 +139,8 @@ public class DetallesRuta extends Activity{
 			cupo.setText(capacity);
 			placa.setText(pla);
 			descripcion.setText(desctiption);
-			//conductor.setText();
+			//TODO: conductor.setText();
 		}
-
 	}
 	
 	public class SolicitarCupo extends AsyncTask<Invitacion, Void, Void> {

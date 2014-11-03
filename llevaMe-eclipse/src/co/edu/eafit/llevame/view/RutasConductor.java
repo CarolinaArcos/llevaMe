@@ -17,7 +17,7 @@ import co.edu.eafit.llevame.services.ServiciosRuta;
 public class RutasConductor extends Activity {
 
 	private ListView lista;
-	private int idUsuario = 1; //QUEMADO
+	private int idUsuario = 1; //TODO: obtener usuario
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +30,6 @@ public class RutasConductor extends Activity {
         	
             @Override
             public void onItemClick(AdapterView<?> pariente, View view, int posicion, long id) {
-            	int theId = (int) id;
             	DialogdesplegarDetalles((int)id);
             }
             
@@ -56,9 +55,6 @@ public class RutasConductor extends Activity {
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
