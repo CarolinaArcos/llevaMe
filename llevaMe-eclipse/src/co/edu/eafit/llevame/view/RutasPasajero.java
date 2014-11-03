@@ -21,7 +21,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class RutasPasajero extends Activity {
 	
 	private ListView lista;
-	int idUsuario = 1;
+	private int idUsuario = 1;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

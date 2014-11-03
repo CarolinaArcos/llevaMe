@@ -17,7 +17,7 @@ import co.edu.eafit.llevame.services.ServiciosRuta;
 public class RutasConductor extends Activity {
 
 	private ListView lista;
-	int idUsuario = 1; //QUEMADO
+	private int idUsuario = 1; //QUEMADO
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

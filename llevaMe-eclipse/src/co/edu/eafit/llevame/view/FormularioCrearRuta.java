@@ -26,6 +26,10 @@ import co.edu.eafit.llevame.services.ServiciosRuta;
 public class FormularioCrearRuta extends Activity {
 	
 	private ImageButton mapa;
+	private String [] markerSnippet;
+	private double [] markerLat;
+	private double [] markerLong;
+	protected static final int REQUEST_CODE = 10;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,8 +116,8 @@ public class FormularioCrearRuta extends Activity {
 	}
 	
 	public void desplegarMapa() {
-    	Intent intent = new Intent(this,ViewMap.class);
-    	startActivity(intent);
+		Intent intent = new Intent(this,ViewMap.class);
+        startActivityForResult(intent, REQUEST_CODE);
 	}
 	
 	public boolean validarFormulario() {
@@ -262,5 +266,18 @@ public class FormularioCrearRuta extends Activity {
     	}
 
     }
+	
+	@Override
+	   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	      super.onActivityResult(requestCode, resultCode, data);
+	      if (requestCode == REQUEST_CODE) {
+	         markerSnippet = data.getStringArrayExtra("markersSnippet");
+	         markerLat = data.getDoubleArrayExtra("markersLat");
+	         markerLong = data.getDoubleArrayExtra("markersLong");
+
+	         for(int i=0; i<markerSnippet.length; ++i)
+	         Toast.makeText(this, "ViewMap devolvio: " + markerSnippet[i] + " Lat: " + markerLat[i] + " Long: " + markerLong[i], Toast.LENGTH_LONG).show();
+	      }
+	   }
 
 }

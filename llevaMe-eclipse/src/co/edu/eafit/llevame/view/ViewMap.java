@@ -16,6 +16,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.EditText;
+import android.widget.Toast;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -43,14 +44,16 @@ import com.google.android.gms.maps.model.PolylineOptions;
 import co.edu.eafit.llevame.R;
 
 public class ViewMap extends FragmentActivity implements OnMapClickListener, OnMarkerClickListener, OnMarkerDragListener, OnInfoWindowClickListener{
+	
 	private final LatLng EAFIT = new LatLng(6.200696,-75.578433); 
 	private GoogleMap mapa;
-	ArrayList<Polyline> lines;
-	ArrayList<String> nombresDestinos;
-	ArrayList<Marker> markers;
-	double latti;
-	double longi;
-	LatLng current;
+	private ArrayList<Polyline> lines;
+	private ArrayList<String> nombresDestinos;
+	private ArrayList<Marker> markers;
+	private double latti;
+	private double longi;
+	private LatLng current;
+	private static final int OK_RESULT_CODE = 1;
 
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -112,12 +115,20 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 17));
 	}
 
-	public void animateCamera(View view) {
-		if (mapa.getMyLocation() != null)
-			mapa.animateCamera(CameraUpdateFactory.newLatLngZoom(
-					new LatLng( mapa.getMyLocation().getLatitude(), 
-							mapa.getMyLocation().getLongitude()), 17));
+	public void guardar(View view) {
+		if(markers.size() >= 2) returnParams();
+		else
+			Toast.makeText(this, "Necesita al menos dos ubicaciones", Toast.LENGTH_LONG).show();
 	}
+	
+	protected void returnParams() {
+	      Intent intent = new Intent();
+	      intent.putExtra("markersSnippet", snippets());
+	      intent.putExtra("markersLat", lats());
+	      intent.putExtra("markersLong", longs());
+	      setResult(OK_RESULT_CODE, intent);
+	      finish();
+	   }
 
 	public void drawRoute(View view) {
 		// Checks, whether start and end locations are captured
@@ -133,7 +144,8 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 
 			// Start downloading json data from Google Directions API
 			downloadTask.execute(url);
-		}
+		} else
+			Toast.makeText(this, "Necesita al menos dos ubicaciones", Toast.LENGTH_LONG).show();
 	}
 	private String getDirectionsUrl(LatLng origin,LatLng dest){
 
@@ -330,7 +342,25 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 
 	@Override
 	public void onMarkerDragEnd(Marker arg0) {}
+	
+	public double [] lats() {
+		double [] lats = new double [markers.size()];
+		for(int i=0; i<markers.size(); ++i) lats[i] = markers.get(i).getPosition().latitude;
+		return lats;
+	}
 
+	public double [] longs() {
+		double [] longs = new double [markers.size()];
+		for(int i=0; i<markers.size(); ++i) longs[i] = markers.get(i).getPosition().longitude;
+		return longs;
+	}
+	
+	public String [] snippets() {
+		String [] snippet = new String [markers.size()];
+		for(int i=0; i<markers.size(); ++i) snippet[i] = markers.get(i).getSnippet();
+		return snippet;
+	}
+	
 	public void cleanMap() {
 		for(int i=0; i<lines.size(); ++i) lines.get(i).remove();
 		lines.clear();

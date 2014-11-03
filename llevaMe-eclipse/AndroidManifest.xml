@@ -119,6 +119,14 @@
             android:label="@string/title_activity_list_events" >
             
         </activity>
+        <activity
+            android:name=".view.RegisterView"
+            android:label="@string/title_activity_register_view" >
+        </activity>
+        <activity
+            android:name=".view.LoginView"
+            android:label="@string/title_activity_login_view" >
+        </activity>
     </application>
 
 </manifest>
