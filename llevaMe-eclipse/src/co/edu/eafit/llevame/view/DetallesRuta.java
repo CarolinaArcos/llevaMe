@@ -30,8 +30,9 @@ public class DetallesRuta extends Activity{
 	private EditText placa;
 	private EditText descripcion;
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
-	private int id = -1;
-	private int idUsuario = 1; //QUEMADO
+	private int id = -1; //id de la ruta
+	private int idUsuario = 1; //QUEMADO usuario logeado
+	private int idConductor = 1;//QUEMADO id del conductor de la ruta
 	
 	private ImageButton mapa;
 	
@@ -99,10 +100,11 @@ public class DetallesRuta extends Activity{
 	}
 
 	public void onllevaMe(View view) {
-		Toast toast = Toast.makeText(this, "Ha solicitado un cupo para esta ruta", 3);
-		toast.show();
-		//Invitacion invitacion = new Invitacion(-1, idUsuario+" ha solicitado un cupo en tu ruta", );
-		//TODO: enviar invitacion solicitud cupo
+		Invitacion invitacion = new Invitacion(-1, idUsuario+" ha solicitado un cupo en tu ruta",
+				idConductor, false, Invitacion.RUTA, idUsuario, id);
+		
+		new SolicitarCupo().execute(invitacion);
+		
 	}
 	
 	public void desplegarMapa() {
@@ -147,20 +149,14 @@ public class DetallesRuta extends Activity{
 			placa.setText(pla);
 			descripcion.setText(desctiption);
 			//conductor.setText();
-			
-			volverAMenu();
-			
 		}
 
 	}
 	
 	public class SolicitarCupo extends AsyncTask<Invitacion, Void, Void> {
-
-		private Activity activity;
 		
-		public SolicitarCupo(Activity activity){
+		public SolicitarCupo(){
 			super();
-			this.activity = activity;
 		}
 
 		@Override
@@ -171,8 +167,10 @@ public class DetallesRuta extends Activity{
 
 		@Override
 		protected void onPostExecute(Void v){
+			Toast toast = Toast.makeText(DetallesRuta.this, "Ha solicitado un cupo para esta ruta", 3);
+			toast.show();
 			
-			
+			volverAMenu();
 		}
 
 	}
