@@ -1,5 +1,9 @@
 package co.edu.eafit.llevame.view;
 
+import java.util.ArrayList;
+
+import com.google.android.gms.maps.model.Marker;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -31,6 +35,10 @@ public class DetallesRuta extends Activity{
 	private int id = -1;
 	
 	private ImageButton mapa;
+	private String [] markerSnippet;
+	private double [] markerLat;
+	private double [] markerLong;
+	protected static final int REQUEST_CODE = 10;
 	
 
 	@Override
@@ -59,14 +67,13 @@ public class DetallesRuta extends Activity{
 		descripcion = (EditText) findViewById(R.id.descripcionDetalles);
 		
 		
-		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		mapa = (ImageButton) findViewById(R.id.image);
 		mapa.setOnClickListener(new OnClickListener() {
 			 
 			@Override
-			public void onClick(View arg0) {
+			public void onClick(View arg0) { 
 				desplegarMapa();
 			}
 		});
@@ -106,7 +113,7 @@ public class DetallesRuta extends Activity{
 	
 	public void desplegarMapa() {
     	Intent intent = new Intent(this,ViewMap.class);
-    	startActivity(intent);
+        startActivityForResult(intent, REQUEST_CODE);
 	}
 	
 	public void volverAMenu() {
@@ -151,4 +158,16 @@ public class DetallesRuta extends Activity{
 		}
 
 	}
+	@Override
+	   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+	      super.onActivityResult(requestCode, resultCode, data);
+	      if (requestCode == REQUEST_CODE) {
+	         markerSnippet = data.getStringArrayExtra("markersSnippet");
+	         markerLat = data.getDoubleArrayExtra("markersLat");
+	         markerLong = data.getDoubleArrayExtra("markersLong");
+
+	         for(int i=0; i<markerSnippet.length; ++i)
+	         Toast.makeText(this, "ViewMap devolvio: " + markerSnippet[i] + " Lat: " + markerLat[i] + " Long: " + markerLong[i], Toast.LENGTH_LONG).show();
+	      }
+	   }
 }
