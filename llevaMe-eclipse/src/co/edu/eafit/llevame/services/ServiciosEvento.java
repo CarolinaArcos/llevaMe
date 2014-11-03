@@ -1,7 +1,11 @@
 package co.edu.eafit.llevame.services;
 
+import java.io.IOException;
+
 import org.apache.http.HttpResponse;
+import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.entity.StringEntity;
@@ -23,11 +27,24 @@ public class ServiciosEvento {
 	private ServiciosEvento() {
 	}
 	
-	public static ServiciosEvento obtenerInstancia() {
+	public static ServiciosEvento getInstancia() {
 		if (instancia==null) {
 			instancia = new ServiciosEvento();
 		}
 		return instancia;
+	}
+	
+	public void sendDelete(String url) {
+		HttpClient httpClient = new DefaultHttpClient();
+		
+		HttpDelete delete = new HttpDelete(url);
+		try {
+			httpClient.execute(delete);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public String getServerResponse(String url){
@@ -116,6 +133,7 @@ public class ServiciosEvento {
 			i.put("idUsuario", invitacion.getIdUsuario());
 			i.put("tipo", invitacion.getTipo());
 			i.put("idRef", invitacion.getIdRef());
+			i.put("idRef2", invitacion.getIdRef2());
 			
 			StringEntity entity = new StringEntity(i.toString());
 			Log.d("entity", i.toString());
@@ -135,28 +153,33 @@ public class ServiciosEvento {
 	
 	public void ingresarNotificacion(Notificacion notificacion) {
 			
-			String url = ServerHandler.IP.concat("/eventos");
-			HttpPost post = getServerResponsePost(url);
-			try {
-				JSONObject i = new JSONObject();
-				i.put("esNotificacion", notificacion.getEsNotificacion());
-				i.put("mensaje", notificacion.getMensaje());
-				i.put("idUsuario", notificacion.getIdUsuario());
-				
-				StringEntity entity = new StringEntity(i.toString());
-				Log.d("entity", i.toString());
-				post.setEntity(entity);
-			} catch (Exception ex) {
-				Log.e("ServicioRest","Error!", ex);
-			}
+		String url = ServerHandler.IP.concat("/eventos");
+		HttpPost post = getServerResponsePost(url);
+		try {
+			JSONObject i = new JSONObject();
+			i.put("esNotificacion", notificacion.getEsNotificacion());
+			i.put("mensaje", notificacion.getMensaje());
+			i.put("idUsuario", notificacion.getIdUsuario());
 			
-			HttpClient httpClient = new DefaultHttpClient();
-			try {
-				HttpResponse resp = httpClient.execute(post);
-				String respStr = EntityUtils.toString(resp.getEntity());
-			} catch (Exception ex){
-				Log.e("Error", "e");
-			}
+			StringEntity entity = new StringEntity(i.toString());
+			Log.d("entity", i.toString());
+			post.setEntity(entity);
+		} catch (Exception ex) {
+			Log.e("ServicioRest","Error!", ex);
 		}
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		try {
+			HttpResponse resp = httpClient.execute(post);
+			String respStr = EntityUtils.toString(resp.getEntity());
+		} catch (Exception ex){
+			Log.e("Error", "e");
+		}
+	}
+	
+	public void borrarEvento(int idEvento){
+		String url = ServerHandler.IP.concat("/eventos/"+idEvento);
+		sendDelete(url);
+	}
 }
 

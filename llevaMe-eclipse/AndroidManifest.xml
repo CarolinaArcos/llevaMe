@@ -108,10 +108,6 @@
         <activity
             android:name=".view.MenuTab"
             android:label="@string/title_activity_menu_tab" >
-        </activity>
-        <activity
-            android:name=".view.ListEvents"
-            android:label="@string/title_activity_list_events" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -119,8 +115,9 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="co.edu.eafit.llevame.view.ViewInvitacion"
-            android:label="@string/title_activity_invitacion" >
+            android:name=".view.ListEvents"
+            android:label="@string/title_activity_list_events" >
+            
         </activity>
     </application>
 

@@ -114,7 +114,7 @@ public class DetallesRutaConductor extends Activity {
 
 		@Override
 		protected Ruta doInBackground(String...params) {
-			return ServiciosRuta.obtenerInstancia().getRuta(""+id);
+			return ServiciosRuta.getInstancia().getRuta(""+id);
 			
 		}
 
@@ -153,7 +153,7 @@ public class DetallesRutaConductor extends Activity {
 
 		@Override
 		protected Void doInBackground(String...params) {
-			ServiciosRuta.obtenerInstancia().iniciarRuta(id+"?estado=true");
+			ServiciosRuta.getInstancia().iniciarRuta(id+"?estado=true");
 			return null;
 			
 		}
@@ -164,7 +164,7 @@ public class DetallesRutaConductor extends Activity {
 			
 			for(int idP : idPasajeros){//enviar notificacion a cada pasajero
 				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha iniciado", idP);
-				ServiciosEvento.obtenerInstancia().ingresarNotificacion(n);
+				ServiciosEvento.getInstancia().ingresarNotificacion(n);
 			}
 		}
 	}
@@ -180,7 +180,7 @@ public class DetallesRutaConductor extends Activity {
 
 		@Override
 		protected Void doInBackground(String...params) {
-			ServiciosRuta.obtenerInstancia().finalizarRuta(id+"");
+			ServiciosRuta.getInstancia().finalizarRuta(id+"");
 			return null;
 			
 		}
@@ -191,7 +191,7 @@ public class DetallesRutaConductor extends Activity {
 			
 			for(int idP : idPasajeros){//enviar notificacion a cada pasajero
 				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha finalizado", idP);
-				ServiciosEvento.obtenerInstancia().ingresarNotificacion(n);
+				ServiciosEvento.getInstancia().ingresarNotificacion(n);
 			}
 		}
 	

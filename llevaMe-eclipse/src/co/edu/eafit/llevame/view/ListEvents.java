@@ -5,15 +5,21 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Evento;
+import co.edu.eafit.llevame.model.Invitacion;
+import co.edu.eafit.llevame.model.Notificacion;
 import co.edu.eafit.llevame.services.ServiciosEvento;
+import co.edu.eafit.llevame.services.ServiciosRuta;
 
 public class ListEvents extends Activity {
 
@@ -28,43 +34,138 @@ public class ListEvents extends Activity {
         setContentView(R.layout.activity_list_events);
 
         listEvents = (ListView) findViewById(R.id.listEvents);
-
-//        listEvents.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> adapterView, View view, int posicion, long id) {
-//            	Log.d("Id", ""+id);
-//            	Log.d("Posicion", ""+posicion);
-//            }
-//        });
-        
-//        listEvents.setOnItemClickListener(new OnItemClickListener() {
-//        	
-//            @Override
-//            public void onItemClick(AdapterView<?> pariente, View view, int posicion, long id) {
-//            	Log.d("Id", ""+id);
-//            	Log.d("Posicion", ""+posicion);
-//            }
-//            
-//         });
         
         new TraerListaNotificaciones().execute();
 
     }
     
-	public void onAceptar(View view) {
-//		Log.d("boton", "aceptado");
-//		Log.d("Id view", ""+view.getId());
+	public void aceptarInvitacion(int pos) {
+		 Invitacion inv = (Invitacion) eventos[pos];
 		
+		 new AceptarInvitacion().execute(inv);
 	}
 	
-	public void onRechazar(View view) {
-//		Log.d("boton", "rechazado");
+	public void rechazarInvitacion(int pos) {
+		Invitacion inv = (Invitacion) eventos[pos];
+		
+		 new RechazarInvitacion().execute(inv);
 	}
-	
-	
 	
 
-    public class TraerListaNotificaciones extends AsyncTask<Void, Void, Evento[]> {
+	public class AceptarInvitacion extends AsyncTask<Invitacion, Void, Void> {
+    	
+    	@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(ListEvents.this);
+            pDialog.setMessage("Cargando...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+    	
+    	@Override
+    	protected Void doInBackground(Invitacion... params) {
+    		Invitacion inv = params[0];
+    		switch (inv.getTipo()){
+    			case Invitacion.RUTA: //ruta
+    				Log.d("ruta", inv.getIdRef2().toString());
+    				Log.d("usr",  inv.getIdRef().toString());
+    				ServiciosRuta.getInstancia().vincularPasajero(inv.getIdRef2(), inv.getIdRef());
+    				
+    				//notificar usuario que se acepto
+    				Notificacion n = new Notificacion(-1, 
+    						inv.getIdUsuario()+" acepto tu solicitud para la ruta "+inv.getIdRef2(),
+    						inv.getIdRef());
+    				ServiciosEvento.getInstancia().ingresarNotificacion(n);
+    				
+    	    		// eliminar Invitacion
+    				ServiciosEvento.getInstancia().borrarEvento(inv.getId());
+    				
+    				break;
+    			case Invitacion.USUARIO:
+    				//TODO: Implementar aceptar invitacion usuario 
+    				break;
+    			case Invitacion.COMUNIDAD:
+    				//TODO: Implementar aceptar invitacion comunidad
+    				break;
+				default:
+					//TODO: ERROR
+    		}
+    		
+
+    		
+    		
+    		return null;
+    	}
+
+    	@Override
+    	protected void onPostExecute(final Void v){
+    		pDialog.dismiss();
+    		
+    		runOnUiThread(new Runnable() {
+                public void run() {
+                	new TraerListaNotificaciones().execute();
+                }
+            });
+    	}
+    	
+    	
+    }
+	
+	public class RechazarInvitacion extends AsyncTask<Invitacion, Void, Void> {
+    	
+    	@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            pDialog = new ProgressDialog(ListEvents.this);
+            pDialog.setMessage("Cargando...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+    	
+    	@Override
+    	protected Void doInBackground(Invitacion... params) {
+    		Invitacion inv = params[0];
+    		
+    		switch (inv.getTipo()){
+    			case Invitacion.RUTA: //ruta
+    	    		// eliminar Invitacion
+    				ServiciosEvento.getInstancia().borrarEvento(inv.getId());
+    				
+    				break;
+    			case Invitacion.USUARIO:
+    				//TODO: Implementar rechazar invitacion usuario 
+    				break;
+    			case Invitacion.COMUNIDAD:
+    				//TODO: Implementar rechazar invitacion comunidad
+    				break;
+				default:
+					//TODO: ERROR
+    		}
+    		
+
+    		
+    		
+    		return null;
+    	}
+
+    	@Override
+    	protected void onPostExecute(final Void v){
+    		pDialog.dismiss();
+    		
+    		runOnUiThread(new Runnable() {
+                public void run() {
+                	new TraerListaNotificaciones().execute();
+                }
+            });
+    	}
+    	
+    	
+    }
+	
+	public class TraerListaNotificaciones extends AsyncTask<Void, Void, Evento[]> {
     	
     	@Override
         protected void onPreExecute() {
@@ -96,7 +197,7 @@ public class ListEvents extends Activity {
     	
     	@Override
     	protected Evento[] doInBackground(Void... params) {
-    		return ServiciosEvento.obtenerInstancia().getArregloEvento("/usuarios/"+id+"/eventos");
+    		return ServiciosEvento.getInstancia().getArregloEvento("/usuarios/"+id+"/eventos");
     	}
 
     	@Override
@@ -143,6 +244,7 @@ public class ListEvents extends Activity {
 
         public static final int TYPE_INVITATION = 0;
         public static final int TYPE_NOTIFICATION = 1;
+        
 
         private ListViewItem[] objects;
 
@@ -168,40 +270,90 @@ public class ListEvents extends Activity {
             ListViewItem listViewItem = objects[position];
             int listViewItemType = getItemViewType(position);
 
-
             if (convertView == null) {
 
-                if (listViewItemType == TYPE_NOTIFICATION) {
-                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_notification, null);                 
-                } else if (listViewItemType == TYPE_INVITATION) {
-                	convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_invitation, null);
+                if (listViewItemType == TYPE_NOTIFICATION) {//notificacion
+                    convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_notification, null);
                     
+                    TextView textView = (TextView) convertView.findViewById(R.id.msj);
+                    
+                    viewHolder = new ViewHolder(textView);
+                } else if (listViewItemType == TYPE_INVITATION) {//invitacion
+                	convertView = LayoutInflater.from(getContext()).inflate(R.layout.element_invitation, null);
+                	
+                	TextView textView = (TextView) convertView.findViewById(R.id.msj);
+                	
+                	Button btnA = (Button) convertView.findViewById(R.id.aceptarBtn);
+                	Button btnR = (Button) convertView.findViewById(R.id.rechazar);
+                	btnA.setTag(position);
+                	btnR.setTag(position);
+                    btnA.setOnClickListener(new OnClickListener() {
+        				
+        				@Override
+        				public void onClick(View v) {
+        					aceptarInvitacion(Integer.parseInt(v.getTag().toString()));
+        				}
+        			});
+            		btnR.setOnClickListener(new OnClickListener() {
+        				
+        				@Override
+        				public void onClick(View v) {
+        					rechazarInvitacion(Integer.parseInt(v.getTag().toString()));
+        				}
+        			});
+                    
+                    
+                    viewHolder = new ViewHolder(textView, btnA, btnR);
                 }
                 
-                TextView textView = (TextView) convertView.findViewById(R.id.msj);
-                viewHolder = new ViewHolder(textView);
-
                 convertView.setTag(viewHolder);
                 
             } else {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             viewHolder.getText().setText(listViewItem.getText());
+            
+            
+            
+            
             return convertView;
         }
     }
 
     public class ViewHolder {
         TextView text;
+        Button btnA;
+        Button btnR;
         
-        public ViewHolder(TextView text) {
+        public ViewHolder(TextView text, Button btnA, Button btnR) {
             this.text = text;
+            this.btnA = btnA;
+            this.btnR = btnR;
         }
+        
+        public ViewHolder(TextView text){
+        	this.text = text;
+        }
+        
         public TextView getText() {
             return text;
         }
         public void setText(TextView text) {
             this.text = text;
+        }
+        
+        public Button getBtnA() {
+            return btnA;
+        }
+        public void setBtnA(Button btnA) {
+            this.btnA = btnA;
+        }
+        
+        public Button getBtnR() {
+            return btnR;
+        }
+        public void setBtnR(Button btnR) {
+            this.btnR = btnR;
         }
     }
 }

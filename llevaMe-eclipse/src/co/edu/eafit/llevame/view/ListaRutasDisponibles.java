@@ -101,7 +101,7 @@ public class ListaRutasDisponibles extends Activity {
 
     	@Override
     	protected Ruta[] doInBackground(Void... params) {
-    		return ServiciosRuta.obtenerInstancia().getArregloRutas("/rutas");
+    		return ServiciosRuta.getInstancia().getArregloRutas("/rutas");
     	}
 
     	@Override

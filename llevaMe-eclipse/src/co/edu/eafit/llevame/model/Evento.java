@@ -3,7 +3,7 @@ package co.edu.eafit.llevame.model;
 public class Evento {
 	private String mensaje;
 	private int id;
-	private int idUsuario;
+	private int idUsuario;//id del receptor de la invitacion
 	protected boolean esNotificacion;
 
 	public boolean getEsNotificacion() {

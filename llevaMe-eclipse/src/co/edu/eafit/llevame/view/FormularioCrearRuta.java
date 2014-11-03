@@ -252,7 +252,7 @@ public class FormularioCrearRuta extends Activity {
 
     	//@Override
     	protected Void doInBackground(Ruta...params) {
-    		ServiciosRuta.obtenerInstancia().addRuta(ruta);
+    		ServiciosRuta.getInstancia().addRuta(ruta);
     		return null;
     	}
 

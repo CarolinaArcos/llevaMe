@@ -122,7 +122,7 @@ public class DetallesRutaPasajero extends Activity {
 		@Override
 		protected Void doInBackground(String...params) {
 			//TODO: pasar usuario
-			ServiciosRuta.obtenerInstancia().dejarRuta("pasajeros?ruta="+id+"&usuario="+idUsuario);
+			ServiciosRuta.getInstancia().dejarRuta("pasajeros?ruta="+id+"&usuario="+idUsuario);
 			return null;
 		}
 
@@ -131,7 +131,7 @@ public class DetallesRutaPasajero extends Activity {
 			volverAMenu();
 			
 			Notificacion n = new Notificacion(-1, idUsuario+" ha dejado la ruta "+nombre, idConductor);
-			ServiciosEvento.obtenerInstancia().ingresarNotificacion(n);
+			ServiciosEvento.getInstancia().ingresarNotificacion(n);
 		}
 	}
 	
@@ -146,7 +146,7 @@ public class DetallesRutaPasajero extends Activity {
 
 		@Override
 		protected Ruta doInBackground(String...params) {
-			return ServiciosRuta.obtenerInstancia().getRuta(""+id);
+			return ServiciosRuta.getInstancia().getRuta(""+id);
 			
 		}
 

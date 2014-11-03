@@ -127,7 +127,7 @@ public class DetallesRuta extends Activity{
 
 		@Override
 		protected Ruta doInBackground(String...params) {
-			return ServiciosRuta.obtenerInstancia().getRuta(""+id);
+			return ServiciosRuta.getInstancia().getRuta(""+id);
 		}
 
 		@Override
@@ -161,7 +161,7 @@ public class DetallesRuta extends Activity{
 
 		@Override
 		protected Void doInBackground(Invitacion...params) {
-			ServiciosEvento.obtenerInstancia().ingresarInvitacion(params[0]);
+			ServiciosEvento.getInstancia().ingresarInvitacion(params[0]);
 			return null;
 		}
 

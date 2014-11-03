@@ -27,7 +27,7 @@ public class ServiciosRuta {
 
 	}
 
-	public static ServiciosRuta obtenerInstancia() {
+	public static ServiciosRuta getInstancia() {
 		if (instancia==null) {
 			instancia = new ServiciosRuta();
 		}
@@ -227,6 +227,20 @@ public class ServiciosRuta {
 		try {
 			HttpResponse resp = httpClient.execute(post);
 //			String respStr = EntityUtils.toString(resp.getEntity());
+		} catch (Exception ex){
+			Log.e("Error", "e");
+		}
+	}
+	
+	public void vincularPasajero(int idRuta, int idPasajero) {
+		
+		String url = ServerHandler.IP.concat("/rutas/pasajeros?ruta="+idRuta+"&usuario="+idPasajero);
+		HttpPost post = getServerResponsePost(url);
+		
+		HttpClient httpClient = new DefaultHttpClient();
+		try {
+			HttpResponse resp = httpClient.execute(post);
+			String respStr = EntityUtils.toString(resp.getEntity());
 		} catch (Exception ex){
 			Log.e("Error", "e");
 		}

@@ -86,7 +86,7 @@ public class RutasPasajero extends Activity {
 
     	@Override
     	protected Ruta[] doInBackground(Void... params) {
-    		return ServiciosRuta.obtenerInstancia().getArregloRutas("/rutas/pasajero/"+idUsuario);
+    		return ServiciosRuta.getInstancia().getArregloRutas("/rutas/pasajero/"+idUsuario);
     	}
 
     	@Override

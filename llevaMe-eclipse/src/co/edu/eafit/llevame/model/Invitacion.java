@@ -9,8 +9,8 @@ public class Invitacion extends Evento{
 	//PENDIENTE = false		ACEPTADO = true
 	private boolean aceptado;
 	private Integer tipo;
-	private Integer idRef;
-	private Integer idRef2;
+	private Integer idRef;//id del usuario que envia la invitacion
+	private Integer idRef2;//solo para tipo ruta, el id de la ruta involucrada
 
 	public Invitacion(){
 		super();
