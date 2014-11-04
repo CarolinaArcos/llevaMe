@@ -1,17 +1,12 @@
 package co.edu.eafit.llevame.view;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import com.google.android.gms.common.data.DataHolder;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.model.Ubicacion;
 import co.edu.eafit.llevame.services.ServiciosRuta;
 
 public class FormularioCrearRuta extends Activity {
@@ -86,6 +82,7 @@ public class FormularioCrearRuta extends Activity {
 		
 		String dataHora = hora.getText().toString();
 		String dataFecha = fecha.getText().toString();
+		dataFecha.replace('/', '-');//pasar a AAAA-MM-DD
 		String dataCupo = cupo.getText().toString();
 		int numeroCupo = -1;
 		if(!dataCupo.equals("") && (Integer.parseInt(dataCupo)>0)) numeroCupo = Integer.parseInt(dataCupo);
@@ -97,9 +94,21 @@ public class FormularioCrearRuta extends Activity {
 		
 		//TODO: obtener el nombre de usuario que inicio sesion
 		
-		//TODO: obtener mapa
+		//obtener recorrido
+		Ubicacion[] recorrido = new Ubicacion[markerSnippet.length];
+		for(int i = 0; i< recorrido.length; i++){
+			Ubicacion u = new Ubicacion();
+			
+			u.setNombre(markerSnippet[i]);
+			u.setLatitud(markerLat[i]);
+			u.setLongitud(markerLong[i]);
+			
+			recorrido[i] = u;
+		}
+		
 		
 		Ruta ruta = new Ruta(0, dataName, fechaHora, numeroCupo, dataDescripcion, dataPlaca);
+		ruta.setRecorrido(recorrido);
 		return ruta;
 	}
 	
@@ -177,8 +186,9 @@ public class FormularioCrearRuta extends Activity {
 			return false;
 		}
 		//Validacion caracteres
-		if (dataFecha.charAt(4)!='/' ||dataFecha.charAt(7)!='/' || 
-				dataHora.charAt(2)!=':') {
+		if ((dataFecha.charAt(4)!='/' && dataFecha.charAt(4)!='-')
+			|| (dataFecha.charAt(7)!='/' && dataFecha.charAt(7)!='-')
+			|| dataHora.charAt(2)!=':') {
 			toast("Formato de Hora y/o Fecha incorrecto");
 			return false;
 		}
@@ -258,6 +268,7 @@ public class FormularioCrearRuta extends Activity {
     	@Override
     	protected Void doInBackground(Ruta...params) {
     		ServiciosRuta.getInstancia().addRuta(ruta);
+    		ServiciosRuta.getInstancia().ingresarRecorrido(ruta.getRecorrido(), ruta.getId());
     		return null;
     	}
 

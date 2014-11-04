@@ -164,7 +164,7 @@ public class ServiciosRuta {
 			Log.e("Error", "e");
 		}
 	}
-
+	
 	public void dejarRuta(String urlRuta) {
 		
 		String url = ServerHandler.IP.concat("/rutas/").concat(urlRuta);

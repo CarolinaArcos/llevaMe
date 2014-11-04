@@ -8,6 +8,8 @@ public class Ruta {
 	private String descripcion;
 	private String placa;
 	
+	private Ubicacion[] recorrido;
+	
 	public Ruta(){
 		
 	}
@@ -77,5 +79,13 @@ public class Ruta {
 
 	public void setPlaca(String placa) {
 		this.placa = placa;
+	}
+
+	public Ubicacion[] getRecorrido() {
+		return recorrido;
+	}
+
+	public void setRecorrido(Ubicacion[] recorrido) {
+		this.recorrido = recorrido;
 	}
 }
