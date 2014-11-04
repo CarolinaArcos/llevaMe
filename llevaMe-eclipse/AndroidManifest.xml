@@ -63,11 +63,7 @@
 
         <activity
             android:name=".view.ViewMap"
-            android:label="@string/title_activity_view_map"
-            android:parentActivityName=".view.DetallesRuta" >
-            <meta-data
-                android:name="android.support.PARENT_ACIVITY"
-                android:value="co.edu.eafit.llevame.view.DetallesRuta" />
+            android:label="@string/title_activity_view_map">      
         </activity>
         <activity
             android:name=".view.RutasConductor"
@@ -121,7 +117,11 @@
         </activity>
         <activity
             android:name=".view.RegisterView"
-            android:label="@string/title_activity_register_view" >
+            android:label="@string/title_activity_register_view" 
+            android:parentActivityName=".view.LoginView" >
+            <meta-data
+                android:name="android.support.PARENT_ACIVITY"
+                android:value="co.edu.eafit.llevame.view.LoginView" />
         </activity>
         <activity
             android:name=".view.LoginView"

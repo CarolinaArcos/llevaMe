@@ -1,9 +1,11 @@
 package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import co.edu.eafit.llevame.R;
 
 public class RegisterView extends Activity {
@@ -31,5 +33,14 @@ public class RegisterView extends Activity {
 			return true;
 		}
 		return super.onOptionsItemSelected(item);
+	}
+	
+	public void onRegister(View view) {
+		Intent login = new Intent(this, LoginView.class);
+    	startActivity(login);
+	}
+	
+	public void onCancelar(View view) {
+		finish();
 	}
 }

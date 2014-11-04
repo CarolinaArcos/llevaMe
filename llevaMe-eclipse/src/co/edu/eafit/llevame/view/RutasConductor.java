@@ -1,9 +1,11 @@
 package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,8 @@ public class RutasConductor extends Activity {
 
 	private ListView lista;
 	private int idUsuario = 1; //QUEMADO
+	private ProgressDialog pDialog;
+	private boolean cargado;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,12 +77,27 @@ public class RutasConductor extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		new TraerListaRutaConductor().execute();
+		if (cargado) {
+			cargado = false;
+		} else {
+			new TraerListaRutaConductor().execute();
+		}
 	}
 	
 	private class TraerListaRutaConductor extends AsyncTask<Void, Void, Ruta[]> {
 
-
+		@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            
+            pDialog = new ProgressDialog(RutasConductor.this);
+            pDialog.setMessage("Cargando Rutas...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+            cargado = true;
+        }
+		
     	public TraerListaRutaConductor(){
     		super();
     	}
@@ -89,9 +108,15 @@ public class RutasConductor extends Activity {
     	}
 
     	@Override
-    	protected void onPostExecute(Ruta[] r){
-    			RutaListAdapter adapter = new RutaListAdapter(RutasConductor.this, R.layout.elemento_lista_rutas, r);
-        		lista.setAdapter(adapter);
+    	protected void onPostExecute(final Ruta[] r){
+    		Log.d("Post exc", "entro");
+    		pDialog.dismiss();
+    		runOnUiThread(new Runnable() {
+                public void run() {
+                	RutaListAdapter adapter = new RutaListAdapter(RutasConductor.this, R.layout.elemento_lista_rutas, r);
+            		lista.setAdapter(adapter);
+                }
+            });
     	}
 
     }

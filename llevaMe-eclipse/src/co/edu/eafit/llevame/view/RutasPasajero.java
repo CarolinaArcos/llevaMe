@@ -8,9 +8,11 @@ import co.edu.eafit.llevame.handlers.RutaListAdapter;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.services.ServiciosRuta;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +24,8 @@ public class RutasPasajero extends Activity {
 	
 	private ListView lista;
 	private int idUsuario = 1;
+	private ProgressDialog pDialog;
+	private boolean cargado;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -74,11 +78,26 @@ public class RutasPasajero extends Activity {
 	@Override
 	protected void onResume() {
 		super.onResume();
-		new TraerListaRutaPasajero().execute();
+		if (cargado) {
+			cargado = false;
+		} else {
+			new TraerListaRutaPasajero().execute();
+		}
 	}
 	
 	private class TraerListaRutaPasajero extends AsyncTask<Void, Void, Ruta[]> {
 
+		@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            
+            pDialog = new ProgressDialog(RutasPasajero.this);
+            pDialog.setMessage("Cargando Rutas...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+            cargado = true;
+        }
 
     	public TraerListaRutaPasajero(){
     		super();
@@ -90,10 +109,15 @@ public class RutasPasajero extends Activity {
     	}
 
     	@Override
-    	protected void onPostExecute(Ruta[] r){
-
-    			RutaListAdapter adapter = new RutaListAdapter(RutasPasajero.this, R.layout.elemento_lista_rutas, r);
-        		lista.setAdapter(adapter);
+    	protected void onPostExecute(final Ruta[] r){
+    		Log.d("Post exc", "entro");
+    		pDialog.dismiss();
+    		runOnUiThread(new Runnable() {
+                public void run() {
+                	RutaListAdapter adapter = new RutaListAdapter(RutasPasajero.this, R.layout.elemento_lista_rutas, r);
+            		lista.setAdapter(adapter);
+                }
+            });
     	}
 
     }

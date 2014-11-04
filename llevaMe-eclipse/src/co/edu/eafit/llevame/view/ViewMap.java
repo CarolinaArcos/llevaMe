@@ -13,6 +13,7 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.app.AlertDialog;
 import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.widget.EditText;
@@ -54,7 +55,11 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 	private double longi;
 	private LatLng current;
 	private static final int OK_RESULT_CODE = 1;
-
+	private String [] markerSnippet;
+	private double [] markerLat;
+	private double [] markerLong;
+	private ProgressDialog pDialog;
+	
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -66,10 +71,10 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		latti = 0.0;
 		longi = 0.0;
 		current = new LatLng(0, 0);
+		markerSnippet = getIntent().getStringArrayExtra("markerSnippet");
+		markerLat = getIntent().getDoubleArrayExtra("markerLat");
+		markerLong = getIntent().getDoubleArrayExtra("markerLong");
 	
-		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
 		// Acquire a reference to the system Location Manager
 		LocationManager locationManager = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
@@ -108,6 +113,12 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		mapa.setOnMarkerClickListener(this);
 		mapa.setOnMarkerDragListener(this);
 		mapa.setOnInfoWindowClickListener(this);
+		
+		if(markerSnippet.length >=2) {
+			addMarker();
+			cleanMap();
+			drawRoute();
+		}
 	}
 
 	public void moveCamera(View view) {
@@ -116,7 +127,11 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 	}
 
 	public void guardar(View view) {
-		if(markers.size() >= 2) returnParams();
+		if(markers.size() >= 2) {
+			if(lines.size() >= 1)  returnParams();
+			else 
+				Toast.makeText(this, "Debe trazar una ruta primero", Toast.LENGTH_LONG).show();
+		}
 		else
 			Toast.makeText(this, "Necesita al menos dos ubicaciones", Toast.LENGTH_LONG).show();
 	}
@@ -134,16 +149,7 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		// Checks, whether start and end locations are captured
 		cleanMap();
 		if(markers.size() >= 2){					
-			LatLng origin = markers.get(0).getPosition();
-			LatLng dest = markers.get(markers.size()-1).getPosition();
-
-			// Getting URL to the Google Directions API
-			String url = getDirectionsUrl(origin, dest);				
-
-			DownloadTask downloadTask = new DownloadTask();
-
-			// Start downloading json data from Google Directions API
-			downloadTask.execute(url);
+			drawRoute();
 		} else
 			Toast.makeText(this, "Necesita al menos dos ubicaciones", Toast.LENGTH_LONG).show();
 	}
@@ -179,7 +185,18 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 	}
 
 	// Fetches data from url passed
-	private class DownloadTask extends AsyncTask<String, Void, String>{			
+	private class DownloadTask extends AsyncTask<String, Void, String>{	
+		
+		@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            
+            pDialog = new ProgressDialog(ViewMap.this);
+            pDialog.setMessage("Trazando Ruta...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
 
 		// Downloading data in non-ui thread
 		@Override
@@ -201,14 +218,16 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		// Executes in UI thread, after the execution of
 		// doInBackground()
 		@Override
-		protected void onPostExecute(String result) {			
-			super.onPostExecute(result);			
-
-			ParserTask parserTask = new ParserTask();
-
-			// Invokes the thread for parsing the JSON data
-			parserTask.execute(result);
-
+		protected void onPostExecute(final String result) {
+			pDialog.dismiss();
+			super.onPostExecute(result);
+    		runOnUiThread(new Runnable() {
+                public void run() {		
+        			ParserTask parserTask = new ParserTask();
+        			// Invokes the thread for parsing the JSON data
+        			parserTask.execute(result);
+                }
+            });
 		}		
 	}
 
@@ -291,6 +310,7 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		int index = markers.indexOf(marker);
 		markers.remove(marker);
 		nombresDestinos.remove(index);
+		cleanMap();
 	}
 
 	public void showName(LatLng point) {
@@ -322,6 +342,7 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 				Marker marker = mapa.addMarker(options);
 				markers.add(marker);
 				marker.setDraggable(true);
+				cleanMap();
 			}
 		})
 		.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -364,5 +385,42 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 	public void cleanMap() {
 		for(int i=0; i<lines.size(); ++i) lines.get(i).remove();
 		lines.clear();
+	}
+	@Override
+	public void onBackPressed() {
+	    // do nothing.
+	}
+	public void addMarker() {
+		markers.clear();
+		nombresDestinos.clear();
+		for(int i=0; i<markerSnippet.length; ++i) {
+			MarkerOptions options = new MarkerOptions();
+			LatLng position = new LatLng(markerLat[i], markerLong[i]);
+			nombresDestinos.add(markerSnippet[i]);
+			// Setting the position of the marker
+			options.position(position);
+			options.
+			icon(BitmapDescriptorFactory
+					.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+					.title("Punto de Encuentro")
+					.snippet(nombresDestinos.get(nombresDestinos.size()-1));			
+			
+			// Add new marker to the Google Map Android API V2
+			Marker marker = mapa.addMarker(options);
+			markers.add(marker);
+			marker.setDraggable(true);
+		}
+	}
+	public void drawRoute() {
+		LatLng origin = markers.get(0).getPosition();
+		LatLng dest = markers.get(markers.size()-1).getPosition();
+
+		// Getting URL to the Google Directions API
+		String url = getDirectionsUrl(origin, dest);				
+
+		DownloadTask downloadTask = new DownloadTask();
+
+		// Start downloading json data from Google Directions API
+		downloadTask.execute(url);
 	}
 }

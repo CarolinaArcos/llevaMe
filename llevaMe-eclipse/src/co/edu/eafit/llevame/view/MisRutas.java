@@ -48,4 +48,8 @@ public class MisRutas extends Activity {
 		Intent crearRuta = new Intent(this, FormularioCrearRuta.class);
     	startActivity(crearRuta);
 	}
+	@Override
+    public void onBackPressed() {
+    	
+    }
 }

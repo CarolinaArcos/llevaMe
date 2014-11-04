@@ -36,6 +36,10 @@ public class DetallesRutaPasajero extends Activity {
 	private int idConductor = 1;
 	
 	private ImageButton mapa;
+	private String [] markerSnippet = {""};
+	private double [] markerLat = {0.0};
+	private double [] markerLong = {0.0};
+	protected static final int REQUEST_CODE = 10;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -102,8 +106,11 @@ public class DetallesRutaPasajero extends Activity {
 	}
 	
 	public void desplegarMapa() {
-    	Intent intent = new Intent(this,ViewMap.class);
-    	startActivity(intent);
+		Intent intent = new Intent(this,ViewMap.class);
+    	intent.putExtra("markerSnippet", markerSnippet);
+		intent.putExtra("markerLat", markerLat);
+		intent.putExtra("markerLong", markerLong);
+        startActivityForResult(intent, REQUEST_CODE);
 	}
 	
 	public void volverAMenu() {
@@ -172,7 +179,14 @@ public class DetallesRutaPasajero extends Activity {
 			
 			
 		}
-
 	}
-	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == REQUEST_CODE) {
+	    	markerSnippet = data.getStringArrayExtra("markersSnippet");
+	    	markerLat = data.getDoubleArrayExtra("markersLat");
+	    	markerLong = data.getDoubleArrayExtra("markersLong");
+	    }
+	}
 }

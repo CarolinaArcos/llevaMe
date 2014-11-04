@@ -3,6 +3,7 @@ package co.edu.eafit.llevame.view;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import co.edu.eafit.llevame.R;
@@ -17,7 +18,7 @@ public class MenuTab extends TabActivity {
     private static final String SETTINGS = "Settings";
     private static final String ROUTES = "Routes";
     private static final String POINTS = "Points";
-     
+    
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,5 +73,9 @@ public class MenuTab extends TabActivity {
         tabHost.addTab(pointsSpec); // Adding Inbox tab
         tabHost.addTab(notificationsSpec); // Adding Outbox tab
         tabHost.addTab(settingsSpec); // Adding Profile tab
+    }
+    @Override
+    public void onBackPressed() {
+    	
     }
 }

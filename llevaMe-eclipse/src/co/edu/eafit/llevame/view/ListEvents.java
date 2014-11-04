@@ -356,4 +356,8 @@ public class ListEvents extends Activity {
             this.btnR = btnR;
         }
     }
+    @Override
+    public void onBackPressed() {
+    	
+    }
 }

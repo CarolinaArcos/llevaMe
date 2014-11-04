@@ -21,6 +21,18 @@
     </FrameLayout>
 
     <EditText
+        android:id="@+id/user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/frameLayout1"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:ems="10"
+        android:hint="Usuario"
+        android:inputType="text"
+        android:textSize="16sp" />
+    
+    <EditText
         android:id="@+id/password"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,18 +44,6 @@
         android:inputType="textPassword"
         android:textSize="16sp" />
 
-    <EditText
-        android:id="@+id/user"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/frameLayout1"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="24dp"
-        android:ems="10"
-        android:hint="Usuario"
-        android:inputType="text"
-        android:textSize="16sp" />
-
     <Button
         android:id="@+id/ingresar"
         android:layout_width="wrap_content"
@@ -51,6 +51,7 @@
         android:layout_below="@+id/password"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="29dp"
+        android:onClick="onLogin"
         android:text="Ingresar" />
 
     <TextView
@@ -95,6 +96,7 @@
         android:layout_alignBaseline="@+id/textView1"
         android:layout_alignBottom="@+id/textView1"
         android:layout_toRightOf="@+id/olvideUser"
+        android:onClick="onRegister"
         android:text="Crear Cuenta" />
 
 </RelativeLayout>

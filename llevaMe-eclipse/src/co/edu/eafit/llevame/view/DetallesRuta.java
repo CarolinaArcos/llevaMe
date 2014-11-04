@@ -39,9 +39,9 @@ public class DetallesRuta extends Activity{
 	private int idConductor = 1;//QUEMADO id del conductor de la ruta
 	
 	private ImageButton mapa;
-	private String [] markerSnippet;
-	private double [] markerLat;
-	private double [] markerLong;
+	private String [] markerSnippet = {""};
+	private double [] markerLat = {0.0};
+	private double [] markerLong = {0.0};
 	protected static final int REQUEST_CODE = 10;
 	
 
@@ -116,6 +116,9 @@ public class DetallesRuta extends Activity{
 	
 	public void desplegarMapa() {
     	Intent intent = new Intent(this,ViewMap.class);
+    	intent.putExtra("markerSnippet", markerSnippet);
+		intent.putExtra("markerLat", markerLat);
+		intent.putExtra("markerLong", markerLong);
         startActivityForResult(intent, REQUEST_CODE);
 	}
 	
@@ -182,15 +185,12 @@ public class DetallesRuta extends Activity{
 
 	}
 	@Override
-	   protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-	      super.onActivityResult(requestCode, resultCode, data);
-	      if (requestCode == REQUEST_CODE) {
-	         markerSnippet = data.getStringArrayExtra("markersSnippet");
-	         markerLat = data.getDoubleArrayExtra("markersLat");
-	         markerLong = data.getDoubleArrayExtra("markersLong");
-
-	         for(int i=0; i<markerSnippet.length; ++i)
-	         Toast.makeText(this, "ViewMap devolvio: " + markerSnippet[i] + " Lat: " + markerLat[i] + " Long: " + markerLong[i], Toast.LENGTH_LONG).show();
-	      }
-	   }
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == REQUEST_CODE) {
+	    	markerSnippet = data.getStringArrayExtra("markersSnippet");
+	    	markerLat = data.getDoubleArrayExtra("markersLat");
+	    	markerLong = data.getDoubleArrayExtra("markersLong");
+	    }
+	}
 }

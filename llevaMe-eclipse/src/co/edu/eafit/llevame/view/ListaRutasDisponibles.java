@@ -117,6 +117,10 @@ public class ListaRutasDisponibles extends Activity {
     	}
 
     }
+    @Override
+    public void onBackPressed() {
+    	
+    }
 
 }
 

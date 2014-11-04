@@ -32,6 +32,10 @@ public class DetallesRutaConductor extends Activity {
 	private int[] idPasajeros = {1, 2};//TODO: obtener los pasajeros de la ruta
 	
 	private ImageButton mapa;
+	private String [] markerSnippet = {""};
+	private double [] markerLat = {0.0};
+	private double [] markerLong = {0.0};
+	protected static final int REQUEST_CODE = 10;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -87,8 +91,11 @@ public class DetallesRutaConductor extends Activity {
 	}
 	
 	public void desplegarMapa() {
-    	Intent intent = new Intent(this,ViewMap.class);
-    	startActivity(intent);
+		Intent intent = new Intent(this,ViewMap.class);
+    	intent.putExtra("markerSnippet", markerSnippet);
+		intent.putExtra("markerLat", markerLat);
+		intent.putExtra("markerLong", markerLong);
+        startActivityForResult(intent, REQUEST_CODE);
 	}
 	
 	public void onIniciar(View view) {
@@ -196,6 +203,13 @@ public class DetallesRutaConductor extends Activity {
 		}
 	
 	}
-
-
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		super.onActivityResult(requestCode, resultCode, data);
+		if (requestCode == REQUEST_CODE) {
+	    	markerSnippet = data.getStringArrayExtra("markersSnippet");
+	    	markerLat = data.getDoubleArrayExtra("markersLat");
+	    	markerLong = data.getDoubleArrayExtra("markersLong");
+	    }
+	}
 }

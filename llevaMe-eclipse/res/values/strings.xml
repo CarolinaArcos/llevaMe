@@ -2,20 +2,19 @@
 <resources>
 
     <string name="app_name">llevaMe</string>
-    <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
-    <string name="title_activity_formulario_crear_ruta">FormularioCrearRuta</string>
-    <string name="title_activity_detalles_ruta">DetallesRuta</string>
+    <string name="action_settings">Ajustes</string>
+    <string name="title_activity_formulario_crear_ruta">Formulario Crear Ruta</string>
+    <string name="title_activity_detalles_ruta">Detalles Ruta</string>
     <string name="title_activity_view_map">Mapa</string>
-    <string name="title_activity_rutas_conductor">RutasConductor</string>
-    <string name="title_activity_rutas_pasajero">RutasPasajero</string>
-    <string name="title_activity_detalles_ruta_pasajero">DetallesRutaPasajero</string>
-    <string name="title_activity_detalles_ruta_conductor">DetallesRutaConductor</string>
-    <string name="title_activity_mis_rutas">MisRutas</string>
-    <string name="title_activity_menu_tab">MenuTab</string>
-    <string name="title_activity_list_events">ListEvents</string>
-    <string name="title_activity_register_view">RegisterView</string>
-    <string name="title_activity_login_view">LoginView</string>
+    <string name="title_activity_rutas_conductor">Rutas Conductor</string>
+    <string name="title_activity_rutas_pasajero">Rutas Pasajero</string>
+    <string name="title_activity_detalles_ruta_pasajero">Detalles Ruta Pasajero</string>
+    <string name="title_activity_detalles_ruta_conductor">Detalles Ruta Conductor</string>
+    <string name="title_activity_mis_rutas">Mis Rutas</string>
+    <string name="title_activity_menu_tab">llevaMe</string>
+    <string name="title_activity_list_events">Notificaciones</string>
+    <string name="title_activity_register_view">Registrarse</string>
+    <string name="title_activity_login_view">Iniciar Sesión</string>
     <string name="forgotUser"><u>Olvide mi usuario</u></string>
     <string name="forgotPass"><u>Olvide mi contraseña</u></string>
     <string name="title_activity_invitacion">Invitacion</string>
