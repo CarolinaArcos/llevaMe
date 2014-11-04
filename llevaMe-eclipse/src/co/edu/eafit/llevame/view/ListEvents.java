@@ -270,7 +270,7 @@ public class ListEvents extends Activity {
                 	
                 	TextView textView = (TextView) convertView.findViewById(R.id.msj);
                 	
-                	Button btnA = (Button) convertView.findViewById(R.id.aceptarBtn);
+                	Button btnA = (Button) convertView.findViewById(R.id.aceptar);
                 	Button btnR = (Button) convertView.findViewById(R.id.rechazar);
                 	btnA.setTag(position);
                 	btnR.setTag(position);
