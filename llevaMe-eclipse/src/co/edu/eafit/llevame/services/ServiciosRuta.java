@@ -46,7 +46,6 @@ public class ServiciosRuta {
 			HttpResponse resp = httpClient.execute(del);
 			String respStr = EntityUtils.toString(resp.getEntity());
 			return respStr;
-
 		}
 
 		catch(Exception ex)
@@ -105,7 +104,6 @@ public class ServiciosRuta {
 		}
 
 		return ruta;
-
 	}
 	
 	public Ruta[] getArregloRutas(String urlRuta) {
@@ -137,7 +135,6 @@ public class ServiciosRuta {
 			Log.e("ServicioRest","Error!", ex);
 			return null;
 		}
-
 	}
 	
 	public void addRuta(Ruta ruta) {
@@ -154,7 +151,6 @@ public class ServiciosRuta {
 			r.put("placa", ruta.getPlaca());
 			
 			StringEntity entity = new StringEntity(r.toString());
-			Log.d("entity", r.toString());
 			post.setEntity(entity);
 		} catch (Exception ex) {
 			Log.e("ServicioRest","Error!", ex);

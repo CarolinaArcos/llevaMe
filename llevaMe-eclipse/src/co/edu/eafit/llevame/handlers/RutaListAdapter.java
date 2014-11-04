@@ -56,7 +56,4 @@ public class RutaListAdapter extends ArrayAdapter<Ruta>{
 		 
 		return convertView;
 	}
-	
-	
-
 }

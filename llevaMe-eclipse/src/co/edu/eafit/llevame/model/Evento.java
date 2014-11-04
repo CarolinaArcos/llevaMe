@@ -6,14 +6,6 @@ public class Evento {
 	private int idUsuario;//id del receptor de la invitacion
 	protected boolean esNotificacion;
 
-	public boolean getEsNotificacion() {
-		return esNotificacion;
-	}
-
-	public void setEsNotificacion(boolean esNotificacion) {
-		this.esNotificacion = esNotificacion;
-	}
-
 	public Evento(){
 		
 	}
@@ -25,6 +17,14 @@ public class Evento {
 		this.esNotificacion= esNotificacion;
 	}
 	
+	public boolean getEsNotificacion() {
+		return esNotificacion;
+	}
+
+	public void setEsNotificacion(boolean esNotificacion) {
+		this.esNotificacion = esNotificacion;
+	}
+
 	public String getMensaje() {
 		return mensaje;
 	}
