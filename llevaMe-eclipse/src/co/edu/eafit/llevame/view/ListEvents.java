@@ -51,7 +51,6 @@ public class ListEvents extends Activity {
 		 new RechazarInvitacion().execute(inv);
 	}
 	
-
 	public class AceptarInvitacion extends AsyncTask<Invitacion, Void, Void> {
     	
     	@Override
@@ -69,8 +68,6 @@ public class ListEvents extends Activity {
     		Invitacion inv = params[0];
     		switch (inv.getTipo()){
     			case Invitacion.RUTA: //ruta
-    				Log.d("ruta", inv.getIdRef2().toString());
-    				Log.d("usr",  inv.getIdRef().toString());
     				ServiciosRuta.getInstancia().vincularPasajero(inv.getIdRef2(), inv.getIdRef());
     				
     				//notificar usuario que se acepto
@@ -93,9 +90,6 @@ public class ListEvents extends Activity {
 					//TODO: ERROR
     		}
     		
-
-    		
-    		
     		return null;
     	}
 
@@ -109,7 +103,6 @@ public class ListEvents extends Activity {
                 }
             });
     	}
-    	
     	
     }
 	
@@ -144,10 +137,7 @@ public class ListEvents extends Activity {
 				default:
 					//TODO: ERROR
     		}
-    		
 
-    		
-    		
     		return null;
     	}
 
@@ -161,7 +151,6 @@ public class ListEvents extends Activity {
                 }
             });
     	}
-    	
     	
     }
 	
@@ -209,9 +198,7 @@ public class ListEvents extends Activity {
                 }
             });
     		eventos = e;
-    	}
-    	
-    	
+    	}	
     }
     
     public class ListViewItem {
@@ -283,7 +270,7 @@ public class ListEvents extends Activity {
                 	
                 	TextView textView = (TextView) convertView.findViewById(R.id.msj);
                 	
-                	Button btnA = (Button) convertView.findViewById(R.id.aceptarBtn);
+                	Button btnA = (Button) convertView.findViewById(R.id.aceptar);
                 	Button btnR = (Button) convertView.findViewById(R.id.rechazar);
                 	btnA.setTag(position);
                 	btnR.setTag(position);
@@ -312,10 +299,7 @@ public class ListEvents extends Activity {
                 viewHolder = (ViewHolder) convertView.getTag();
             }
             viewHolder.getText().setText(listViewItem.getText());
-            
-            
-            
-            
+
             return convertView;
         }
     }

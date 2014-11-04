@@ -51,7 +51,6 @@ public class ServiciosEvento {
 		HttpClient httpClient = new DefaultHttpClient();
 
 		HttpGet del = new HttpGet(url);
-
 		del.setHeader("content-type", "application/json");
 
 		try
@@ -59,7 +58,6 @@ public class ServiciosEvento {
 			HttpResponse resp = httpClient.execute(del);
 			String respStr = EntityUtils.toString(resp.getEntity());
 			return respStr;
-
 		}
 
 		catch(Exception ex)
@@ -125,6 +123,7 @@ public class ServiciosEvento {
 		
 		String url = ServerHandler.IP.concat("/eventos");
 		HttpPost post = getServerResponsePost(url);
+		
 		try {
 			JSONObject i = new JSONObject();
 			i.put("esNotificacion", invitacion.getEsNotificacion());
@@ -136,7 +135,6 @@ public class ServiciosEvento {
 			i.put("idRef2", invitacion.getIdRef2());
 			
 			StringEntity entity = new StringEntity(i.toString());
-			Log.d("entity", i.toString());
 			post.setEntity(entity);
 		} catch (Exception ex) {
 			Log.e("ServicioRest","Error!", ex);
@@ -162,7 +160,6 @@ public class ServiciosEvento {
 			i.put("idUsuario", notificacion.getIdUsuario());
 			
 			StringEntity entity = new StringEntity(i.toString());
-			Log.d("entity", i.toString());
 			post.setEntity(entity);
 		} catch (Exception ex) {
 			Log.e("ServicioRest","Error!", ex);

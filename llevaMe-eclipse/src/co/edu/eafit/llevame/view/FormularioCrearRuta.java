@@ -1,17 +1,12 @@
 package co.edu.eafit.llevame.view;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
-import com.google.android.gms.common.data.DataHolder;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -21,6 +16,7 @@ import android.widget.ImageButton;
 import android.widget.Toast;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.model.Ubicacion;
 import co.edu.eafit.llevame.services.ServiciosRuta;
 
 public class FormularioCrearRuta extends Activity {
@@ -50,16 +46,12 @@ public class FormularioCrearRuta extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.formulario_crear_ruta, menu);
 		return true;
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle action bar item clicks here. The action bar will
-		// automatically handle clicks on the Home/Up button, so long
-		// as you specify a parent activity in AndroidManifest.xml.
 		int id = item.getItemId();
 		if (id == R.id.action_settings) {
 			return true;
@@ -71,15 +63,13 @@ public class FormularioCrearRuta extends Activity {
 		boolean correct = validarFormulario();
 		if (correct ==true) {
 			Ruta r = crearRuta();
-			new añadirRuta(r).execute();
+			new addRuta(r).execute();
     		Toast toast = Toast.makeText(this, "Su ruta ha sido creada exitosamente", 3);
     		toast.show(); 	
 		} else {
-			Log.d("error", "formulario invalido");
-			Toast toast = Toast.makeText(this, "Favor ingrese los datos correctos", 3);
+			Toast toast = Toast.makeText(this, "Formulario Invalido. Favor ingrese los datos correctos", 3);
 			toast.show();
 		}
-
 	}
 	
 	public Ruta crearRuta() {
@@ -92,6 +82,7 @@ public class FormularioCrearRuta extends Activity {
 		
 		String dataHora = hora.getText().toString();
 		String dataFecha = fecha.getText().toString();
+		dataFecha.replace('/', '-');//pasar a AAAA-MM-DD
 		String dataCupo = cupo.getText().toString();
 		int numeroCupo = -1;
 		if(!dataCupo.equals("") && (Integer.parseInt(dataCupo)>0)) numeroCupo = Integer.parseInt(dataCupo);
@@ -103,16 +94,22 @@ public class FormularioCrearRuta extends Activity {
 		
 		//TODO: obtener el nombre de usuario que inicio sesion
 		
-		//TODO: obtener mapa
+		//obtener recorrido
+		Ubicacion[] recorrido = new Ubicacion[markerSnippet.length];
+		for(int i = 0; i< recorrido.length; i++){
+			Ubicacion u = new Ubicacion();
+			
+			u.setNombre(markerSnippet[i]);
+			u.setLatitud(markerLat[i]);
+			u.setLongitud(markerLong[i]);
+			
+			recorrido[i] = u;
+		}
+		
 		
 		Ruta ruta = new Ruta(0, dataName, fechaHora, numeroCupo, dataDescripcion, dataPlaca);
+		ruta.setRecorrido(recorrido);
 		return ruta;
-	}
-
-	
-	public void lanzarListaRutas(){
-		Intent lista = new Intent(this, ListaRutasDisponibles.class);
-		startActivity(lista);
 	}
 	
 	public void desplegarMapa() {
@@ -138,25 +135,25 @@ public class FormularioCrearRuta extends Activity {
 		String dataPlaca = placa.getText().toString();
 		String dataDescripcion = descripcion.getText().toString();
 		
-		//Validacion que no sean vacío
+		//Validacion que no sean vacï¿½o
 		if(!validarContenido(dataName)) {
-			toast("El Nombre no puede ser vacío");
+			toast("El Nombre no puede ser vacï¿½o");
 			return false;
 		}
 		if(!validarContenido(dataFecha)) {
-			toast("La Fecha no puede ser vacío");
+			toast("La Fecha no puede ser vacï¿½o");
 			return false;
 		}
 		if(!validarContenido(dataHora)) {
-			toast("La Hora no puede ser vacío");
+			toast("La Hora no puede ser vacï¿½o");
 			return false;
 		}
 		if(!validarContenido(dataCupo)) {
-			toast("El Cupo no puede ser vacío");
+			toast("El Cupo no puede ser vacï¿½o");
 			return false;
 		}
 		if(!validarContenido(dataPlaca)) {
-			toast("La Placa no puede ser vacío");
+			toast("La Placa no puede ser vacï¿½o");
 			return false;
 		}
 		//Validacion longitud
@@ -167,17 +164,17 @@ public class FormularioCrearRuta extends Activity {
 		
 		String dia = dataFecha.substring(8);
 		String mes = dataFecha.substring(5,7);
-		String año = dataFecha.substring(0,4);
+		String year = dataFecha.substring(0,4);
 		String hour = dataHora.substring(0,2);
 		String minute = dataHora.substring(3);
 		
 		//Validacion numeros		
 		if(!isNumeric(dataCupo)) {
-			toast("El cupo debe ser un núero");
+			toast("El cupo debe ser un nï¿½ero");
 			return false;
 		}
-		if ((!isNumeric(dia)) || (!isNumeric(mes)) || (!isNumeric(año))) {
-			toast("El dia, el mes y el año de la fecha deben ser numeros");
+		if ((!isNumeric(dia)) || (!isNumeric(mes)) || (!isNumeric(year))) {
+			toast("El dia, el mes y el year de la fecha deben ser numeros");
 			return false;
 		}
 		if (!isNumeric(hour) || !isNumeric(minute)) {
@@ -192,13 +189,14 @@ public class FormularioCrearRuta extends Activity {
 			return false;
 		}
 		//Validacion caracteres
-		if (dataFecha.charAt(4)!='/' ||dataFecha.charAt(7)!='/' || 
-				dataHora.charAt(2)!=':') {
+		if ((dataFecha.charAt(4)!='/' && dataFecha.charAt(4)!='-')
+			|| (dataFecha.charAt(7)!='/' && dataFecha.charAt(7)!='-')
+			|| dataHora.charAt(2)!=':') {
 			toast("Formato de Hora y/o Fecha incorrecto");
 			return false;
 		}
 		//Validacion fecha y hora futuras
-		if (validarFechaFuruta(año, mes, dia, hour, minute)) {
+		if (validarFechaFuruta(year, mes, dia, hour, minute)) {
 			toast("Fecha incorrecta, el dia ingresado ya paso");
 			return false;
 		}
@@ -213,12 +211,12 @@ public class FormularioCrearRuta extends Activity {
 		return true;
 	}
 	
-	public boolean validarFechaFuruta(String año, String mes, String dia, 
+	public boolean validarFechaFuruta(String year, String mes, String dia, 
 			String hour, String minute) {
 		
 		Date tiempoActual = Calendar.getInstance().getTime();
 		Calendar cal = Calendar.getInstance();
-		cal.set(Integer.parseInt(año), Integer.parseInt(mes),
+		cal.set(Integer.parseInt(year), Integer.parseInt(mes),
 				Integer.parseInt(dia), Integer.parseInt(hour), Integer.parseInt(minute));
 		Date calIngresado = cal.getTime();
 		boolean after = tiempoActual.after(calIngresado);
@@ -246,20 +244,21 @@ public class FormularioCrearRuta extends Activity {
 		 } catch (NumberFormatException nfe){
 		  return false;
 		 }
-		}
+	}
 	
-	private class añadirRuta extends AsyncTask<Ruta, Void, Void> {
+	private class addRuta extends AsyncTask<Ruta, Void, Void> {
 
 		Ruta ruta = new Ruta();
 		
-    	public añadirRuta(Ruta ruta){
+    	public addRuta(Ruta ruta){
     		super();
     		this.ruta = ruta;
     	}
 
-    	//@Override
+    	@Override
     	protected Void doInBackground(Ruta...params) {
     		ServiciosRuta.getInstancia().addRuta(ruta);
+    		ServiciosRuta.getInstancia().ingresarRecorrido(ruta.getRecorrido(), ruta.getId());
     		return null;
     	}
 

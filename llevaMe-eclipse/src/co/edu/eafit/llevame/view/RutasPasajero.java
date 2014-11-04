@@ -23,7 +23,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class RutasPasajero extends Activity {
 	
 	private ListView lista;
-	private int idUsuario = 1;
+	private int idUsuario = 1; //TODO: obtener usuario
 	private ProgressDialog pDialog;
 	private boolean cargado;
 
@@ -58,7 +58,6 @@ public class RutasPasajero extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.rutas_pasajero, menu);
-		
 		return true;
 	}
 

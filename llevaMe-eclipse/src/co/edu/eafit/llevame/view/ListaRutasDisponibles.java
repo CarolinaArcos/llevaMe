@@ -51,7 +51,6 @@ public class ListaRutasDisponibles extends Activity {
     	startActivity(intent);
     }
     
-    
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {       
     	getMenuInflater().inflate(R.menu.main, menu);
@@ -106,7 +105,6 @@ public class ListaRutasDisponibles extends Activity {
 
     	@Override
     	protected void onPostExecute(final Ruta[] r){
-    		Log.d("Post exc", "entro");
     		pDialog.dismiss();
     		runOnUiThread(new Runnable() {
                 public void run() {

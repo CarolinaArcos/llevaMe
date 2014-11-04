@@ -48,8 +48,7 @@ public class DetallesRutaConductor extends Activity {
 				//TODO: poner mensaje de error
 			}else {
 				id = lastId;
-			}
-				
+			}		
 		}
 		lastId = id;
 		
@@ -62,6 +61,7 @@ public class DetallesRutaConductor extends Activity {
 		descripcion = (EditText) findViewById(R.id.descripcionConductor);
 		
 		mapa = (ImageButton) findViewById(R.id.image);
+		//TODO: corregir
 //		mapa.setOnClickListener(new OnClickListener() {
 //			 
 //			@Override
@@ -72,7 +72,7 @@ public class DetallesRutaConductor extends Activity {
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
-		new TraerRuta(this).execute(""+id);
+		new TraerRuta().execute(""+id);
 	}
 
 	@Override
@@ -99,11 +99,11 @@ public class DetallesRutaConductor extends Activity {
 	}
 	
 	public void onIniciar(View view) {
-		new IniciarRuta(this).execute(""+id);
+		new IniciarRuta().execute(""+id);
 	}
 	
 	public void onFinalizar(View view) {
-		new FinalizarRuta(this).execute(""+id);
+		new FinalizarRuta().execute(""+id);
 	}
 	
 	public void volverAMenu() {
@@ -111,24 +111,19 @@ public class DetallesRutaConductor extends Activity {
 	}
 	
 	public class TraerRuta extends AsyncTask<String, Void, Ruta> {
-
-		private Activity activity;
 		
-		public TraerRuta(Activity activity){
+		public TraerRuta(){
 			super();
-			this.activity = activity;
 		}
 
 		@Override
 		protected Ruta doInBackground(String...params) {
 			return ServiciosRuta.getInstancia().getRuta(""+id);
-			
 		}
 
 		@Override
 		protected void onPostExecute(Ruta r){
 
-			Log.d("id in post", ""+id);
 			//Tomar valores de r
 			String name = r.getNombre();
 			String date = r.getFecha().substring(0, 10);
@@ -143,7 +138,7 @@ public class DetallesRutaConductor extends Activity {
 			cupo.setText(capacity);
 			placa.setText(pla);
 			descripcion.setText(desctiption);
-			//pasajeros.setText();
+			//TODO: pasajeros.setText();
 			
 		}
 		
@@ -151,11 +146,8 @@ public class DetallesRutaConductor extends Activity {
 	
 	public class IniciarRuta extends AsyncTask<String, Void, Void> {
 
-		private Activity activity;
-		
-		public IniciarRuta(Activity activity){
+		public IniciarRuta(){
 			super();
-			this.activity = activity;
 		}
 
 		@Override
@@ -178,11 +170,9 @@ public class DetallesRutaConductor extends Activity {
 	
 	public class FinalizarRuta extends AsyncTask<String, Void, Void> {
 
-		private Activity activity;
 		
-		public FinalizarRuta(Activity activity){
+		public FinalizarRuta(){
 			super();
-			this.activity = activity;
 		}
 
 		@Override
@@ -201,8 +191,8 @@ public class DetallesRutaConductor extends Activity {
 				ServiciosEvento.getInstancia().ingresarNotificacion(n);
 			}
 		}
-	
 	}
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

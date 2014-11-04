@@ -8,6 +8,8 @@ public class Ruta {
 	private String descripcion;
 	private String placa;
 	
+	private Ubicacion[] recorrido;
+	
 	public Ruta(){
 		
 	}
@@ -30,15 +32,7 @@ public class Ruta {
 		this.capacidad = capacidad;
 		this.descripcion = descripcion;
 	}
-	
-	public void Iniciar(){
-		
-	}
-	
-	public void Terminar(){
-		
-	}
-	
+
 	public int getId() {
 		return id;
 	}
@@ -50,30 +44,31 @@ public class Ruta {
 	public String getNombre() {
 		return nombre;
 	}
+	
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 	
-	
 	public String getFecha() {
 		return fecha;
 	}
+	
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
-	
-	
+		
 	public int getCapacidad() {
 		return capacidad;
 	}
+
 	public void setCapacidad(int capacidad) {
 		this.capacidad = capacidad;
 	}
 	
-	
 	public String getDescripcion() {
 		return descripcion;
 	}
+	
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
@@ -84,5 +79,13 @@ public class Ruta {
 
 	public void setPlaca(String placa) {
 		this.placa = placa;
+	}
+
+	public Ubicacion[] getRecorrido() {
+		return recorrido;
+	}
+
+	public void setRecorrido(Ubicacion[] recorrido) {
+		this.recorrido = recorrido;
 	}
 }
