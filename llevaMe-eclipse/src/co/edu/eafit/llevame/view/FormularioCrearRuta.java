@@ -71,7 +71,7 @@ public class FormularioCrearRuta extends Activity {
 		boolean correct = validarFormulario();
 		if (correct ==true) {
 			Ruta r = crearRuta();
-			new añadirRuta(r).execute();
+			new addRuta(r).execute();
     		Toast toast = Toast.makeText(this, "Su ruta ha sido creada exitosamente", 3);
     		toast.show(); 	
 		} else {
@@ -135,25 +135,25 @@ public class FormularioCrearRuta extends Activity {
 		String dataPlaca = placa.getText().toString();
 		String dataDescripcion = descripcion.getText().toString();
 		
-		//Validacion que no sean vacío
+		//Validacion que no sean vacï¿½o
 		if(!validarContenido(dataName)) {
-			toast("El Nombre no puede ser vacío");
+			toast("El Nombre no puede ser vacï¿½o");
 			return false;
 		}
 		if(!validarContenido(dataFecha)) {
-			toast("La Fecha no puede ser vacío");
+			toast("La Fecha no puede ser vacï¿½o");
 			return false;
 		}
 		if(!validarContenido(dataHora)) {
-			toast("La Hora no puede ser vacío");
+			toast("La Hora no puede ser vacï¿½o");
 			return false;
 		}
 		if(!validarContenido(dataCupo)) {
-			toast("El Cupo no puede ser vacío");
+			toast("El Cupo no puede ser vacï¿½o");
 			return false;
 		}
 		if(!validarContenido(dataPlaca)) {
-			toast("La Placa no puede ser vacío");
+			toast("La Placa no puede ser vacï¿½o");
 			return false;
 		}
 		//Validacion longitud
@@ -164,17 +164,17 @@ public class FormularioCrearRuta extends Activity {
 		
 		String dia = dataFecha.substring(8);
 		String mes = dataFecha.substring(5,7);
-		String año = dataFecha.substring(0,4);
+		String year = dataFecha.substring(0,4);
 		String hour = dataHora.substring(0,2);
 		String minute = dataHora.substring(3);
 		
 		//Validacion numeros		
 		if(!isNumeric(dataCupo)) {
-			toast("El cupo debe ser un núero");
+			toast("El cupo debe ser un nï¿½ero");
 			return false;
 		}
-		if ((!isNumeric(dia)) || (!isNumeric(mes)) || (!isNumeric(año))) {
-			toast("El dia, el mes y el año de la fecha deben ser numeros");
+		if ((!isNumeric(dia)) || (!isNumeric(mes)) || (!isNumeric(year))) {
+			toast("El dia, el mes y el year de la fecha deben ser numeros");
 			return false;
 		}
 		if (!isNumeric(hour) || !isNumeric(minute)) {
@@ -195,7 +195,7 @@ public class FormularioCrearRuta extends Activity {
 			return false;
 		}
 		//Validacion fecha y hora futuras
-		if (validarFechaFuruta(año, mes, dia, hour, minute)) {
+		if (validarFechaFuruta(year, mes, dia, hour, minute)) {
 			toast("Fecha incorrecta, el dia ingresado ya paso");
 			return false;
 		}
@@ -210,12 +210,12 @@ public class FormularioCrearRuta extends Activity {
 		return true;
 	}
 	
-	public boolean validarFechaFuruta(String año, String mes, String dia, 
+	public boolean validarFechaFuruta(String year, String mes, String dia, 
 			String hour, String minute) {
 		
 		Date tiempoActual = Calendar.getInstance().getTime();
 		Calendar cal = Calendar.getInstance();
-		cal.set(Integer.parseInt(año), Integer.parseInt(mes),
+		cal.set(Integer.parseInt(year), Integer.parseInt(mes),
 				Integer.parseInt(dia), Integer.parseInt(hour), Integer.parseInt(minute));
 		Date calIngresado = cal.getTime();
 		boolean after = tiempoActual.after(calIngresado);
@@ -245,11 +245,11 @@ public class FormularioCrearRuta extends Activity {
 		 }
 		}
 	
-	private class añadirRuta extends AsyncTask<Ruta, Void, Void> {
+	private class addRuta extends AsyncTask<Ruta, Void, Void> {
 
 		Ruta ruta = new Ruta();
 		
-    	public añadirRuta(Ruta ruta){
+    	public addRuta(Ruta ruta){
     		super();
     		this.ruta = ruta;
     	}
