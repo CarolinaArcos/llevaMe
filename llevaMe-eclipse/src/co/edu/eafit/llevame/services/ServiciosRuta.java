@@ -160,6 +160,8 @@ public class ServiciosRuta {
 		try {
 			HttpResponse resp = httpClient.execute(post);
 			String respStr = EntityUtils.toString(resp.getEntity());
+			JSONObject rutaNueva = new JSONObject(respStr);
+			ruta.setId(rutaNueva.getInt("id"));
 		} catch (Exception ex){
 			Log.e("Error", "e");
 		}
