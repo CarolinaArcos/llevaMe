@@ -230,9 +230,10 @@ public class ServiciosRuta {
 		}
 	}
 	
-	public void vincularPasajero(int idRuta, int idPasajero) {
+	public void vincularPasajero(int idRuta, int idPasajero, int idUbicacion) {
 		
-		String url = ServerHandler.IP.concat("/rutas/pasajeros?ruta="+idRuta+"&usuario="+idPasajero);
+		String url = ServerHandler.IP.concat("/rutas/pasajeros?ruta="+idRuta+"&usuario="+idPasajero
+				+"&idUbicacion="+idUbicacion);
 		HttpPost post = getServerResponsePost(url);
 		
 		HttpClient httpClient = new DefaultHttpClient();

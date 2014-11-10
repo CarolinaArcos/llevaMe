@@ -11,6 +11,7 @@ public class Invitacion extends Evento{
 	private Integer tipo;
 	private Integer idRef;//id del usuario que envia la invitacion
 	private Integer idRef2;//solo para tipo ruta, el id de la ruta involucrada
+	private Integer idRef3;//solo par tipo ruta, el id de la ubicacion en que se recoge a el usr
 
 	public Invitacion(){
 		super();
@@ -27,13 +28,14 @@ public class Invitacion extends Evento{
 	
 	//Solicitud de cupo para una ruta
 	public Invitacion(int id, String msj, int idUsr, boolean aceptado, int tipo,
-			int idRef, int idRef2){
+			int idRef, int idRef2, int idRef3){
 		
 		super(id, msj, idUsr, false);
 		this.aceptado = aceptado;
 		this.tipo = tipo;
 		this.idRef = idRef;
 		this.idRef2 = idRef2;
+		this.idRef3 = idRef3;
 	}
 	
 	public boolean isAceptado() {
@@ -66,5 +68,13 @@ public class Invitacion extends Evento{
 
 	public void setIdRef2(Integer idRef2) {
 		this.idRef2 = idRef2;
+	}
+
+	public Integer getIdRef3() {
+		return idRef3;
+	}
+
+	public void setIdRef3(Integer idRef3) {
+		this.idRef3 = idRef3;
 	}
 }

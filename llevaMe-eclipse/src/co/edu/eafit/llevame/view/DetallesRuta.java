@@ -1,14 +1,9 @@
 package co.edu.eafit.llevame.view;
 
-import java.util.ArrayList;
-
-import com.google.android.gms.maps.model.Marker;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -35,6 +30,7 @@ public class DetallesRuta extends Activity{
 	private int id = -1; //id de la ruta
 	private int idUsuario = 1; //QUEMADO usuario logeado
 	private int idConductor = 1;//QUEMADO id del conductor de la ruta
+	private int puntoRecogida = 1;//QUEMADO id de la ubicacion en la que se recoger el usr
 	
 	private ImageButton mapa;
 	private String [] markerSnippet = {""};
@@ -97,7 +93,7 @@ public class DetallesRuta extends Activity{
 
 	public void onllevaMe(View view) {
 		Invitacion invitacion = new Invitacion(-1, idUsuario+" ha solicitado un cupo en tu ruta",
-				idConductor, false, Invitacion.RUTA, idUsuario, id);
+				idConductor, false, Invitacion.RUTA, idUsuario, id, puntoRecogida);
 		
 		new SolicitarCupo().execute(invitacion);	
 	}

@@ -68,7 +68,8 @@ public class ListEvents extends Activity {
     		Invitacion inv = params[0];
     		switch (inv.getTipo()){
     			case Invitacion.RUTA: //ruta
-    				ServiciosRuta.getInstancia().vincularPasajero(inv.getIdRef2(), inv.getIdRef());
+    				ServiciosRuta.getInstancia().vincularPasajero(inv.getIdRef2(), inv.getIdRef(),
+    						inv.getIdRef3());
     				
     				//notificar usuario que se acepto
     				Notificacion n = new Notificacion(-1, 

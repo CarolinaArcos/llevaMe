@@ -89,6 +89,7 @@ public class ServiciosEvento {
 					
 					if(oneEvento.getTipo()==Invitacion.RUTA){
 						oneEvento.setIdRef2(evento.getInt("idRef2"));
+						oneEvento.setIdRef3(evento.getInt("idRef3"));
 					}
 					
 					eventos[i] = oneEvento;
