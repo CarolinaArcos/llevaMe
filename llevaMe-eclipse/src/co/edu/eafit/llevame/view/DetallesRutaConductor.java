@@ -152,7 +152,7 @@ public class DetallesRutaConductor extends Activity {
 
 		@Override
 		protected Void doInBackground(String...params) {
-			ServiciosRuta.getInstancia().iniciarRuta(id+"?estado=true");
+			ServiciosRuta.getInstancia().iniciarRuta(id);
 			return null;
 			
 		}
@@ -177,7 +177,7 @@ public class DetallesRutaConductor extends Activity {
 
 		@Override
 		protected Void doInBackground(String...params) {
-			ServiciosRuta.getInstancia().finalizarRuta(id+"");
+			ServiciosRuta.getInstancia().finalizarRuta(id);
 			return null;
 			
 		}

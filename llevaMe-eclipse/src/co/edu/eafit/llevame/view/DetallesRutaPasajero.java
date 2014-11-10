@@ -4,11 +4,9 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
@@ -17,7 +15,6 @@ import co.edu.eafit.llevame.model.Notificacion;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
-import co.edu.eafit.llevame.view.DetallesRuta.TraerRuta;
 
 public class DetallesRutaPasajero extends Activity {
 	
@@ -123,7 +120,7 @@ public class DetallesRutaPasajero extends Activity {
 		@Override
 		protected Void doInBackground(String...params) {
 			//TODO: pasar usuario
-			ServiciosRuta.getInstancia().dejarRuta("pasajeros?ruta="+id+"&usuario="+idUsuario);
+			ServiciosRuta.getInstancia().dejarRuta(id, idUsuario);
 			return null;
 		}
 

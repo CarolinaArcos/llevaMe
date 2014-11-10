@@ -100,7 +100,7 @@ public class RutasConductor extends Activity {
 
     	@Override
     	protected Ruta[] doInBackground(Void... params) {
-    		return ServiciosRuta.getInstancia().getArregloRutas("/rutas/conductor/"+idUsuario);
+    		return ServiciosRuta.getInstancia().getArregloRutasConductor(idUsuario);
     	}
 
     	@Override

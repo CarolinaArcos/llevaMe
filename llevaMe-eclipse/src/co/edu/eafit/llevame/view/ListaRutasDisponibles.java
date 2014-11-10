@@ -5,7 +5,6 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -100,7 +99,7 @@ public class ListaRutasDisponibles extends Activity {
 
     	@Override
     	protected Ruta[] doInBackground(Void... params) {
-    		return ServiciosRuta.getInstancia().getArregloRutas("/rutas");
+    		return ServiciosRuta.getInstancia().getArregloRutas();
     	}
 
     	@Override

@@ -63,7 +63,7 @@
 
         <activity
             android:name=".view.ViewMap"
-            android:label="@string/title_activity_view_map">      
+            android:label="@string/title_activity_view_map" >
         </activity>
         <activity
             android:name=".view.RutasConductor"
@@ -104,20 +104,14 @@
         <activity
             android:name=".view.MenuTab"
             android:label="@string/title_activity_menu_tab" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity
             android:name=".view.ListEvents"
             android:label="@string/title_activity_list_events" >
-            
         </activity>
         <activity
             android:name=".view.RegisterView"
-            android:label="@string/title_activity_register_view" 
+            android:label="@string/title_activity_register_view"
             android:parentActivityName=".view.LoginView" >
             <meta-data
                 android:name="android.support.PARENT_ACIVITY"
@@ -126,6 +120,15 @@
         <activity
             android:name=".view.LoginView"
             android:label="@string/title_activity_login_view" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".Amigos"
+            android:label="@string/title_activity_amigos" >
         </activity>
     </application>
 

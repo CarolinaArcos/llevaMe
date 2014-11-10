@@ -32,7 +32,6 @@
         android:ems="12" 
         android:inputType="text">
 
-        <requestFocus />
     </EditText>
 
     <EditText

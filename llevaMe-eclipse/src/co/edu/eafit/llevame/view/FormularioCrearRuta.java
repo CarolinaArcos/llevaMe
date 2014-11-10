@@ -246,7 +246,7 @@ public class FormularioCrearRuta extends Activity {
 		 }
 	}
 	
-	private class addRuta extends AsyncTask<Ruta, Void, Void> {
+	private class addRuta extends AsyncTask<Void, Void, Void> {
 
 		Ruta ruta = new Ruta();
 		
@@ -256,7 +256,7 @@ public class FormularioCrearRuta extends Activity {
     	}
 
     	@Override
-    	protected Void doInBackground(Ruta...params) {
+    	protected Void doInBackground(Void...params) {
     		ServiciosRuta.getInstancia().addRuta(ruta);
     		ServiciosRuta.getInstancia().ingresarRecorrido(ruta.getRecorrido(), ruta.getId());
     		return null;
