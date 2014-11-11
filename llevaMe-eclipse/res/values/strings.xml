@@ -20,5 +20,6 @@
     <string name="title_activity_invitacion">Invitacion</string>
     <string name="title_activity_amigos">Amigos</string>
     <string name="hello_world">Hello world!</string>
+    <string name="title_activity_ajustes">Ajustes</string>
 
 </resources>

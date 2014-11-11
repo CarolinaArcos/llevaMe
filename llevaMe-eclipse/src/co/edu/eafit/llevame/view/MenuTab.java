@@ -3,9 +3,9 @@ package co.edu.eafit.llevame.view;
 import android.app.TabActivity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
+import co.edu.eafit.llevame.Ajustes;
 import co.edu.eafit.llevame.R;
  
 @SuppressWarnings("deprecation")
@@ -63,7 +63,7 @@ public class MenuTab extends TabActivity {
         // Settings Tab
         TabSpec settingsSpec = tabHost.newTabSpec(null);
         settingsSpec.setIndicator(null,getResources().getDrawable(R.drawable.settings));
-        Intent settings = new Intent(this, FormularioCrearRuta.class); // Change to settings view
+        Intent settings = new Intent(this, Ajustes.class); // Change to settings view
         settingsSpec.setContent(settings);
          
         // Adding all TabSpec to TabHost

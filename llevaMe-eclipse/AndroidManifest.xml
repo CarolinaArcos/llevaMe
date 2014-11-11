@@ -130,6 +130,10 @@
             android:name=".Amigos"
             android:label="@string/title_activity_amigos" >
         </activity>
+        <activity
+            android:name=".Ajustes"
+            android:label="@string/title_activity_ajustes" >
+        </activity>
     </application>
 
 </manifest>
