@@ -1,9 +1,6 @@
 package co.edu.eafit.llevame.handlers;
 
-import java.io.IOException;
-
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
@@ -18,8 +15,9 @@ import android.util.Log;
 
 public class ServerHandler {
 
-	public static final String IP = "http://54.164.131.208";
+//	public static final String IP = "http://54.164.131.208";
 //	public static final String IP = "http://private-986d0-llevameapi.apiary-mock.com";
+	public static final String IP = "http://10.0.55.76:8083";
 	
 	
 	public static HttpClient httpClient = new DefaultHttpClient();
@@ -32,6 +30,8 @@ public class ServerHandler {
 	public static String getServerResponse(String url){
 		url = IP + url;
 		
+		Log.d("URL", url);
+		
 		HttpGet get = new HttpGet(url);
 		
 		try
@@ -41,7 +41,7 @@ public class ServerHandler {
 			return respStr;
 		} catch(Exception ex)
 		{
-			Log.e("ServicioRest","Error!", ex);
+			Log.e("getServerResponse","Error!", ex);
 			return null;
 		}
 	}

@@ -90,6 +90,7 @@ public class ListaRutasDisponibles extends Activity {
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
             pDialog.show();
+            
             cargado = true;
         }
 

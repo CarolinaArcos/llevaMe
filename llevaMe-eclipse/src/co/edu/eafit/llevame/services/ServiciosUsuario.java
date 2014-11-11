@@ -39,4 +39,25 @@ public class ServiciosUsuario {
 			Log.e("ServicioRest","Error!", ex);
 		}
 	}
+	
+	public Usuario getUsuario(String username){
+		String url = "/usuarios?usr="+username;
+		Usuario usr = new Usuario();
+		
+		try {
+			String serverResp = ServerHandler.getServerResponse(url);
+			Log.d("serverResp",""+serverResp);
+			
+			JSONObject u = new JSONObject(serverResp);
+			usr.setId(u.getInt("id"));
+			usr.setUsername(u.getString("username"));
+			usr.setPassword(u.getString("password"));
+			usr.setPuntos(u.getInt("puntos"));
+			
+			return usr;
+		} catch (Exception ex) {
+			Log.e("getUsuario","Error!", ex);
+			return null;
+		}
+	}
 }
