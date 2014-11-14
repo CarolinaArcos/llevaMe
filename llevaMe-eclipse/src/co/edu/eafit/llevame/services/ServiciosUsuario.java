@@ -74,24 +74,27 @@ public class ServiciosUsuario {
 		
 		try{
 			String serverResp = ServerHandler.getServerResponse(url);
-			JSONArray losUsuarios = new JSONArray(serverResp);
-			String usrsString[]= new String[losUsuarios.length()];
-			usrs = new Usuario[usrsString.length];
-			
-			for (int i = 0; i<losUsuarios.length(); i++) {
-				JSONObject usuario = losUsuarios.getJSONObject(i);
-				Usuario u = new Usuario();
+			if(serverResp!=null && !serverResp.isEmpty()){
+				JSONArray losUsuarios = new JSONArray(serverResp);
+				String usrsString[]= new String[losUsuarios.length()];
+				usrs = new Usuario[usrsString.length];
 				
-				u.setId(usuario.getInt("id"));
-				u.setUsername(usuario.getString("username"));
-				u.setPassword(usuario.getString("password"));
-				u.setPuntos(usuario.getInt("puntos"));
-				
-				usrs[i] = u;
-				
+				for (int i = 0; i<losUsuarios.length(); i++) {
+					JSONObject usuario = losUsuarios.getJSONObject(i);
+					Usuario u = new Usuario();
+					
+					u.setId(usuario.getInt("id"));
+					u.setUsername(usuario.getString("username"));
+					u.setPassword(usuario.getString("password"));
+					u.setPuntos(usuario.getInt("puntos"));
+					
+					usrs[i] = u;
+					
+				}
+				return usrs;
+			} else {
+				return null;
 			}
-			return usrs;
-			
 		} catch (Exception ex) {
 			Log.e("ServicioRest","Error!", ex);
 			return null;
