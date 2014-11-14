@@ -3,6 +3,7 @@ package co.edu.eafit.llevame.view;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.handlers.RutaListAdapter;
+import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.services.ServiciosRuta;
 
@@ -22,12 +24,15 @@ public class ListaRutasDisponibles extends Activity {
 	private ListView lista;
 	private ProgressDialog pDialog;
 	private boolean cargado;
+	private int idUsrLoggedIn;
 	
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.lista_rutas);
         
+        SharedPreferences settings = getSharedPreferences(SharedPreferencesHandler.PREFS_NAME, 0);
+		idUsrLoggedIn = settings.getInt(SharedPreferencesHandler.LOGIN_KEY, -1);
         
         lista = (ListView) findViewById(R.id.listaRutas);
         
@@ -100,7 +105,7 @@ public class ListaRutasDisponibles extends Activity {
 
     	@Override
     	protected Ruta[] doInBackground(Void... params) {
-    		return ServiciosRuta.getInstancia().getArregloRutas();
+    		return ServiciosRuta.getInstancia().getArregloRutas(idUsrLoggedIn);
     	}
 
     	@Override

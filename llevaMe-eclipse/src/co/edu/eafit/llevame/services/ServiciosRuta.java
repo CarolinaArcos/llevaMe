@@ -61,8 +61,8 @@ public class ServiciosRuta {
 		return getArregloRutas("/rutas/pasajero/"+idUsuario);
 	}
 	
-	public Ruta[] getArregloRutas(){
-		return getArregloRutas("/rutas");
+	public Ruta[] getArregloRutas(int idUsuario){
+		return getArregloRutas("/rutas?usr="+idUsuario);
 	}
 	
 	private Ruta[] getArregloRutas(String url) {
