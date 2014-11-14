@@ -172,9 +172,11 @@ public class RegisterView extends Activity {
 
     	@Override
     	protected void onPostExecute(Void v){
-	    		Intent main = new Intent(RegisterView.this, MenuTab.class);
-		    	startActivity(main);
-		    	pDialog.dismiss();
+			//TODO: logear el usuario (guardar el login en el cel)
+		
+    		Intent main = new Intent(RegisterView.this, MenuTab.class);
+	    	startActivity(main);
+	    	pDialog.dismiss();
     	}
     }
 	

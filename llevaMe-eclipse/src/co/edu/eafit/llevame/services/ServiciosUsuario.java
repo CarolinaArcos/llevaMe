@@ -1,9 +1,11 @@
 package co.edu.eafit.llevame.services;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.util.Log;
 import co.edu.eafit.llevame.handlers.ServerHandler;
+import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.model.Usuario;
 
 public class ServiciosUsuario {
@@ -57,6 +59,41 @@ public class ServiciosUsuario {
 			return usr;
 		} catch (Exception ex) {
 			Log.e("getUsuario","Error!", ex);
+			return null;
+		}
+	}
+	
+	public Usuario[] getUsuariosLike(String username){
+		String url = "/usuarios/like?usr="+username;
+		return getUsuariosList(url);
+	}
+	
+	
+	private Usuario[] getUsuariosList(String url){
+		Usuario[] usrs;
+		
+		try{
+			String serverResp = ServerHandler.getServerResponse(url);
+			JSONArray losUsuarios = new JSONArray(serverResp);
+			String usrsString[]= new String[losUsuarios.length()];
+			usrs = new Usuario[usrsString.length];
+			
+			for (int i = 0; i<losUsuarios.length(); i++) {
+				JSONObject usuario = losUsuarios.getJSONObject(i);
+				Usuario u = new Usuario();
+				
+				u.setId(usuario.getInt("id"));
+				u.setUsername(usuario.getString("username"));
+				u.setPassword(usuario.getString("password"));
+				u.setPuntos(usuario.getInt("puntos"));
+				
+				usrs[i] = u;
+				
+			}
+			return usrs;
+			
+		} catch (Exception ex) {
+			Log.e("ServicioRest","Error!", ex);
 			return null;
 		}
 	}

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
-import co.edu.eafit.llevame.Ajustes;
 import co.edu.eafit.llevame.R;
  
 @SuppressWarnings("deprecation")
@@ -29,40 +28,40 @@ public class MenuTab extends TabActivity {
         // Home Tab
         TabSpec homeSpec = tabHost.newTabSpec(null);
         // Tab Icon
-        homeSpec.setIndicator(null, getResources().getDrawable(R.drawable.home));
+        homeSpec.setIndicator(null, getResources().getDrawable(R.drawable.ic_action_view_as_list));
         Intent listRoutes = new Intent(this, ListaRutasDisponibles.class);
         // Tab Content
         homeSpec.setContent(listRoutes);
          
         // Routes Tab
         TabSpec routesSpec = tabHost.newTabSpec(null);
-        routesSpec.setIndicator(null, getResources().getDrawable(R.drawable.routes));
+        routesSpec.setIndicator(null, getResources().getDrawable(R.drawable.ic_action_place));
         Intent myRoutes = new Intent(this, MisRutas.class);
         routesSpec.setContent(myRoutes);
          
         // Social Tab
         TabSpec socialSpec = tabHost.newTabSpec(null);
-        socialSpec.setIndicator(null, getResources().getDrawable(R.drawable.social));
-        Intent social = new Intent(this, FormularioCrearRuta.class); // Change to social view
+        socialSpec.setIndicator(null, getResources().getDrawable(R.drawable.ic_action_group));
+        Intent social = new Intent(this, Amigos.class); // Change to social view
         socialSpec.setContent(social);
         
      // Points Tab
         TabSpec pointsSpec = tabHost.newTabSpec(null);
         // Tab Icon
-        pointsSpec.setIndicator(null, getResources().getDrawable(R.drawable.points));
+        pointsSpec.setIndicator(null, getResources().getDrawable(R.drawable.ic_action_important));
         Intent points = new Intent(this, FormularioCrearRuta.class); // Change to points view
         // Tab Content
         pointsSpec.setContent(points);
          
         // Notifications Tab
         TabSpec notificationsSpec = tabHost.newTabSpec(null);
-        notificationsSpec.setIndicator(null, getResources().getDrawable(R.drawable.notifications));
+        notificationsSpec.setIndicator(null, getResources().getDrawable(R.drawable.ic_action_web_site));
         Intent notifications = new Intent(this, ListEvents.class);
         notificationsSpec.setContent(notifications);
          
         // Settings Tab
         TabSpec settingsSpec = tabHost.newTabSpec(null);
-        settingsSpec.setIndicator(null,getResources().getDrawable(R.drawable.settings));
+        settingsSpec.setIndicator(null,getResources().getDrawable(R.drawable.ic_action_settings));
         Intent settings = new Intent(this, Ajustes.class); // Change to settings view
         settingsSpec.setContent(settings);
          

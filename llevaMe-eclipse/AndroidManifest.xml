@@ -127,12 +127,27 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Amigos"
+            android:name=".view.Amigos"
             android:label="@string/title_activity_amigos" >
         </activity>
         <activity
-            android:name=".Ajustes"
+            android:name=".view.Ajustes"
             android:label="@string/title_activity_ajustes" >
+        </activity>
+        <activity
+            android:name=".view.BuscarUsuario"
+            android:label="@string/title_activity_buscar_usuario" >
+            <intent-filter>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
+        </activity>
+        <activity
+            android:name="co.edu.eafit.llevame.view.Resultados"
+            android:label="@string/title_activity_resultados" >
         </activity>
     </application>
 
