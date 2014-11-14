@@ -2,6 +2,7 @@ package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -11,10 +12,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
 import co.edu.eafit.llevame.model.Notificacion;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
+import co.edu.eafit.llevame.services.ServiciosUsuario;
 
 public class DetallesRutaPasajero extends Activity {
 	
@@ -26,10 +29,10 @@ public class DetallesRutaPasajero extends Activity {
 	private EditText placa;
 	private EditText descripcion;
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
-	private int id = -1;
+	private int id = -1;//id ruta
 	
 	//TODO: obtener (desquemar) los valores
-	private int idUsuario = 1; //id del usuario registrado
+	private int idUsuario; //id del usuario registrado
 	private int idConductor = 1;
 	
 	private ImageButton mapa;
@@ -42,6 +45,9 @@ public class DetallesRutaPasajero extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.detalles_ruta_pasajero);
+		
+		SharedPreferences settings = getSharedPreferences(SharedPreferencesHandler.PREFS_NAME, 0);
+		idUsuario = settings.getInt(SharedPreferencesHandler.LOGIN_KEY, -1);
 		
 		id = getIntent().getIntExtra("id",-2);
 		if (id==-2) {
@@ -135,13 +141,20 @@ public class DetallesRutaPasajero extends Activity {
 	
 	public class TraerRuta extends AsyncTask<String, Void, Ruta> {
 		
+		String nombreConductor;
+		
 		public TraerRuta(){
 			super();
 		}
 
 		@Override
 		protected Ruta doInBackground(String...params) {
-			return ServiciosRuta.getInstancia().getRuta(""+id);
+			Ruta r = ServiciosRuta.getInstancia().getRuta(""+id);
+			idConductor = r.getConductor();
+			
+			nombreConductor = ServiciosUsuario.getInstancia().getUsuario(idConductor).getUsername();
+			
+			return r;
 		}
 
 		@Override
@@ -161,7 +174,7 @@ public class DetallesRutaPasajero extends Activity {
 			cupo.setText(capacity);
 			placa.setText(pla);
 			descripcion.setText(desctiption);
-			//TODO: conductor.setText();
+			conductor.setText(nombreConductor);
 		}
 	}
 	@Override

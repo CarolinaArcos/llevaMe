@@ -10,6 +10,9 @@ public class Ruta {
 	
 	private Ubicacion[] recorrido;
 	
+	private int conductor; //id del conductor
+	private Usuario[] pasajeros;
+	
 	public Ruta(){
 		
 	}
@@ -87,5 +90,21 @@ public class Ruta {
 
 	public void setRecorrido(Ubicacion[] recorrido) {
 		this.recorrido = recorrido;
+	}
+
+	public int getConductor() {
+		return conductor;
+	}
+
+	public void setConductor(int conductor) {
+		this.conductor = conductor;
+	}
+
+	public Usuario[] getPasajeros() {
+		return pasajeros;
+	}
+
+	public void setPasajeros(Usuario[] pasajeros) {
+		this.pasajeros = pasajeros;
 	}
 }

@@ -3,8 +3,10 @@ package co.edu.eafit.llevame.view;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,23 +16,28 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
 import co.edu.eafit.llevame.model.Evento;
 import co.edu.eafit.llevame.model.Invitacion;
 import co.edu.eafit.llevame.model.Notificacion;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
+import co.edu.eafit.llevame.services.ServiciosUsuario;
 
 public class ListEvents extends Activity {
 
     private ListView listEvents;
     private ProgressDialog pDialog;
-    private int id = 1; //QUEMADO
+    private int id;
     private Evento[] eventos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_events);
+        
+        SharedPreferences settings = getSharedPreferences(SharedPreferencesHandler.PREFS_NAME, 0);
+		id = settings.getInt(SharedPreferencesHandler.LOGIN_KEY, -1);
 
         listEvents = (ListView) findViewById(R.id.listEvents);
         
@@ -69,19 +76,32 @@ public class ListEvents extends Activity {
     			case Invitacion.RUTA: //ruta
     				ServiciosRuta.getInstancia().vincularPasajero(inv.getIdRef2(), inv.getIdRef(),
     						inv.getIdRef3());
+    				Log.d("idRef2", inv.getIdRef2()+"");
+    				Log.d("idRef", inv.getIdRef()+"");
+    				Log.d("idRef3", inv.getIdRef3()+"");
+    				
+    				String nombreConductor = ServiciosUsuario.getInstancia().getUsuario(inv.getIdUsuario()).getUsername();
+    				String nombreRuta = ServiciosRuta.getInstancia().getRuta(inv.getIdRef2()+"").getNombre();
     				
     				//notificar usuario que se acepto
-    				Notificacion n = new Notificacion(-1, 
-    						inv.getIdUsuario()+" acepto tu solicitud para la ruta "+inv.getIdRef2(),
+    				Notificacion nR = new Notificacion(-1, 
+    						nombreConductor+" acepto tu solicitud para la ruta "+nombreRuta,
     						inv.getIdRef());
-    				ServiciosEvento.getInstancia().ingresarNotificacion(n);
-    				
-    	    		// eliminar Invitacion
-    				ServiciosEvento.getInstancia().borrarEvento(inv.getId());
+    				ServiciosEvento.getInstancia().ingresarNotificacion(nR);
+
     				
     				break;
     			case Invitacion.USUARIO:
-    				//TODO: Implementar aceptar invitacion usuario 
+    				//Implementar aceptar invitacion usuario
+    				ServiciosUsuario.getInstancia().agregarAmistad(inv.getIdUsuario(), inv.getIdRef());
+
+    				//notificar usuario que se acepto
+    				String nombreAmigo = ServiciosUsuario.getInstancia().getUsuario(inv.getIdUsuario()).getUsername();
+    				Notificacion nU = new Notificacion(-1, 
+    						nombreAmigo+" acepto tu solicitud de amistad",
+    						inv.getIdRef());
+    				ServiciosEvento.getInstancia().ingresarNotificacion(nU);
+    				
     				break;
     			case Invitacion.COMUNIDAD:
     				//TODO: Implementar aceptar invitacion comunidad
@@ -89,6 +109,9 @@ public class ListEvents extends Activity {
 				default:
 					//TODO: ERROR
     		}
+    		
+    		// eliminar Invitacion
+    		ServiciosEvento.getInstancia().borrarEvento(inv.getId());
     		
     		return null;
     	}

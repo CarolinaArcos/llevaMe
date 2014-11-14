@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,8 +12,10 @@ import android.widget.ImageButton;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Notificacion;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.model.Usuario;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
+import co.edu.eafit.llevame.services.ServiciosUsuario;
 
 public class DetallesRutaConductor extends Activity {
 	
@@ -27,9 +28,9 @@ public class DetallesRutaConductor extends Activity {
 	private EditText descripcion;
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
 	private int id = -1;
-	private int idUsuario = 1;
+	private int idConductor = 1;
 	
-	private int[] idPasajeros = {1, 2};//TODO: obtener los pasajeros de la ruta
+	private Usuario[] idPasajeros;//Pasajeros de la ruta
 	
 	private ImageButton mapa;
 	private String [] markerSnippet = {""};
@@ -112,13 +113,24 @@ public class DetallesRutaConductor extends Activity {
 	
 	public class TraerRuta extends AsyncTask<String, Void, Ruta> {
 		
+		String nombreConductor;
+		
 		public TraerRuta(){
 			super();
 		}
 
 		@Override
 		protected Ruta doInBackground(String...params) {
-			return ServiciosRuta.getInstancia().getRuta(""+id);
+			Ruta r = ServiciosRuta.getInstancia().getRuta(""+id);
+			
+			idPasajeros = ServiciosUsuario.getInstancia().getPasajeros(id);
+			idConductor = r.getConductor();
+			
+			
+			
+			nombreConductor = ServiciosUsuario.getInstancia().getUsuario(idConductor).getUsername();
+			
+			return r;
 		}
 
 		@Override
@@ -138,10 +150,19 @@ public class DetallesRutaConductor extends Activity {
 			cupo.setText(capacity);
 			placa.setText(pla);
 			descripcion.setText(desctiption);
-			//TODO: pasajeros.setText();
-			
-		}
-		
+			if(idPasajeros!=null && idPasajeros.length!=0){
+				String nombrePasajeros = "";
+				for (int i=0; i<idPasajeros.length; i++) {
+					
+					nombrePasajeros += idPasajeros[i].getUsername();
+					if(i != idPasajeros.length-1){
+						nombrePasajeros += ", ";
+					}
+				}
+				
+				pasajeros.setText(nombrePasajeros);
+			}
+		}	
 	}
 	
 	public class IniciarRuta extends AsyncTask<String, Void, Void> {
@@ -161,8 +182,8 @@ public class DetallesRutaConductor extends Activity {
 		protected void onPostExecute(Void v){
 			volverAMenu();
 			
-			for(int idP : idPasajeros){//enviar notificacion a cada pasajero
-				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha iniciado", idP);
+			for(Usuario u : idPasajeros){//enviar notificacion a cada pasajero
+				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha iniciado", u.getId());
 				ServiciosEvento.getInstancia().ingresarNotificacion(n);
 			}
 		}
@@ -186,8 +207,8 @@ public class DetallesRutaConductor extends Activity {
 		protected void onPostExecute(Void v){
 			volverAMenu();
 			
-			for(int idP : idPasajeros){//enviar notificacion a cada pasajero
-				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha finalizado", idP);
+			for(Usuario u : idPasajeros){//enviar notificacion a cada pasajero
+				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha finalizado", u.getId());
 				ServiciosEvento.getInstancia().ingresarNotificacion(n);
 			}
 		}

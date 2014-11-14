@@ -7,6 +7,7 @@ import android.util.Log;
 import co.edu.eafit.llevame.handlers.ServerHandler;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.model.Ubicacion;
+import co.edu.eafit.llevame.model.Usuario;
 
 public class ServiciosRuta {
 
@@ -41,6 +42,9 @@ public class ServiciosRuta {
 			ruta.setDescripcion(laRuta.getString("descripcion"));
 			ruta.setCapacidad(laRuta.getInt("capacidad"));
 			ruta.setPlaca(laRuta.getString("placa"));
+			ruta.setConductor(laRuta.getInt("conductor"));
+			
+			//TODO: ruta.setRecorrido()
 
 		} catch (Exception ex) {
 			Log.e("ServicioRest","Error!", ex);
@@ -101,7 +105,7 @@ public class ServiciosRuta {
 			r.put("fecha", ruta.getFecha());
 			r.put("capacidad", ruta.getCapacidad());
 			r.put("descripcion", ruta.getDescripcion());
-			r.put("conductor", 1);
+			r.put("conductor", ruta.getConductor());
 			r.put("placa", ruta.getPlaca());
 			
 			String serverResp = ServerHandler.getServerResponsePost(url, r);
@@ -155,7 +159,7 @@ public class ServiciosRuta {
 	public void vincularPasajero(int idRuta, int idPasajero, int idUbicacion) {
 		
 		String url = "/rutas/pasajeros?ruta="+idRuta+"&usuario="+idPasajero
-				+"&idUbicacion="+idUbicacion;
+				+"&ubicacion="+idUbicacion;
 		
 		ServerHandler.getServerResponsePost(url);
 	}

@@ -2,6 +2,7 @@ package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -12,10 +13,12 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
 import co.edu.eafit.llevame.model.Invitacion;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
+import co.edu.eafit.llevame.services.ServiciosUsuario;
 
 public class DetallesRuta extends Activity{
 
@@ -28,8 +31,8 @@ public class DetallesRuta extends Activity{
 	private EditText descripcion;
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
 	private int id = -1; //id de la ruta
-	private int idUsuario = 1; //QUEMADO usuario logeado
-	private int idConductor = 1;//QUEMADO id del conductor de la ruta
+	private int idUsuario; //Usuario logeado
+	private int idConductor;//id del conductor de la ruta
 	private int puntoRecogida = 1;//QUEMADO id de la ubicacion en la que se recoger el usr
 	
 	private ImageButton mapa;
@@ -43,6 +46,9 @@ public class DetallesRuta extends Activity{
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_detalles_ruta);
+		
+		SharedPreferences settings = getSharedPreferences(SharedPreferencesHandler.PREFS_NAME, 0);
+		idUsuario = settings.getInt(SharedPreferencesHandler.LOGIN_KEY, -1);
 		
 		id = getIntent().getIntExtra("id",-2);
 		if (id==-2) {
@@ -73,6 +79,8 @@ public class DetallesRuta extends Activity{
 			}
 		});
 		
+		
+		
 		new TraerRuta().execute(""+id);
 	}
 
@@ -92,7 +100,7 @@ public class DetallesRuta extends Activity{
 	}
 
 	public void onllevaMe(View view) {
-		Invitacion invitacion = new Invitacion(-1, idUsuario+" ha solicitado un cupo en tu ruta",
+		Invitacion invitacion = new Invitacion(-1, "",
 				idConductor, false, Invitacion.RUTA, idUsuario, id, puntoRecogida);
 		
 		new SolicitarCupo().execute(invitacion);	
@@ -112,13 +120,20 @@ public class DetallesRuta extends Activity{
 	
 	public class TraerRuta extends AsyncTask<String, Void, Ruta> {
 
+		String nombreConductor;
+		
 		public TraerRuta(){
 			super();
 		}
 
 		@Override
 		protected Ruta doInBackground(String...params) {
-			return ServiciosRuta.getInstancia().getRuta(""+id);
+			Ruta r = ServiciosRuta.getInstancia().getRuta(""+id);
+			idConductor = r.getConductor();
+			
+			nombreConductor = ServiciosUsuario.getInstancia().getUsuario(idConductor).getUsername();
+			
+			return r;
 		}
 
 		@Override
@@ -131,6 +146,7 @@ public class DetallesRuta extends Activity{
 			String capacity = Integer.toString(r.getCapacidad());
 			String pla = r.getPlaca();
 			String desctiption = r.getDescripcion();
+			
 
 			nombre.setText(name);
 			fecha.setText(date);
@@ -138,7 +154,8 @@ public class DetallesRuta extends Activity{
 			cupo.setText(capacity);
 			placa.setText(pla);
 			descripcion.setText(desctiption);
-			//TODO: conductor.setText();
+			conductor.setText(nombreConductor);
+			
 		}
 	}
 	
@@ -150,13 +167,20 @@ public class DetallesRuta extends Activity{
 
 		@Override
 		protected Void doInBackground(Invitacion...params) {
-			ServiciosEvento.getInstancia().ingresarInvitacion(params[0]);
+			Invitacion inv = params[0];
+			String nombreUsuario = ServiciosUsuario.getInstancia().getUsuario(inv.getIdRef()).getUsername();
+			String nombreRuta = nombre.getText().toString(); 
+			inv.setMensaje(nombreUsuario +" ha solicitado un cupo en tu ruta "+nombreRuta);
+			
+			ServiciosEvento.getInstancia().ingresarInvitacion(inv);
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Void v){
-			Toast toast = Toast.makeText(DetallesRuta.this, "Ha solicitado un cupo para esta ruta", 3);
+			
+			
+			Toast toast = Toast.makeText(DetallesRuta.this, "Has solicitado un cupo para esta ruta", 3);
 			toast.show();
 			
 			volverAMenu();

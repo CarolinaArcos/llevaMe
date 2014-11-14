@@ -42,6 +42,27 @@ public class ServiciosUsuario {
 		}
 	}
 	
+	public Usuario getUsuario(int id){
+		String url = "/usuarios/"+id;
+		Usuario usr = new Usuario();
+		
+		try {
+			String serverResp = ServerHandler.getServerResponse(url);
+			Log.d("serverResp",""+serverResp);
+			
+			JSONObject u = new JSONObject(serverResp);
+			usr.setId(u.getInt("id"));
+			usr.setUsername(u.getString("username"));
+			usr.setPassword(u.getString("password"));
+			usr.setPuntos(u.getInt("puntos"));
+			
+			return usr;
+		} catch (Exception ex) {
+			Log.e("getUsuario","Error!", ex);
+			return null;
+		}
+	}
+	
 	public Usuario getUsuario(String username){
 		String url = "/usuarios?usr="+username;
 		Usuario usr = new Usuario();
@@ -65,6 +86,11 @@ public class ServiciosUsuario {
 	
 	public Usuario[] getUsuariosLike(String username){
 		String url = "/usuarios/like?usr="+username;
+		return getUsuariosList(url);
+	}
+	
+	public Usuario[] getPasajeros(int id) {
+		String url = "/rutas/pasajeros?ruta="+id;
 		return getUsuariosList(url);
 	}
 	
@@ -99,5 +125,10 @@ public class ServiciosUsuario {
 			Log.e("ServicioRest","Error!", ex);
 			return null;
 		}
+	}
+	
+	public void agregarAmistad(int id1, int id2){
+		String url = "/usuarios/amigos?usr1="+id1+"&usr2="+id2;
+		ServerHandler.getServerResponsePost(url);
 	}
 }
