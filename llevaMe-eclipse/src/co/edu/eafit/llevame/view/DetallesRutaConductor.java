@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import co.edu.eafit.llevame.R;
@@ -15,6 +15,7 @@ import co.edu.eafit.llevame.model.Notificacion;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
+import co.edu.eafit.llevame.view.DetallesRuta.TraerRuta;
 
 public class DetallesRutaConductor extends Activity {
 	
@@ -32,10 +33,9 @@ public class DetallesRutaConductor extends Activity {
 	private int[] idPasajeros = {1, 2};//TODO: obtener los pasajeros de la ruta
 	
 	private ImageButton mapa;
-	private String [] markerSnippet = {""};
-	private double [] markerLat = {0.0};
-	private double [] markerLong = {0.0};
-	protected static final int REQUEST_CODE = 10;
+	private String [] markerSnippet = {"Eafit", "Estacion Poblado", "CC SantaFe"};
+	private double [] markerLat = {6.200696,6.21211476,6.19790767};
+	private double [] markerLong = {-75.578433,-75.57809091,-75.57431436};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,17 +60,16 @@ public class DetallesRutaConductor extends Activity {
 		placa = (EditText) findViewById(R.id.placaConductor);
 		descripcion = (EditText) findViewById(R.id.descripcionConductor);
 		
-		mapa = (ImageButton) findViewById(R.id.image);
-		//TODO: corregir
-//		mapa.setOnClickListener(new OnClickListener() {
-//			 
-//			@Override
-//			public void onClick(View arg0) {
-//				desplegarMapa();
-//			}
-//		});
-		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		mapa = (ImageButton) findViewById(R.id.image);
+		mapa.setOnClickListener(new OnClickListener() {
+			 
+			@Override
+			public void onClick(View arg0) { 
+				desplegarMapa();
+			}
+		});
 		
 		new TraerRuta().execute(""+id);
 	}
@@ -91,11 +90,11 @@ public class DetallesRutaConductor extends Activity {
 	}
 	
 	public void desplegarMapa() {
-		Intent intent = new Intent(this,ViewMap.class);
+		Intent intent = new Intent(this,ViewMapDetails.class);
     	intent.putExtra("markerSnippet", markerSnippet);
 		intent.putExtra("markerLat", markerLat);
 		intent.putExtra("markerLong", markerLong);
-        startActivityForResult(intent, REQUEST_CODE);
+		startActivity(intent);
 	}
 	
 	public void onIniciar(View view) {
@@ -191,15 +190,5 @@ public class DetallesRutaConductor extends Activity {
 				ServiciosEvento.getInstancia().ingresarNotificacion(n);
 			}
 		}
-	}
-	
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == REQUEST_CODE) {
-	    	markerSnippet = data.getStringArrayExtra("markersSnippet");
-	    	markerLat = data.getDoubleArrayExtra("markersLat");
-	    	markerLong = data.getDoubleArrayExtra("markersLong");
-	    }
 	}
 }

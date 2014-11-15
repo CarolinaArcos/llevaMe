@@ -36,9 +36,12 @@ public class DetallesRutaPasajero extends Activity {
 	private int idConductor = 1;
 	
 	private ImageButton mapa;
-	private String [] markerSnippet = {""};
-	private double [] markerLat = {0.0};
-	private double [] markerLong = {0.0};
+	private String [] markerSnippet = {"Eafit", "Estacion Poblado", "CC SantaFe"};
+	private double [] markerLat = {6.200696,6.21211476,6.19790767};
+	private double [] markerLong = {-75.578433,-75.57809091,-75.57431436};
+	private String pointSnippet;
+	private double pointLat;
+	private double pointLong;
 	protected static final int REQUEST_CODE = 10;
 
 	@Override
@@ -64,21 +67,17 @@ public class DetallesRutaPasajero extends Activity {
 		cupo = (EditText) findViewById(R.id.cupoPasajero);
 		placa = (EditText) findViewById(R.id.placaPasajero);
 		descripcion = (EditText) findViewById(R.id.descripcionPasajero);
-		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
+
 		mapa = (ImageButton) findViewById(R.id.image);
-		//TODO: corregir
-//		mapa.setOnClickListener(new OnClickListener() {
-//			 
-//			@Override
-//			public void onClick(View arg0) {
-//				desplegarMapa();
-//			}
-//		});
+		mapa.setOnClickListener(new OnClickListener() {
+			 
+			@Override
+			public void onClick(View arg0) { 
+				desplegarMapa();
+			}
+		});
 		
 		new TraerRuta().execute(""+id);
-				
 	}
 
 	@Override
@@ -103,10 +102,13 @@ public class DetallesRutaPasajero extends Activity {
 	}
 	
 	public void desplegarMapa() {
-		Intent intent = new Intent(this,ViewMap.class);
+		Intent intent = new Intent(this,ViewMapDetailsPassenger.class);
     	intent.putExtra("markerSnippet", markerSnippet);
 		intent.putExtra("markerLat", markerLat);
 		intent.putExtra("markerLong", markerLong);
+		intent.putExtra("pointSnippet", pointSnippet);
+	    intent.putExtra("pointLat", pointLat);
+	    intent.putExtra("pointLong", pointLong);
         startActivityForResult(intent, REQUEST_CODE);
 	}
 	
@@ -171,9 +173,10 @@ public class DetallesRutaPasajero extends Activity {
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if (requestCode == REQUEST_CODE) {
-	    	markerSnippet = data.getStringArrayExtra("markersSnippet");
-	    	markerLat = data.getDoubleArrayExtra("markersLat");
-	    	markerLong = data.getDoubleArrayExtra("markersLong");
+	    	pointSnippet = data.getStringExtra("pointSnippet");
+	    	pointLat = data.getDoubleExtra("pointLat",0);
+	    	pointLong = data.getDoubleExtra("pointLong",0);
+	    	Toast.makeText(this, "Snippet: "+pointSnippet+" Lat: "+ pointLat+" Long: "+pointLong, Toast.LENGTH_LONG).show();
 	    }
 	}
 }
