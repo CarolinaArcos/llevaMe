@@ -5,6 +5,7 @@ import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,6 +16,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.model.Ubicacion;
 import co.edu.eafit.llevame.services.ServiciosRuta;
@@ -26,12 +28,16 @@ public class FormularioCrearRuta extends Activity {
 	private double [] markerLat = {0.0};
 	private double [] markerLong = {0.0};
 	protected static final int REQUEST_CODE = 10;
+	
+	private int idUsrLoggedIn;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_formulario_crear_ruta);
 		
+		SharedPreferences settings = getSharedPreferences(SharedPreferencesHandler.PREFS_NAME, 0);
+		idUsrLoggedIn = settings.getInt(SharedPreferencesHandler.LOGIN_KEY, -1);
 		
 		mapa = (ImageButton) findViewById(R.id.image);
 		mapa.setOnClickListener(new OnClickListener() {
@@ -42,6 +48,7 @@ public class FormularioCrearRuta extends Activity {
 			}
 		});
 	
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	}
 
 	@Override
@@ -108,6 +115,7 @@ public class FormularioCrearRuta extends Activity {
 		
 		
 		Ruta ruta = new Ruta(0, dataName, fechaHora, numeroCupo, dataDescripcion, dataPlaca);
+		ruta.setConductor(idUsrLoggedIn);
 		ruta.setRecorrido(recorrido);
 		return ruta;
 	}
@@ -246,7 +254,7 @@ public class FormularioCrearRuta extends Activity {
 		 }
 	}
 	
-	private class addRuta extends AsyncTask<Ruta, Void, Void> {
+	private class addRuta extends AsyncTask<Void, Void, Void> {
 
 		Ruta ruta = new Ruta();
 		
@@ -256,7 +264,7 @@ public class FormularioCrearRuta extends Activity {
     	}
 
     	@Override
-    	protected Void doInBackground(Ruta...params) {
+    	protected Void doInBackground(Void...params) {
     		ServiciosRuta.getInstancia().addRuta(ruta);
     		ServiciosRuta.getInstancia().ingresarRecorrido(ruta.getRecorrido(), ruta.getId());
     		return null;

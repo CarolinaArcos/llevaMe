@@ -35,10 +35,10 @@
         <activity
             android:name=".view.FormularioCrearRuta"
             android:label="@string/title_activity_formulario_crear_ruta"
-            android:parentActivityName=".view.MisRutas" >
+            android:parentActivityName=".view.MenuTab" >
             <meta-data
                 android:name="android.support.PARENT_ACIVITY"
-                android:value="co.edu.eafit.llevame.view.MisRutas" />
+                android:value="co.edu.eafit.llevame.view.MenuTab" />
         </activity>
         <activity
             android:name=".view.ListaRutasDisponibles"
@@ -47,10 +47,10 @@
         <activity
             android:name=".view.DetallesRuta"
             android:label="@string/title_activity_detalles_ruta"
-            android:parentActivityName=".view.ListaRutasDisponibles" >
+            android:parentActivityName=".view.MenuTab" >
             <meta-data
                 android:name="android.support.PARENT_ACIVITY"
-                android:value="co.edu.eafit.llevame.view.ListaRutasDisponibles" />
+                android:value="co.edu.eafit.llevame.view.MenuTab" />
         </activity>
 
         <!-- Google API Key -->
@@ -68,18 +68,18 @@
         <activity
             android:name=".view.RutasConductor"
             android:label="@string/title_activity_rutas_conductor"
-            android:parentActivityName=".view.MisRutas" >
+            android:parentActivityName=".view.MenuTab" >
             <meta-data
                 android:name="android.support.PARENT_ACIVITY"
-                android:value="co.edu.eafit.llevame.view.MisRutas" />
+                android:value="co.edu.eafit.llevame.view.MenuTab" />
         </activity>
         <activity
             android:name=".view.RutasPasajero"
             android:label="@string/title_activity_rutas_pasajero"
-            android:parentActivityName=".view.MisRutas" >
+            android:parentActivityName=".view.MenuTab" >
             <meta-data
                 android:name="android.support.PARENT_ACIVITY"
-                android:value="co.edu.eafit.llevame.view.MisRutas" />
+                android:value="co.edu.eafit.llevame.view.MenuTab" />
         </activity>
         <activity
             android:name=".view.DetallesRutaPasajero"
@@ -142,6 +142,21 @@
                 android:name="android.support.PARENT_ACIVITY"
                 android:value="co.edu.eafit.llevame.view.DetallesRutaPasajero" />
         </activity>
+        <activity
+            android:name=".view.Ajustes"
+            android:label="@string/title_activity_ajustes" >
+        </activity>
+        <activity
+            android:name=".view.BuscarUsuario"
+            android:label="@string/title_activity_buscar_usuario" >
+        </activity>
+        <activity
+            android:name="co.edu.eafit.llevame.view.Resultados"
+            android:label="@string/title_activity_resultados" >
+        </activity>
+        <activity 
+            android:name=".view.Amigos"
+            android:label="@string/title_activity_amigos" >
+        </activity>
     </application>
-
 </manifest>

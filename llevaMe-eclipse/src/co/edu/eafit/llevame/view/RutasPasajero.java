@@ -1,15 +1,9 @@
 package co.edu.eafit.llevame.view;
 
-import co.edu.eafit.llevame.R;
-import co.edu.eafit.llevame.R.id;
-import co.edu.eafit.llevame.R.layout;
-import co.edu.eafit.llevame.R.menu;
-import co.edu.eafit.llevame.handlers.RutaListAdapter;
-import co.edu.eafit.llevame.model.Ruta;
-import co.edu.eafit.llevame.services.ServiciosRuta;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,13 +11,18 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
+import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.handlers.RutaListAdapter;
+import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
+import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.services.ServiciosRuta;
 
 public class RutasPasajero extends Activity {
 	
 	private ListView lista;
-	private int idUsuario = 1; //TODO: obtener usuario
+	private int idUsuario;
 	private ProgressDialog pDialog;
 	private boolean cargado;
 
@@ -31,6 +30,9 @@ public class RutasPasajero extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.rutas_pasajero);
+		
+		SharedPreferences settings = getSharedPreferences(SharedPreferencesHandler.PREFS_NAME, 0);
+		idUsuario = settings.getInt(SharedPreferencesHandler.LOGIN_KEY, -1);
 		
 		lista = (ListView) findViewById(R.id.listaRutasPasajero);
 		
@@ -104,7 +106,7 @@ public class RutasPasajero extends Activity {
 
     	@Override
     	protected Ruta[] doInBackground(Void... params) {
-    		return ServiciosRuta.getInstancia().getArregloRutas("/rutas/pasajero/"+idUsuario);
+    		return ServiciosRuta.getInstancia().getArregloRutasPasajero(idUsuario);
     	}
 
     	@Override
