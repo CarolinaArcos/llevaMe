@@ -16,7 +16,6 @@ import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.model.Usuario;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
-import co.edu.eafit.llevame.view.DetallesRuta.TraerRuta;
 import co.edu.eafit.llevame.services.ServiciosUsuario;
 
 public class DetallesRutaConductor extends Activity {
@@ -38,6 +37,9 @@ public class DetallesRutaConductor extends Activity {
 	private String [] markerSnippet = {"Eafit", "Estacion Poblado", "CC SantaFe"};
 	private double [] markerLat = {6.200696,6.21211476,6.19790767};
 	private double [] markerLong = {-75.578433,-75.57809091,-75.57431436};
+	private String [] pointsSnippet = {"Eafit", "Estacion Poblado"};
+	private double [] pointsLat = {6.200696,6.21211476};
+	private double [] pointsLong = {-75.578433,-75.57809091};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -92,10 +94,13 @@ public class DetallesRutaConductor extends Activity {
 	}
 	
 	public void desplegarMapa() {
-		Intent intent = new Intent(this,ViewMapDetails.class);
+		Intent intent = new Intent(this,ViewMapDetailsDriver.class);
     	intent.putExtra("markerSnippet", markerSnippet);
 		intent.putExtra("markerLat", markerLat);
 		intent.putExtra("markerLong", markerLong);
+		intent.putExtra("pointsSnippet", pointsSnippet);
+	    intent.putExtra("pointsLat", pointsLat);
+	    intent.putExtra("pointsLong", pointsLong);
 		startActivity(intent);
 	}
 	

@@ -9,14 +9,6 @@ import co.edu.eafit.llevame.R;
  
 @SuppressWarnings("deprecation")
 public class MenuTab extends TabActivity {
-	
-    // TabSpec Names
-    private static final String HOME = "Home";
-    private static final String SOCIAL = "Social";
-    private static final String NOTIFICATIONS = "Notifications";
-    private static final String SETTINGS = "Settings";
-    private static final String ROUTES = "Routes";
-    private static final String POINTS = "Points";
     
     @Override
     public void onCreate(Bundle savedInstanceState) {

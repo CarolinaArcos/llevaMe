@@ -25,4 +25,6 @@
     <string name="title_activity_ajustes">Ajustes</string>
     <string name="title_activity_buscar_usuario">BuscarUsuario</string>
     <string name="title_activity_resultados">Resultados</string>
+    <string name="title_activity_view_map_details_driver">ViewMapDetailsDriver</string>
+
 </resources>

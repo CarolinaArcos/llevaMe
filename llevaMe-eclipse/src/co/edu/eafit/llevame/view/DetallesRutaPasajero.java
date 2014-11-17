@@ -40,10 +40,9 @@ public class DetallesRutaPasajero extends Activity {
 	private String [] markerSnippet = {"Eafit", "Estacion Poblado", "CC SantaFe"};
 	private double [] markerLat = {6.200696,6.21211476,6.19790767};
 	private double [] markerLong = {-75.578433,-75.57809091,-75.57431436};
-	private String pointSnippet;
-	private double pointLat;
-	private double pointLong;
-	protected static final int REQUEST_CODE = 10;
+	private String pointSnippet = "Eafit";
+	private double pointLat = 6.200696;
+	private double pointLong = -75.578433;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -72,6 +71,8 @@ public class DetallesRutaPasajero extends Activity {
 		placa = (EditText) findViewById(R.id.placaPasajero);
 		descripcion = (EditText) findViewById(R.id.descripcionPasajero);
 
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		mapa = (ImageButton) findViewById(R.id.image);
 		mapa.setOnClickListener(new OnClickListener() {
 			 
@@ -113,7 +114,7 @@ public class DetallesRutaPasajero extends Activity {
 		intent.putExtra("pointSnippet", pointSnippet);
 	    intent.putExtra("pointLat", pointLat);
 	    intent.putExtra("pointLong", pointLong);
-        startActivityForResult(intent, REQUEST_CODE);
+	    startActivity(intent);
 	}
 	
 	public void volverAMenu() {
@@ -179,15 +180,5 @@ public class DetallesRutaPasajero extends Activity {
 			descripcion.setText(desctiption);
 			conductor.setText(nombreConductor);
 		}
-	}
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == REQUEST_CODE) {
-	    	pointSnippet = data.getStringExtra("pointSnippet");
-	    	pointLat = data.getDoubleExtra("pointLat",0);
-	    	pointLong = data.getDoubleExtra("pointLong",0);
-	    	Toast.makeText(this, "Snippet: "+pointSnippet+" Lat: "+ pointLat+" Long: "+pointLong, Toast.LENGTH_LONG).show();
-	    }
 	}
 }

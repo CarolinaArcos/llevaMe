@@ -13,8 +13,6 @@ import android.graphics.Color;
 import android.os.AsyncTask;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.widget.Toast;
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
@@ -33,7 +31,7 @@ import com.google.android.gms.maps.model.PolylineOptions;
 
 import co.edu.eafit.llevame.R;
 
-public class ViewMapDetails extends FragmentActivity implements OnMarkerClickListener, OnInfoWindowClickListener{
+public class ViewMapDetailsDriver extends FragmentActivity implements OnMarkerClickListener, OnInfoWindowClickListener{
 	
 	private GoogleMap mapa;
 	private ArrayList<Polyline> lines;
@@ -42,20 +40,21 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 	private double latti;
 	private double longi;
 	private LatLng current;
-	private static final int OK_RESULT_CODE = 1;
 	private String [] markerSnippet;
 	private double [] markerLat;
 	private double [] markerLong;
+	private String [] pointsSnippet;
+	private double [] pointsLat;
+	private double [] pointsLong;
 	private ProgressDialog pDialog;
-	private int indexPoint;
-	private String pointSnippet;
-	private double pointLat;
-	private double pointLong;
 	
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_view_map_details);
+		setContentView(R.layout.activity_view_map_details_driver);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		// Initializing
 		nombresDestinos = new ArrayList<String>();
 		lines = new ArrayList<Polyline>();
@@ -63,13 +62,12 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 		markerSnippet = getIntent().getStringArrayExtra("markerSnippet");
 		markerLat = getIntent().getDoubleArrayExtra("markerLat");
 		markerLong = getIntent().getDoubleArrayExtra("markerLong");
-		pointSnippet = getIntent().getStringExtra("pointSnippet");
-		pointLat = getIntent().getDoubleExtra("pointLat", 0);
-		pointLong = getIntent().getDoubleExtra("pointLong", 0);
+		pointsSnippet = getIntent().getStringArrayExtra("pointsSnippet");
+		pointsLat = getIntent().getDoubleArrayExtra("pointsLat");
+		pointsLong = getIntent().getDoubleArrayExtra("pointsLong");
 		latti = markerLat[0];
 		longi = markerLong[0];
 		current = new LatLng(latti, longi);
-		indexPoint = -1;
 	
 		mapa = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -83,12 +81,14 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 		if(markerSnippet.length >=2) {
 			addMarker();
 			cleanMap();
-			if(pointSnippet != null) {
-				LatLng position = new LatLng(pointLat, pointLong);
-				for(int i = 0; i<markers.size(); ++i) {
-					if((markers.get(i).getPosition().equals(position)) && markers.get(i).getSnippet().equals(pointSnippet)){
-						pickUp(markers.get(i));
-						break;
+			if(pointsSnippet.length > 0) {
+				for(int j = 0; j<pointsSnippet.length; ++j) {
+					LatLng position = new LatLng(pointsLat[j], pointsLong[j]);
+					for(int i = 0; i<markers.size(); ++i) {
+						if((markers.get(i).getPosition().equals(position)) && markers.get(i).getSnippet().equals(pointsSnippet[j])){
+							pickUp(markers.get(i));
+							break;
+						}
 					}
 				}
 			}
@@ -96,28 +96,9 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 		}
 	}
 
-	public void aceptar(View view) {
-		if(indexPoint > -1) {
-			executePoint(indexPoint);
-			returnParams();
-		}
-		else
-			Toast.makeText(this, "Necesita señalar un punto de encuentro", Toast.LENGTH_LONG).show();
-	}
-	
 	public void back(View view) {
-		if(indexPoint > -1)	executePoint(indexPoint);
-		returnParams();
-	}
-	
-	protected void returnParams() {
-		Intent intent = new Intent();
-	    intent.putExtra("pointSnippet", pointSnippet);
-	    intent.putExtra("pointLat", pointLat);
-	    intent.putExtra("pointLong", pointLong);
-	    setResult(OK_RESULT_CODE, intent);
 		finish();
-	   }
+	}
 
 	private String getDirectionsUrl(LatLng origin,LatLng dest){
 
@@ -157,7 +138,7 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
         protected void onPreExecute() {
             super.onPreExecute();
             
-            pDialog = new ProgressDialog(ViewMapDetails.this);
+            pDialog = new ProgressDialog(ViewMapDetailsDriver.this);
             pDialog.setMessage("Trazando Ruta...");
             pDialog.setIndeterminate(false);
             pDialog.setCancelable(false);
@@ -266,27 +247,6 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 	@Override
 	public void onInfoWindowClick(Marker marker){
 		marker.hideInfoWindow();
-		if(!markers.get(markers.size()-1).equals(marker)) pickUp(marker);
-		else
-			Toast.makeText(this, "El punto de recogida no puede ser el destino", Toast.LENGTH_LONG).show();
-	}
-	
-	public void pickUp(final Marker marker) {
-		for(int i = 0; i<markers.size(); ++i) {
-			if(markers.get(i).equals(marker)) {
-				markers.get(i).setIcon(BitmapDescriptorFactory
-					.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-				indexPoint = i;
-			}
-			else markers.get(i).setIcon(BitmapDescriptorFactory
-					.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
-		}
-	}
-
-	public void executePoint (int index) {
-		pointSnippet = markers.get(index).getSnippet();
-		pointLat = markers.get(index).getPosition().latitude;
-		pointLong = markers.get(index).getPosition().longitude;
 	}
 	
 	public void cleanMap() {
@@ -294,9 +254,14 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 		lines.clear();
 	}
 	
-	@Override
-	public void onBackPressed() {
-		returnParams();
+	public void pickUp(final Marker marker) {
+		for(int i = 0; i<markers.size(); ++i) {
+			if(markers.get(i).equals(marker)) {
+				markers.get(i).setIcon(BitmapDescriptorFactory
+					.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
+				break;
+			}
+		}
 	}
 	
 	public void addMarker() {

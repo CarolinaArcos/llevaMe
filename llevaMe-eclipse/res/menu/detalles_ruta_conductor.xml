@@ -1,6 +1,6 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context="co.edu.eafit.llevame.DetallesRutaConductor" >
+    tools:context=".DetallesRutaConductor" >
 
     <item
         android:id="@+id/action_settings"

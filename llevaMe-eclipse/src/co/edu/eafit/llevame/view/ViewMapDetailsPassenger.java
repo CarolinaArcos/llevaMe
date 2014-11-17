@@ -11,29 +11,16 @@ import org.json.JSONObject;
 
 import android.graphics.Color;
 import android.os.AsyncTask;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.widget.EditText;
-import android.widget.Toast;
-import android.content.Context;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.support.v4.app.FragmentActivity;
 import android.util.Log;
 import android.view.View;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.GoogleMap.OnInfoWindowClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMapClickListener;
 import com.google.android.gms.maps.GoogleMap.OnMarkerClickListener;
-import com.google.android.gms.maps.GoogleMap.OnMarkerDragListener;
 import com.google.android.gms.maps.MapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
@@ -53,22 +40,20 @@ public class ViewMapDetailsPassenger extends FragmentActivity implements OnMarke
 	private double latti;
 	private double longi;
 	private LatLng current;
-	private static final int OK_RESULT_CODE = 1;
 	private String [] markerSnippet;
 	private double [] markerLat;
 	private double [] markerLong;
 	private ProgressDialog pDialog;
-	private boolean point;
-	private int indexPoint;
 	private String pointSnippet;
 	private double pointLat;
 	private double pointLong;
-	private int pointIndex;
-	private Marker pointMark;
 	
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 		setContentView(R.layout.activity_view_map_details_passenger);
 		// Initializing
 		nombresDestinos = new ArrayList<String>();
@@ -80,12 +65,9 @@ public class ViewMapDetailsPassenger extends FragmentActivity implements OnMarke
 		pointSnippet = getIntent().getStringExtra("pointSnippet");
 		pointLat = getIntent().getDoubleExtra("pointLat", 0);
 		pointLong = getIntent().getDoubleExtra("pointLong", 0);
-		Toast.makeText(this, "Snippet: "+pointSnippet+" Lat: "+ pointLat+" Long: "+pointLong, Toast.LENGTH_LONG).show();
-		point = false;
 		latti = markerLat[0];
 		longi = markerLong[0];
 		current = new LatLng(latti, longi);
-		indexPoint = -1;
 	
 		mapa = ((MapFragment) getFragmentManager().findFragmentById(R.id.map)).getMap();
 		mapa.setMapType(GoogleMap.MAP_TYPE_NORMAL);
@@ -99,45 +81,23 @@ public class ViewMapDetailsPassenger extends FragmentActivity implements OnMarke
 		if(markerSnippet.length >=2) {
 			addMarker();
 			cleanMap();
+			if(pointSnippet != null) {
+				LatLng position = new LatLng(pointLat, pointLong);
+				for(int i = 0; i<markers.size(); ++i) {
+					if((markers.get(i).getPosition().equals(position)) && markers.get(i).getSnippet().equals(pointSnippet)){
+						pickUp(markers.get(i));
+						break;
+					}
+				}
+			}
 			drawRoute();
 		}
 	}
 
-	public void moveCamera(View view) {
-		current = new LatLng(latti, longi);
-		mapa.moveCamera(CameraUpdateFactory.newLatLngZoom(current, 17));
-	}
-
-	public void aceptar(View view) {
-		if(indexPoint > -1) {
-			executePoint(indexPoint);
-			returnParams();
-		}
-		else
-			Toast.makeText(this, "Necesita señalar un punto de encuentro", Toast.LENGTH_LONG).show();
-	}
-	
 	public void back(View view) {
-		returnParams();
+		finish();
 	}
 	
-	protected void returnParams() {
-		Intent intent = new Intent();
-	    intent.putExtra("pointSnippet", pointSnippet);
-	    intent.putExtra("pointLat", pointLat);
-	    intent.putExtra("pointLong", pointLong);
-	    setResult(OK_RESULT_CODE, intent);
-		finish();
-	   }
-
-	public void drawRoute(View view) {
-		// Checks, whether start and end locations are captured
-		cleanMap();
-		if(markers.size() >= 2){					
-			drawRoute();
-		} else
-			Toast.makeText(this, "Necesita al menos dos ubicaciones", Toast.LENGTH_LONG).show();
-	}
 	private String getDirectionsUrl(LatLng origin,LatLng dest){
 
 		// Origin of route
@@ -285,85 +245,23 @@ public class ViewMapDetailsPassenger extends FragmentActivity implements OnMarke
 	@Override
 	public void onInfoWindowClick(Marker marker){
 		marker.hideInfoWindow();
-		if(!markers.get(markers.size()-1).equals(marker)) {
-			pickUp(marker);
-			/*if(!point){ 
-				marker.remove();
-				int index = markers.indexOf(marker);
-				MarkerOptions options = new MarkerOptions();
-				options.position(marker.getPosition());
-				options.
-				icon(BitmapDescriptorFactory
-						.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-						.title("Punto de Encuentro")
-						.snippet(markers.get(index).getSnippet());			
-				// Add new marker to the Google Map Android API V2
-				pointMark = mapa.addMarker(options);
-				indexPoint = index;
-				point = true;
-			} else {
-				pointMark.remove();
-				marker.remove();
-				int index = markers.indexOf(marker);
-				addMarker();
-				MarkerOptions options = new MarkerOptions();
-				options.position(marker.getPosition());
-				options.
-				icon(BitmapDescriptorFactory
-						.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE))
-						.title("Punto de Encuentro")
-						.snippet(markers.get(index).getSnippet());			
-				// Add new marker to the Google Map Android API V2
-				pointMark = mapa.addMarker(options);
-				indexPoint = index;
-			}*/
-		} else
-			Toast.makeText(this, "El punto de recogida no puede ser el destino", Toast.LENGTH_LONG).show();
 	}
 	
 	public void pickUp(final Marker marker) {
-		for(int i = 0; i> markers.size(); ++i) {
+		for(int i = 0; i<markers.size(); ++i) {
 			if(markers.get(i).equals(marker)) {
 				markers.get(i).setIcon(BitmapDescriptorFactory
 					.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-			indexPoint = i;
+				break;
 			}
-			else markers.get(i).setIcon(BitmapDescriptorFactory
-					.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 		}
-		//int index = markers.indexOf(marker);
-		//addMarker();
-		//markers.get(index).setIcon(BitmapDescriptorFactory
-		//				.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-		//indexPoint = index;
-	}
-
-	public void executePoint (int index) {
-		pointSnippet = markers.get(index).getSnippet();
-		pointLat = markers.get(index).getPosition().latitude;
-		pointLong = markers.get(index).getPosition().longitude;
-	}
-	
-	public double lat(int index) {
-		return markers.get(index).getPosition().latitude;
-	}
-
-	public double lng(int index) {
-		return markers.get(index).getPosition().longitude;
-	}
-	
-	public String snippet(int index) {
-		return markers.get(index).getSnippet();
 	}
 	
 	public void cleanMap() {
 		for(int i=0; i<lines.size(); ++i) lines.get(i).remove();
 		lines.clear();
 	}
-	@Override
-	public void onBackPressed() {
-	    // do nothing.
-	}
+	
 	public void addMarker() {
 		markers.clear();
 		nombresDestinos.clear();

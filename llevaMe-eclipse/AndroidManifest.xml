@@ -128,15 +128,11 @@
         </activity>
         <activity
             android:name=".view.ViewMapDetails"
-            android:label="@string/title_activity_view_map_details"
-            android:parentActivityName=".view.DetallesRutaConductor" >
-            <meta-data
-                android:name="android.support.PARENT_ACIVITY"
-                android:value="co.edu.eafit.llevame.view.DetallesRutaConductor" />
+            android:label="@string/title_activity_view_map_details" >
         </activity>
         <activity
             android:name=".view.ViewMapDetailsPassenger"
-            android:label="@string/title_activity_view_map_details_passenger" 
+            android:label="@string/title_activity_view_map_details_passenger"
             android:parentActivityName=".view.DetallesRutaPasajero" >
             <meta-data
                 android:name="android.support.PARENT_ACIVITY"
@@ -151,12 +147,21 @@
             android:label="@string/title_activity_buscar_usuario" >
         </activity>
         <activity
-            android:name="co.edu.eafit.llevame.view.Resultados"
+            android:name=".view.Resultados"
             android:label="@string/title_activity_resultados" >
         </activity>
-        <activity 
+        <activity
             android:name=".view.Amigos"
             android:label="@string/title_activity_amigos" >
         </activity>
+        <activity
+            android:name=".view.ViewMapDetailsDriver"
+            android:label="@string/title_activity_view_map_details_driver"
+            android:parentActivityName=".view.DetallesRutaConductor" >
+            <meta-data
+                android:name="android.support.PARENT_ACIVITY"
+                android:value="co.edu.eafit.llevame.view.DetallesRutaConductor" />
+        </activity>
     </application>
+
 </manifest>
