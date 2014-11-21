@@ -7,7 +7,6 @@ import android.util.Log;
 import co.edu.eafit.llevame.handlers.ServerHandler;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.model.Ubicacion;
-import co.edu.eafit.llevame.model.Usuario;
 
 public class ServiciosRuta {
 
@@ -44,7 +43,7 @@ public class ServiciosRuta {
 			ruta.setPlaca(laRuta.getString("placa"));
 			ruta.setConductor(laRuta.getInt("conductor"));
 			
-			//TODO: ruta.setRecorrido()
+			ruta.setRecorrido(getArregloUbicaciones(Integer.parseInt(id)));
 
 		} catch (Exception ex) {
 			Log.e("ServicioRest","Error!", ex);
@@ -153,6 +152,39 @@ public class ServiciosRuta {
 			ServerHandler.getServerResponsePost(url, listaUbicaciones);
 		} catch (Exception ex) {
 			Log.e("ServicioRest","Error!", ex);
+		}
+	}
+	
+	public Ubicacion[] getArregloUbicaciones(int idRuta){
+		Ubicacion[] recorrido;
+		String url = "/rutas/"+idRuta+"/ubicaciones";
+		
+		try{
+			String serverResp = ServerHandler.getServerResponse(url);
+			
+			Log.d("getArregloUbicaciones", serverResp);
+			
+			JSONArray lasUbicaciones = new JSONArray(serverResp);
+			String recorridoString[]= new String[lasUbicaciones.length()];
+			recorrido = new Ubicacion[recorridoString.length];
+			
+			for (int i = 0; i<lasUbicaciones.length(); i++) {
+				JSONObject u = lasUbicaciones.getJSONObject(i);
+				Ubicacion oneUbicacion = new Ubicacion();
+				
+				oneUbicacion.setId(u.getInt("id"));
+				oneUbicacion.setNombre(u.getString("nombre"));
+				oneUbicacion.setLongitud(u.getDouble("longitud"));
+				oneUbicacion.setLatitud(u.getDouble("latitud"));
+				
+				recorrido[i] = oneUbicacion;
+				
+			}
+			return recorrido;
+			
+		} catch (Exception ex) {
+			Log.e("ServicioRest","Error!", ex);
+			return null;
 		}
 	}
 	

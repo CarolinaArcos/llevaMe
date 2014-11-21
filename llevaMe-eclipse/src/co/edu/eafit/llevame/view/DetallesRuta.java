@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
 import co.edu.eafit.llevame.model.Invitacion;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.model.Ubicacion;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
 import co.edu.eafit.llevame.services.ServiciosUsuario;
@@ -33,12 +35,13 @@ public class DetallesRuta extends Activity{
 	private int id = -1; //id de la ruta
 	private int idUsuario; //Usuario logeado
 	private int idConductor;//id del conductor de la ruta
+	
 	private int puntoRecogida = 1;//QUEMADO id de la ubicacion en la que se recoger el usr
 	
 	private ImageButton mapa;
-	private String [] markerSnippet = {"Eafit", "Estacion Poblado", "CC SantaFe"};
-	private double [] markerLat = {6.200696,6.21211476,6.19790767};
-	private double [] markerLong = {-75.578433,-75.57809091,-75.57431436};
+	private String [] markerSnippet;
+	private double [] markerLat;
+	private double [] markerLong;
 	private String pointSnippet;
 	private double pointLat;
 	private double pointLong;
@@ -160,6 +163,24 @@ public class DetallesRuta extends Activity{
 			descripcion.setText(desctiption);
 			conductor.setText(nombreConductor);
 			
+			
+			
+			//sacar recorrido de la ruta
+			markerSnippet = new String[r.getRecorrido().length];
+			markerLong = new double[markerSnippet.length];
+			markerLat = new double[markerSnippet.length];
+			
+			for(int i = 0; i<r.getRecorrido().length; i++){
+				Ubicacion u = r.getRecorrido()[i];
+				
+				Log.d("nombre "+i,u.getNombre());
+				Log.d("longitud "+i,u.getLongitud()+"");
+				Log.d("latitud "+i,u.getLatitud()+"");
+				
+				markerSnippet[i] = u.getNombre();
+				markerLong[i] = u.getLongitud();
+				markerLat[i] = u.getLatitud();
+			}
 		}
 	}
 	
