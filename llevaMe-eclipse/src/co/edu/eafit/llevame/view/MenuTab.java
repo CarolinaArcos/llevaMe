@@ -41,7 +41,7 @@ public class MenuTab extends TabActivity {
         TabSpec pointsSpec = tabHost.newTabSpec(null);
         // Tab Icon
         pointsSpec.setIndicator(null, getResources().getDrawable(R.drawable.ic_action_important));
-        Intent points = new Intent(this, FormularioCrearRuta.class); // Change to points view
+        Intent points = new Intent(this, ListaRutasDisponibles.class); // Change to points view
         // Tab Content
         pointsSpec.setContent(points);
          
