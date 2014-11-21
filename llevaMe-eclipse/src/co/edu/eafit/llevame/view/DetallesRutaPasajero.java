@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,6 +17,7 @@ import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
 import co.edu.eafit.llevame.model.Notificacion;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.model.Ubicacion;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
 import co.edu.eafit.llevame.services.ServiciosUsuario;
@@ -37,9 +39,9 @@ public class DetallesRutaPasajero extends Activity {
 	private int idConductor = 1;
 	
 	private ImageButton mapa;
-	private String [] markerSnippet = {"Eafit", "Estacion Poblado", "CC SantaFe"};
-	private double [] markerLat = {6.200696,6.21211476,6.19790767};
-	private double [] markerLong = {-75.578433,-75.57809091,-75.57431436};
+	private String [] markerSnippet;
+	private double [] markerLat;
+	private double [] markerLong;
 	private String pointSnippet = "Eafit";
 	private double pointLat = 6.200696;
 	private double pointLong = -75.578433;
@@ -179,6 +181,28 @@ public class DetallesRutaPasajero extends Activity {
 			placa.setText(pla);
 			descripcion.setText(desctiption);
 			conductor.setText(nombreConductor);
+			
+			markerSnippet = new String[r.getRecorrido().length];
+			markerLong = new double[markerSnippet.length];
+			markerLat = new double[markerSnippet.length];
+			
+			for(int i = 0; i<r.getRecorrido().length; i++){
+				Ubicacion u = r.getRecorrido()[i];
+				
+				Log.d("nombre "+i,u.getNombre());
+				Log.d("longitud "+i,u.getLongitud()+"");
+				Log.d("latitud "+i,u.getLatitud()+"");
+				
+				markerSnippet[i] = u.getNombre();
+				markerLong[i] = u.getLongitud();
+				markerLat[i] = u.getLatitud();
+			}
+			
+			int posUbicacion = 0;//QUEMADO TODO: obtener ubicacion que esta inscrito el pasajero
+			Ubicacion selected = r.getRecorrido()[posUbicacion];
+			pointSnippet = selected.getNombre();
+			pointLat = selected.getLatitud();
+			pointLong = selected.getLongitud();
 		}
 	}
 }
