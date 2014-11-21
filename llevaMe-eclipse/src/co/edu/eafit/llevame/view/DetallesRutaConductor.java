@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -13,6 +14,7 @@ import android.widget.ImageButton;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Notificacion;
 import co.edu.eafit.llevame.model.Ruta;
+import co.edu.eafit.llevame.model.Ubicacion;
 import co.edu.eafit.llevame.model.Usuario;
 import co.edu.eafit.llevame.services.ServiciosEvento;
 import co.edu.eafit.llevame.services.ServiciosRuta;
@@ -35,11 +37,11 @@ public class DetallesRutaConductor extends Activity {
 	
 	private ImageButton mapa;
 	private String [] markerSnippet = {"Eafit", "Estacion Poblado", "CC SantaFe"};
-	private double [] markerLat = {6.200696,6.21211476,6.19790767};
-	private double [] markerLong = {-75.578433,-75.57809091,-75.57431436};
+	private double [] markerLat = {6.200696, 6.21211476, 6.19790767};
+	private double [] markerLong = {-75.578433, -75.57809091, -75.57431436};
 	private String [] pointsSnippet = {"Eafit", "Estacion Poblado"};
-	private double [] pointsLat = {6.200696,6.21211476};
-	private double [] pointsLong = {-75.578433,-75.57809091};
+	private double [] pointsLat = {6.200696, 6.21211476};
+	private double [] pointsLong = {-75.578433, -75.57809091};
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -166,6 +168,34 @@ public class DetallesRutaConductor extends Activity {
 				}
 				
 				pasajeros.setText(nombrePasajeros);
+			}
+			
+			
+			markerSnippet = new String[r.getRecorrido().length];
+			markerLong = new double[markerSnippet.length];
+			markerLat = new double[markerSnippet.length];
+			for(int i = 0; i<r.getRecorrido().length; i++){
+				Ubicacion u = r.getRecorrido()[i];
+				
+				Log.d("nombre "+i,u.getNombre());
+				Log.d("longitud "+i,u.getLongitud()+"");
+				Log.d("latitud "+i,u.getLatitud()+"");
+				
+				markerSnippet[i] = u.getNombre();
+				markerLong[i] = u.getLongitud();
+				markerLat[i] = u.getLatitud();
+			}
+			
+			pointsSnippet = new String[idPasajeros.length];
+			pointsLong = new double[pointsSnippet.length];
+			pointsLat = new double[pointsSnippet.length];
+			for(int i=0; i<idPasajeros.length; i++){
+				int posSelected = 0; //QUEMADO TODO: obtener ubicacion de recogida del usuario
+				Ubicacion selected = r.getRecorrido()[posSelected];
+				
+				pointsSnippet[i] = selected.getNombre();
+				pointsLong[i] = selected.getLongitud();
+				pointsLat[i] = selected.getLatitud();
 			}
 		}	
 	}
