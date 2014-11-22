@@ -173,10 +173,21 @@ public class DetallesRutaConductor extends Activity {
 			if(ruta.getPasajeros()!=null && ruta.getPasajeros().length!=0){
 				String nombrePasajeros = "";
 				for (int i=0; i<ruta.getPasajeros().length; i++) {
+					Usuario u = ruta.getPasajeros()[i];
+					int idUbicacion = u.getPickUp();
 					
-					nombrePasajeros += ruta.getPasajeros()[i].getUsername();
+					String nombreUbicacion = "";
+					
+					for (int j=0; j<ruta.getRecorrido().length; j++) {
+						Ubicacion cur =ruta.getRecorrido()[j];
+						if (cur.getId() == idUbicacion) {
+							nombreUbicacion = cur.getNombre();
+						}
+					}
+					
+					nombrePasajeros += u.getUsername() + " - "+ nombreUbicacion;
 					if(i != ruta.getPasajeros().length-1){
-						nombrePasajeros += ", ";
+						nombrePasajeros += ",\n";
 					}
 				}
 				

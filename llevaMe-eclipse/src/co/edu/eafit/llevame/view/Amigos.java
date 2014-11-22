@@ -28,6 +28,10 @@ public class Amigos extends Activity {
     	startActivity(buscar);
 	}
 
+	public void onAmigos(View v){
+		//TODO: lista amigos
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will

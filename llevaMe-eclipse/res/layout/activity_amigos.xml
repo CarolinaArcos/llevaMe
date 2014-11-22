@@ -7,12 +7,36 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="co.edu.eafit.llevame.view.Amigos" >
-    
+
+    <Button
+        android:id="@+id/btComunidades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btAmigos"
+        android:layout_below="@+id/btAmigos"
+        android:layout_marginTop="36dp"
+        android:onClick="onAmigos"
+        android:text="Amigos" />
+
     <ImageButton
         android:id="@+id/searchUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="22dp"
+        android:layout_marginTop="18dp"
         android:onClick="onBuscar"
-        android:src="@drawable/ic_action_add_group"/>
+        android:src="@drawable/ic_action_add_group" />
+
+    <Button
+        android:id="@+id/btAmigos"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/searchUsuario"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="44dp"
+        android:onClick="onComunidades"
+        android:text="Button" />
 
 </RelativeLayout>

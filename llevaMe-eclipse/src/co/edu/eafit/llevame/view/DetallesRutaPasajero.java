@@ -199,6 +199,7 @@ public class DetallesRutaPasajero extends Activity {
 			markerLong = new double[markerSnippet.length];
 			markerLat = new double[markerSnippet.length];
 			
+			
 			for(int i = 0; i<r.getRecorrido().length; i++){
 				Ubicacion u = r.getRecorrido()[i];
 				
@@ -209,6 +210,21 @@ public class DetallesRutaPasajero extends Activity {
 				markerSnippet[i] = u.getNombre();
 				markerLong[i] = u.getLongitud();
 				markerLat[i] = u.getLatitud();
+			}
+			
+			 int idUbicacion = -1;
+			for(int i = 0; i<r.getPasajeros().length; i++) {
+				if (r.getPasajeros()[i].getId() == idUsuario) {
+					idUbicacion = r.getPasajeros()[i].getPickUp();
+					break;
+				}
+			}
+			
+			for(int j=0; j<r.getRecorrido().length; j++){
+				if(r.getRecorrido()[j].getId() == idUbicacion){
+					pointPickUp = j;
+					break;
+				}
 			}
 			
 			Ubicacion selected = r.getRecorrido()[pointPickUp];
