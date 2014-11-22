@@ -47,10 +47,8 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 	private double [] markerLat;
 	private double [] markerLong;
 	private ProgressDialog pDialog;
+	private int pointPickUp;
 	private int indexPoint;
-	private String pointSnippet;
-	private double pointLat;
-	private double pointLong;
 	
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
@@ -63,9 +61,7 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 		markerSnippet = getIntent().getStringArrayExtra("markerSnippet");
 		markerLat = getIntent().getDoubleArrayExtra("markerLat");
 		markerLong = getIntent().getDoubleArrayExtra("markerLong");
-		pointSnippet = getIntent().getStringExtra("pointSnippet");
-		pointLat = getIntent().getDoubleExtra("pointLat", 0);
-		pointLong = getIntent().getDoubleExtra("pointLong", 0);
+		pointPickUp = getIntent().getIntExtra("pointPickUp", -1);
 		latti = markerLat[0];
 		longi = markerLong[0];
 		current = new LatLng(latti, longi);
@@ -83,14 +79,8 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 		if(markerSnippet.length >=2) {
 			addMarker();
 			cleanMap();
-			if(pointSnippet != null) {
-				LatLng position = new LatLng(pointLat, pointLong);
-				for(int i = 0; i<markers.size(); ++i) {
-					if((markers.get(i).getPosition().equals(position)) && markers.get(i).getSnippet().equals(pointSnippet)){
-						pickUp(markers.get(i));
-						break;
-					}
-				}
+			if(pointPickUp >= 0) {
+				pickUp(markers.get(pointPickUp));
 			}
 			drawRoute();
 		}
@@ -98,7 +88,7 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 
 	public void aceptar(View view) {
 		if(indexPoint > -1) {
-			executePoint(indexPoint);
+			pointPickUp = indexPoint;
 			returnParams();
 		}
 		else
@@ -106,15 +96,13 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 	}
 	
 	public void back(View view) {
-		if(indexPoint > -1)	executePoint(indexPoint);
+		if(indexPoint > -1)	pointPickUp = indexPoint;
 		returnParams();
 	}
 	
 	protected void returnParams() {
 		Intent intent = new Intent();
-	    intent.putExtra("pointSnippet", pointSnippet);
-	    intent.putExtra("pointLat", pointLat);
-	    intent.putExtra("pointLong", pointLong);
+	    intent.putExtra("pointPickUp", pointPickUp);
 	    setResult(OK_RESULT_CODE, intent);
 		finish();
 	   }
@@ -281,12 +269,6 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 			else markers.get(i).setIcon(BitmapDescriptorFactory
 					.defaultMarker(BitmapDescriptorFactory.HUE_AZURE));
 		}
-	}
-
-	public void executePoint (int index) {
-		pointSnippet = markers.get(index).getSnippet();
-		pointLat = markers.get(index).getPosition().latitude;
-		pointLong = markers.get(index).getPosition().longitude;
 	}
 	
 	public void cleanMap() {

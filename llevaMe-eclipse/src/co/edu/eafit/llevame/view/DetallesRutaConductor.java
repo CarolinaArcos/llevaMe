@@ -40,11 +40,15 @@ public class DetallesRutaConductor extends Activity {
 	private String [] markerSnippet;
 	private double [] markerLat;
 	private double [] markerLong;
+	
+	private int [] pointsPickUp = {0,1};
 	private String [] pointsSnippet;
 	private double [] pointsLat;
 	private double [] pointsLong;
 	
 	private ProgressDialog pDialog;
+	
+	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -103,9 +107,7 @@ public class DetallesRutaConductor extends Activity {
     	intent.putExtra("markerSnippet", markerSnippet);
 		intent.putExtra("markerLat", markerLat);
 		intent.putExtra("markerLong", markerLong);
-		intent.putExtra("pointsSnippet", pointsSnippet);
-	    intent.putExtra("pointsLat", pointsLat);
-	    intent.putExtra("pointsLong", pointsLong);
+		intent.putExtra("pointsPickUp", pointsPickUp);
 		startActivity(intent);
 	}
 	
@@ -204,9 +206,12 @@ public class DetallesRutaConductor extends Activity {
 			pointsSnippet = new String[idPasajeros.length];
 			pointsLong = new double[pointsSnippet.length];
 			pointsLat = new double[pointsSnippet.length];
+			pointsPickUp = new int[pointsSnippet.length];
 			for(int i=0; i<idPasajeros.length; i++){
 				int posSelected = 0; //QUEMADO TODO: obtener ubicacion de recogida del usuario
 				Ubicacion selected = r.getRecorrido()[posSelected];
+				
+				pointsPickUp[i] = posSelected;
 				
 				pointsSnippet[i] = selected.getNombre();
 				pointsLong[i] = selected.getLongitud();

@@ -43,9 +43,7 @@ public class DetallesRuta extends Activity{
 	private String [] markerSnippet;
 	private double [] markerLat;
 	private double [] markerLong;
-	private String pointSnippet;
-	private double pointLat;
-	private double pointLong;
+	private int pointPickUp = -1;
 	protected static final int REQUEST_CODE = 10;
 	
 	private ProgressDialog pDialog;
@@ -117,9 +115,7 @@ public class DetallesRuta extends Activity{
     	intent.putExtra("markerSnippet", markerSnippet);
 		intent.putExtra("markerLat", markerLat);
 		intent.putExtra("markerLong", markerLong);
-		intent.putExtra("pointSnippet", pointSnippet);
-	    intent.putExtra("pointLat", pointLat);
-	    intent.putExtra("pointLong", pointLong);
+		intent.putExtra("pointPickUp", pointPickUp);
         startActivityForResult(intent, REQUEST_CODE);
 	}
 	
@@ -230,10 +226,7 @@ public class DetallesRuta extends Activity{
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
-		if (requestCode == REQUEST_CODE) {
-	    	pointSnippet = data.getStringExtra("pointSnippet");
-	    	pointLat = data.getDoubleExtra("pointLat",0);
-	    	pointLong = data.getDoubleExtra("pointLong",0);
-	    }
+		if (requestCode == REQUEST_CODE) 
+	    	pointPickUp = data.getIntExtra("pointPickUp", -1);
 	}
 }

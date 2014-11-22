@@ -43,9 +43,10 @@ public class DetallesRutaPasajero extends Activity {
 	private String [] markerSnippet;
 	private double [] markerLat;
 	private double [] markerLong;
-	private String pointSnippet = "Eafit";
-	private double pointLat = 6.200696;
-	private double pointLong = -75.578433;
+	private String pointSnippet;
+	private double pointLat;
+	private double pointLong;
+	private int pointPickUp = 0; //Punto quemado
 
 	private ProgressDialog pDialog;
 	
@@ -116,9 +117,7 @@ public class DetallesRutaPasajero extends Activity {
     	intent.putExtra("markerSnippet", markerSnippet);
 		intent.putExtra("markerLat", markerLat);
 		intent.putExtra("markerLong", markerLong);
-		intent.putExtra("pointSnippet", pointSnippet);
-	    intent.putExtra("pointLat", pointLat);
-	    intent.putExtra("pointLong", pointLong);
+		intent.putExtra("pointPickUp", pointPickUp);
 	    startActivity(intent);
 	}
 	
@@ -213,8 +212,7 @@ public class DetallesRutaPasajero extends Activity {
 				markerLat[i] = u.getLatitud();
 			}
 			
-			int posUbicacion = 0;//QUEMADO TODO: obtener ubicacion que esta inscrito el pasajero
-			Ubicacion selected = r.getRecorrido()[posUbicacion];
+			Ubicacion selected = r.getRecorrido()[pointPickUp];
 			pointSnippet = selected.getNombre();
 			pointLat = selected.getLatitud();
 			pointLong = selected.getLongitud();

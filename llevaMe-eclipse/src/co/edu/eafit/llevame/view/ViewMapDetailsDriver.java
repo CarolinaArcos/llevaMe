@@ -43,9 +43,7 @@ public class ViewMapDetailsDriver extends FragmentActivity implements OnMarkerCl
 	private String [] markerSnippet;
 	private double [] markerLat;
 	private double [] markerLong;
-	private String [] pointsSnippet;
-	private double [] pointsLat;
-	private double [] pointsLong;
+	private int [] pointsPickUp;
 	private ProgressDialog pDialog;
 	
 	@Override 
@@ -62,9 +60,7 @@ public class ViewMapDetailsDriver extends FragmentActivity implements OnMarkerCl
 		markerSnippet = getIntent().getStringArrayExtra("markerSnippet");
 		markerLat = getIntent().getDoubleArrayExtra("markerLat");
 		markerLong = getIntent().getDoubleArrayExtra("markerLong");
-		pointsSnippet = getIntent().getStringArrayExtra("pointsSnippet");
-		pointsLat = getIntent().getDoubleArrayExtra("pointsLat");
-		pointsLong = getIntent().getDoubleArrayExtra("pointsLong");
+		pointsPickUp = getIntent().getIntArrayExtra("pointsPickUp");
 		latti = markerLat[0];
 		longi = markerLong[0];
 		current = new LatLng(latti, longi);
@@ -81,16 +77,8 @@ public class ViewMapDetailsDriver extends FragmentActivity implements OnMarkerCl
 		if(markerSnippet.length >=2) {
 			addMarker();
 			cleanMap();
-			if(pointsSnippet.length > 0) {
-				for(int j = 0; j<pointsSnippet.length; ++j) {
-					LatLng position = new LatLng(pointsLat[j], pointsLong[j]);
-					for(int i = 0; i<markers.size(); ++i) {
-						if((markers.get(i).getPosition().equals(position)) && markers.get(i).getSnippet().equals(pointsSnippet[j])){
-							pickUp(markers.get(i));
-							break;
-						}
-					}
-				}
+			if(pointsPickUp.length > 0) {
+				for(int j = 0; j<pointsPickUp.length; ++j) pickUp(j);
 			}
 			drawRoute();
 		}
@@ -254,14 +242,9 @@ public class ViewMapDetailsDriver extends FragmentActivity implements OnMarkerCl
 		lines.clear();
 	}
 	
-	public void pickUp(final Marker marker) {
-		for(int i = 0; i<markers.size(); ++i) {
-			if(markers.get(i).equals(marker)) {
-				markers.get(i).setIcon(BitmapDescriptorFactory
+	public void pickUp(int marker) {
+		markers.get(marker).setIcon(BitmapDescriptorFactory
 					.defaultMarker(BitmapDescriptorFactory.HUE_ORANGE));
-				break;
-			}
-		}
 	}
 	
 	public void addMarker() {
