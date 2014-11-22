@@ -46,7 +46,7 @@ public class Resultados extends ListFragment {
                 android.R.layout.simple_list_item_1, strs));
 		
 		if(username!=null && !username.isEmpty()) {
-			new BuscarUsuariosLike().execute(username);
+			new BuscarUsuariosLike(username).execute();
 		}
 		
 	}
@@ -80,9 +80,10 @@ public class Resultados extends ListFragment {
     	
     }
 	
-	public class BuscarUsuariosLike extends AsyncTask<String, Void, Usuario[]> {
+	public class BuscarUsuariosLike extends AsyncTask<Void, Void, Usuario[]> {
     	
 		ProgressDialog pDialog;
+		String username;
 		
     	@Override
         protected void onPreExecute() {
@@ -96,13 +97,14 @@ public class Resultados extends ListFragment {
         }
     	
     	
-    	public BuscarUsuariosLike(){
+    	public BuscarUsuariosLike(String username){
     		super();
+    		this.username = username;
     	}
     	
     	@Override
-    	protected Usuario[] doInBackground(String... params) {
-    		return ServiciosUsuario.getInstancia().getUsuariosLike(params[0]);
+    	protected Usuario[] doInBackground(Void... params) {
+    		return ServiciosUsuario.getInstancia().getUsuariosLike(username, idUsrLoggedIn);
     	}
 
     	@Override

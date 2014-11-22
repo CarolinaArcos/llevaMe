@@ -209,6 +209,12 @@ public class FormularioCrearRuta extends Activity {
 			return false;
 		}
 		
+		//Validar que se haya trazado una ruta
+		if (markerSnippet.length<2) {
+			toast("Debe ingresar un recorrido para la ruta");
+			return false;
+		}
+		
 		return true;
 	}
 

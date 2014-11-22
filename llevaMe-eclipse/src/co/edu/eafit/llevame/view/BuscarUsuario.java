@@ -20,6 +20,8 @@ public class BuscarUsuario extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_buscar_usuario);
 		
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
 	}
 
 	@Override

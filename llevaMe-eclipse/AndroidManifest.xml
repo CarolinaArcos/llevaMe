@@ -144,7 +144,11 @@
         </activity>
         <activity
             android:name=".view.BuscarUsuario"
-            android:label="@string/title_activity_buscar_usuario" >
+            android:label="@string/title_activity_buscar_usuario"
+            android:parentActivityName=".view.MenuTab" >
+            <meta-data
+                android:name="android.support.PARENT_ACIVITY"
+                android:value="co.edu.eafit.llevame.view.MenuTab" />
         </activity>
         <activity
             android:name=".view.Resultados"

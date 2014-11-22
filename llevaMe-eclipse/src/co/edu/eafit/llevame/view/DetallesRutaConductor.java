@@ -1,6 +1,7 @@
 package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -36,12 +37,14 @@ public class DetallesRutaConductor extends Activity {
 	private Usuario[] idPasajeros;//Pasajeros de la ruta
 	
 	private ImageButton mapa;
-	private String [] markerSnippet = {"Eafit", "Estacion Poblado", "CC SantaFe"};
-	private double [] markerLat = {6.200696, 6.21211476, 6.19790767};
-	private double [] markerLong = {-75.578433, -75.57809091, -75.57431436};
-	private String [] pointsSnippet = {"Eafit", "Estacion Poblado"};
-	private double [] pointsLat = {6.200696, 6.21211476};
-	private double [] pointsLong = {-75.578433, -75.57809091};
+	private String [] markerSnippet;
+	private double [] markerLat;
+	private double [] markerLong;
+	private String [] pointsSnippet;
+	private double [] pointsLat;
+	private double [] pointsLong;
+	
+	private ProgressDialog pDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -125,6 +128,17 @@ public class DetallesRutaConductor extends Activity {
 		public TraerRuta(){
 			super();
 		}
+		
+		@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            
+            pDialog = new ProgressDialog(DetallesRutaConductor.this);
+            pDialog.setMessage("Cargando...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
 
 		@Override
 		protected Ruta doInBackground(String...params) {
@@ -142,7 +156,8 @@ public class DetallesRutaConductor extends Activity {
 
 		@Override
 		protected void onPostExecute(Ruta r){
-
+			pDialog.dismiss();
+			
 			//Tomar valores de r
 			String name = r.getNombre();
 			String date = r.getFecha().substring(0, 10);

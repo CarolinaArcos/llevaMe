@@ -89,6 +89,11 @@ public class ServiciosUsuario {
 		return getUsuariosList(url);
 	}
 	
+	public Usuario[] getUsuariosLike(String username, int id) {
+		String url = "/usuarios/like?usr="+username+"&idUsr="+id;
+		return getUsuariosList(url);
+	}
+	
 	public Usuario[] getPasajeros(int id) {
 		String url = "/rutas/pasajeros?ruta="+id;
 		return getUsuariosList(url);

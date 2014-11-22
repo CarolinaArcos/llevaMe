@@ -1,6 +1,7 @@
 package co.edu.eafit.llevame.view;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -47,6 +48,7 @@ public class DetallesRuta extends Activity{
 	private double pointLong;
 	protected static final int REQUEST_CODE = 10;
 	
+	private ProgressDialog pDialog;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -134,6 +136,17 @@ public class DetallesRuta extends Activity{
 		}
 
 		@Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            
+            pDialog = new ProgressDialog(DetallesRuta.this);
+            pDialog.setMessage("Cargando...");
+            pDialog.setIndeterminate(false);
+            pDialog.setCancelable(false);
+            pDialog.show();
+        }
+		
+		@Override
 		protected Ruta doInBackground(String...params) {
 			Ruta r = ServiciosRuta.getInstancia().getRuta(""+id);
 			idConductor = r.getConductor();
@@ -146,6 +159,8 @@ public class DetallesRuta extends Activity{
 		@Override
 		protected void onPostExecute(Ruta r){
 
+			pDialog.dismiss();
+			
 			//Tomar valores de r
 			String name = r.getNombre();
 			String date = r.getFecha().substring(0, 10);
