@@ -6,6 +6,8 @@ public class Usuario {
 	private String password;
 	private int puntos;
 	
+	private Integer pickUp;
+	
 	public Usuario(){
 		
 	}
@@ -48,5 +50,13 @@ public class Usuario {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public Integer getPickUp() {
+		return pickUp;
+	}
+
+	public void setPickUp(Integer pickUp) {
+		this.pickUp = pickUp;
 	}
 }

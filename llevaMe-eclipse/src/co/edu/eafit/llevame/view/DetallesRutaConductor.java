@@ -32,16 +32,15 @@ public class DetallesRutaConductor extends Activity {
 	private EditText descripcion;
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
 	private int id = -1;
-	private int idConductor = 1;
 	
-	private Usuario[] idPasajeros;//Pasajeros de la ruta
+	private Ruta ruta;
 	
 	private ImageButton mapa;
 	private String [] markerSnippet;
 	private double [] markerLat;
 	private double [] markerLong;
 	
-	private int [] pointsPickUp = {0,1};
+	private int [] pointsPickUp;
 	private String [] pointsSnippet;
 	private double [] pointsLat;
 	private double [] pointsLong;
@@ -146,12 +145,7 @@ public class DetallesRutaConductor extends Activity {
 		protected Ruta doInBackground(String...params) {
 			Ruta r = ServiciosRuta.getInstancia().getRuta(""+id);
 			
-			idPasajeros = ServiciosUsuario.getInstancia().getPasajeros(id);
-			idConductor = r.getConductor();
-			
-			
-			
-			nombreConductor = ServiciosUsuario.getInstancia().getUsuario(idConductor).getUsername();
+			nombreConductor = ServiciosUsuario.getInstancia().getUsuario(r.getConductor()).getUsername();
 			
 			return r;
 		}
@@ -159,6 +153,8 @@ public class DetallesRutaConductor extends Activity {
 		@Override
 		protected void onPostExecute(Ruta r){
 			pDialog.dismiss();
+			
+			ruta = r;
 			
 			//Tomar valores de r
 			String name = r.getNombre();
@@ -174,12 +170,12 @@ public class DetallesRutaConductor extends Activity {
 			cupo.setText(capacity);
 			placa.setText(pla);
 			descripcion.setText(desctiption);
-			if(idPasajeros!=null && idPasajeros.length!=0){
+			if(ruta.getPasajeros()!=null && ruta.getPasajeros().length!=0){
 				String nombrePasajeros = "";
-				for (int i=0; i<idPasajeros.length; i++) {
+				for (int i=0; i<ruta.getPasajeros().length; i++) {
 					
-					nombrePasajeros += idPasajeros[i].getUsername();
-					if(i != idPasajeros.length-1){
+					nombrePasajeros += ruta.getPasajeros()[i].getUsername();
+					if(i != ruta.getPasajeros().length-1){
 						nombrePasajeros += ", ";
 					}
 				}
@@ -203,12 +199,25 @@ public class DetallesRutaConductor extends Activity {
 				markerLat[i] = u.getLatitud();
 			}
 			
-			pointsSnippet = new String[idPasajeros.length];
+			pointsSnippet = new String[ruta.getPasajeros().length];
 			pointsLong = new double[pointsSnippet.length];
 			pointsLat = new double[pointsSnippet.length];
 			pointsPickUp = new int[pointsSnippet.length];
-			for(int i=0; i<idPasajeros.length; i++){
-				int posSelected = 0; //QUEMADO TODO: obtener ubicacion de recogida del usuario
+			for(int i=0; i<ruta.getPasajeros().length; i++){
+				//obtener ubicacion de recogida del usuario
+				int idUbicacion = r.getPasajeros()[i].getPickUp();
+				Log.d("idUbicacion", idUbicacion+"");
+				 
+				int posSelected = -1;
+				
+				for(int j=0; j<r.getRecorrido().length; j++){
+					if(r.getRecorrido()[j].getId() == idUbicacion){
+						posSelected = j;
+						Log.d("posSelected "+i, posSelected+"");
+						break;
+					}
+				}
+				
 				Ubicacion selected = r.getRecorrido()[posSelected];
 				
 				pointsPickUp[i] = posSelected;
@@ -237,7 +246,7 @@ public class DetallesRutaConductor extends Activity {
 		protected void onPostExecute(Void v){
 			volverAMenu();
 			
-			for(Usuario u : idPasajeros){//enviar notificacion a cada pasajero
+			for(Usuario u : ruta.getPasajeros()){//enviar notificacion a cada pasajero
 				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha iniciado", u.getId());
 				ServiciosEvento.getInstancia().ingresarNotificacion(n);
 			}
@@ -262,7 +271,7 @@ public class DetallesRutaConductor extends Activity {
 		protected void onPostExecute(Void v){
 			volverAMenu();
 			
-			for(Usuario u : idPasajeros){//enviar notificacion a cada pasajero
+			for(Usuario u : ruta.getPasajeros()){//enviar notificacion a cada pasajero
 				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha finalizado", u.getId());
 				ServiciosEvento.getInstancia().ingresarNotificacion(n);
 			}

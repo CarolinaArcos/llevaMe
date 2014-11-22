@@ -1,6 +1,7 @@
 package co.edu.eafit.llevame.services;
 
 import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.util.Log;
@@ -118,6 +119,12 @@ public class ServiciosUsuario {
 					u.setUsername(usuario.getString("username"));
 					u.setPassword(usuario.getString("password"));
 					u.setPuntos(usuario.getInt("puntos"));
+					try{
+						u.setPickUp(usuario.getInt("pickUp"));
+					} catch(JSONException ex){
+						
+					}
+					
 					
 					usrs[i] = u;
 					

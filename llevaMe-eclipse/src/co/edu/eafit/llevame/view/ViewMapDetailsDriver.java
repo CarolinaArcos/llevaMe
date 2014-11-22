@@ -78,7 +78,7 @@ public class ViewMapDetailsDriver extends FragmentActivity implements OnMarkerCl
 			addMarker();
 			cleanMap();
 			if(pointsPickUp.length > 0) {
-				for(int j = 0; j<pointsPickUp.length; ++j) pickUp(j);
+				for(int j = 0; j<pointsPickUp.length; ++j) pickUp(pointsPickUp[j]);
 			}
 			drawRoute();
 		}

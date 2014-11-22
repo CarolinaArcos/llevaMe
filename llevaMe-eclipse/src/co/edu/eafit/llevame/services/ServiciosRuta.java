@@ -43,6 +43,9 @@ public class ServiciosRuta {
 			ruta.setPlaca(laRuta.getString("placa"));
 			ruta.setConductor(laRuta.getInt("conductor"));
 			
+			
+			ruta.setPasajeros(ServiciosUsuario.getInstancia().getPasajeros(Integer.parseInt(id)));
+			
 			ruta.setRecorrido(getArregloUbicaciones(Integer.parseInt(id)));
 
 		} catch (Exception ex) {

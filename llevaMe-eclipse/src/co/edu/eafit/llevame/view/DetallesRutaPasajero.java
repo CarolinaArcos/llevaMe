@@ -35,7 +35,6 @@ public class DetallesRutaPasajero extends Activity {
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
 	private int id = -1;//id ruta
 	
-	//TODO: obtener (desquemar) los valores
 	private int idUsuario; //id del usuario registrado
 	private int idConductor = 1;
 	
