@@ -47,6 +47,8 @@ public class DetallesRuta extends Activity{
 	protected static final int REQUEST_CODE = 10;
 	
 	private ProgressDialog pDialog;
+	
+	private Ruta ruta;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -104,10 +106,17 @@ public class DetallesRuta extends Activity{
 	}
 
 	public void onllevaMe(View view) {
-		Invitacion invitacion = new Invitacion(-1, "",
-				idConductor, false, Invitacion.RUTA, idUsuario, id, puntoRecogida);
-		
-		new SolicitarCupo().execute(invitacion);	
+		if(pointPickUp==-1){
+			Toast toast = Toast.makeText(DetallesRuta.this, "Debe seleccionar un punto de recogida", 3);
+			toast.show();
+		} else {
+			Log.d("pickUp", pointPickUp+"");
+			Invitacion invitacion = new Invitacion(-1, "",
+					idConductor, false, Invitacion.RUTA, idUsuario, id, 
+					ruta.getRecorrido()[pointPickUp].getId());
+			
+			new SolicitarCupo().execute(invitacion);
+		}
 	}
 	
 	public void desplegarMapa() {
@@ -192,6 +201,8 @@ public class DetallesRuta extends Activity{
 				markerLong[i] = u.getLongitud();
 				markerLat[i] = u.getLatitud();
 			}
+			
+			ruta = r;
 		}
 	}
 	
@@ -223,6 +234,8 @@ public class DetallesRuta extends Activity{
 		}
 
 	}
+	
+	
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);

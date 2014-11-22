@@ -80,6 +80,7 @@ public class ServiciosEvento {
 			i.put("tipo", invitacion.getTipo());
 			i.put("idRef", invitacion.getIdRef());
 			i.put("idRef2", invitacion.getIdRef2());
+			i.put("idRef3", invitacion.getIdRef3());
 			
 			ServerHandler.getServerResponsePost(url, i);
 		} catch (Exception ex) {
