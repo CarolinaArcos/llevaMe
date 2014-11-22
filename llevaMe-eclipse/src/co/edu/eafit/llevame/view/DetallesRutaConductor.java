@@ -39,9 +39,10 @@ public class DetallesRutaConductor extends Activity {
 	private String [] markerSnippet = {"Eafit", "Estacion Poblado", "CC SantaFe"};
 	private double [] markerLat = {6.200696, 6.21211476, 6.19790767};
 	private double [] markerLong = {-75.578433, -75.57809091, -75.57431436};
-	private String [] pointsSnippet = {"Eafit", "Estacion Poblado"};
-	private double [] pointsLat = {6.200696, 6.21211476};
-	private double [] pointsLong = {-75.578433, -75.57809091};
+	private int [] pointsPickUp = {0,1};
+	private String [] pointsSnippet;
+	private double [] pointsLat;
+	private double [] pointsLong;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +101,7 @@ public class DetallesRutaConductor extends Activity {
     	intent.putExtra("markerSnippet", markerSnippet);
 		intent.putExtra("markerLat", markerLat);
 		intent.putExtra("markerLong", markerLong);
-		intent.putExtra("pointsSnippet", pointsSnippet);
-	    intent.putExtra("pointsLat", pointsLat);
-	    intent.putExtra("pointsLong", pointsLong);
+		intent.putExtra("pointsPickUp", pointsPickUp);
 		startActivity(intent);
 	}
 	
