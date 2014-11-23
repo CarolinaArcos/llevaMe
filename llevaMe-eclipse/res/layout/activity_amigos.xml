@@ -9,16 +9,6 @@
     tools:context="co.edu.eafit.llevame.view.Amigos" >
 
     <ImageButton
-        android:id="@+id/btComunidades"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/btAmigos"
-        android:layout_below="@+id/btAmigos"
-        android:layout_marginTop="36dp"
-        android:onClick="onAmigos"
-        android:src="@drawable/btn_amigo" />
-
-    <ImageButton
         android:id="@+id/searchUsuario"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,14 +19,24 @@
         android:onClick="onBuscar"
         android:src="@drawable/ic_action_add_group" />
 
-    <Button
-        android:id="@+id/btAmigos"
+    <ImageButton
+        android:id="@+id/btnAmigos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/btnComunidades"
         android:layout_below="@+id/searchUsuario"
+        android:layout_marginTop="65dp"
+        android:onClick="onAmigos"
+        android:src="@drawable/btn_amigo" />
+
+    <ImageButton
+        android:id="@+id/btnComunidades"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/btnAmigos"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="44dp"
+        android:layout_marginTop="66dp"
         android:onClick="onComunidades"
-        android:text="Button" />
+        android:src="@drawable/btn_comunidades" />
 
 </RelativeLayout>
