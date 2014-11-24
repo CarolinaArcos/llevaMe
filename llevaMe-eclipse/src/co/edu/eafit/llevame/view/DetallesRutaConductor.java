@@ -274,6 +274,8 @@ public class DetallesRutaConductor extends Activity {
 		@Override
 		protected Void doInBackground(String...params) {
 			ServiciosRuta.getInstancia().finalizarRuta(id);
+			
+			//TODO: enviar notificacion con solicitud para dar puntuacion
 			return null;
 			
 		}

@@ -166,6 +166,18 @@
                 android:name="android.support.PARENT_ACIVITY"
                 android:value="co.edu.eafit.llevame.view.DetallesRutaConductor" />
         </activity>
+        <activity
+            android:name=".view.Puntuacion"
+            android:label="@string/title_activity_puntuacion" >
+        </activity>
+        <activity
+            android:name=".LlevameSeccion"
+            android:label="@string/title_activity_llevame_seccion"
+            android:parentActivityName=".view.MenuTab" >
+            <meta-data
+                android:name="android.support.PARENT_ACIVITY"
+                android:value="co.edu.eafit.llevame.view.MenuTab" />
+        </activity>
     </application>
 
 </manifest>
