@@ -16,7 +16,7 @@
             android:layout_alignBottom="@+id/hora"
             android:layout_alignLeft="@+id/tituloRuta"
             android:text="Date"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
         
         <TextView
             android:id="@+id/tituloRuta"
@@ -25,9 +25,9 @@
             android:layout_alignParentLeft="true"
             android:layout_alignParentTop="true"
             android:layout_marginLeft="30dp"
-            android:layout_marginTop="26dp"
+            android:layout_marginTop="15dp"
             android:text="Name"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceMedium" />
 
         <TextView
             android:id="@+id/hora"
@@ -35,9 +35,9 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/tituloRuta"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="36dp"
+            android:layout_marginTop="20dp"
             android:text="Hour"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <TextView
             android:id="@+id/capacidad"
@@ -48,7 +48,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginRight="18dp"
             android:text="Capacity"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
     </RelativeLayout>
 

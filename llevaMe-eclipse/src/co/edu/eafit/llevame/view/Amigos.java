@@ -43,4 +43,8 @@ public class Amigos extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	@Override
+    public void onBackPressed() {
+    	
+    }
 }
