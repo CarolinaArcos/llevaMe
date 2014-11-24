@@ -15,10 +15,9 @@ import android.util.Log;
 
 public class ServerHandler {
 
-  public static final String IP = "http://54.164.131.208";
+	public static final String IP = "http://54.164.131.208";
 //	public static final String IP = "http://private-986d0-llevameapi.apiary-mock.com";
-//  public static final String IP = "http://10.0.50.177:8083";
-	
+//  public static final String IP = "http://192.168.1.58:8083";	
 	
 	
 	public static HttpClient httpClient = new DefaultHttpClient();
