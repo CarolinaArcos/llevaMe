@@ -19,12 +19,12 @@
         android:paddingTop="@dimen/activity_vertical_margin"
         tools:context="co.edu.eafit.llevame.BuscarUsuario" >
             
-            <EditText 
-		        android:id="@+id/campoBusqueda"
-		        android:layout_width="wrap_content"
-		        android:layout_height="wrap_content"
-		        android:editable="true"
-		        android:ems="13" />
+            <EditText
+                android:id="@+id/campoBusqueda"
+                android:layout_width="210dp"
+                android:layout_height="wrap_content"
+                android:editable="true"
+                android:ems="13" />
             
             <ImageButton 
                 android:id="@+id/btSearch"

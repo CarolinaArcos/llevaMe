@@ -1,4 +1,4 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -9,25 +9,34 @@
     android:orientation="vertical"
     tools:context="co.edu.eafit.llevame.view.MisRutas" >
 
-    <Button        
+    <Button
         android:id="@+id/botonConductor"
-		android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="70dp"
         android:onClick="onConductor"
-	    android:text="Conductor"/>
-    
-    <Button        
-        android:id="@+id/botonPasajero"
-		android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-        android:onClick="onPasajero"
-	    android:text="Pasajero"/>
-        
-	<Button        
-        android:id="@+id/crearRuta"
-		android:layout_width="match_parent"
-	    android:layout_height="wrap_content"
-        android:onClick="onCrearRuta"
-	    android:text="Crear Ruta"/>
+        android:text="Conductor" />
 
-</LinearLayout>
+    <Button
+        android:id="@+id/botonPasajero"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+       android:layout_alignParentRight="true"
+        android:layout_below="@+id/botonConductor"
+        android:layout_marginTop="35dp"
+        android:onClick="onPasajero"
+        android:text="Pasajero" />
+
+    <Button
+        android:id="@+id/crearRuta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/botonPasajero"
+        android:layout_marginTop="35dp"
+        android:onClick="onCrearRuta"
+        android:text="Crear Ruta" />
+
+</RelativeLayout>

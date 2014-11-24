@@ -31,26 +31,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre Conductor" />
-         
-        <EditText
-            android:id="@+id/conductorPasajero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:ems="13" />
+
+         <EditText
+             android:id="@+id/conductorPasajero"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:editable="false"
+             android:ems="13"
+             android:textSize="15sp" >
+
+             <requestFocus />
+         </EditText>
         
         <TextView
             android:id="@+id/lblNombrePasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Nombre Ruta" />
-        
-         <EditText
+
+        <EditText
             android:id="@+id/nombrePasajero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:ems="13" />
+            android:ems="13"
+            android:textSize="15sp" />
 
     <LinearLayout
         android:id="@+id/horaYFehaRowPasajero"
@@ -70,6 +75,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
+            android:textSize="15sp"
             android:ems="5" />
         
          <TextView
@@ -83,6 +89,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
+            android:textSize="15sp"
             android:ems="11" />
 
     </LinearLayout>
@@ -104,6 +111,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
+            android:textSize="15sp"
             android:ems="5" />
         
         <TextView
@@ -117,6 +125,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:editable="false"
+            android:textSize="15sp"
             android:ems="11" />
 		
 	</LinearLayout>
@@ -133,6 +142,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="false"
+            android:textSize="15sp"
             android:ems="15" />
 	     
 	     <Button 
