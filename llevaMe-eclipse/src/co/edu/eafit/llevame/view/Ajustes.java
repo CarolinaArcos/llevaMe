@@ -51,6 +51,7 @@ public class Ajustes extends Activity {
 	    Intent login = new Intent(this, LoginView.class);
     	startActivity(login);
 	}
+	
 	@Override
     public void onBackPressed() {
     	

@@ -32,6 +32,10 @@ public class Amigos extends Activity {
 		//TODO: lista amigos
 	}
 	
+	public void onComunidades(View v){
+		//TODO: lista amigos
+	}
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// Handle action bar item clicks here. The action bar will
@@ -43,6 +47,7 @@ public class Amigos extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
+	
 	@Override
     public void onBackPressed() {
     	

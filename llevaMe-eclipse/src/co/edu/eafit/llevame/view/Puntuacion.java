@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import co.edu.eafit.llevame.LlevameSeccion;
 import co.edu.eafit.llevame.R;
 
 public class Puntuacion extends Activity {
@@ -40,4 +39,9 @@ public class Puntuacion extends Activity {
 		Intent llevame = new Intent(this, LlevameSeccion.class);
     	startActivity(llevame);
 	}
+	
+	@Override
+    public void onBackPressed() {
+    	
+    }
 }

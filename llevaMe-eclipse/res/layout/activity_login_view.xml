@@ -78,17 +78,6 @@
         android:onClick="onPassword"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/frameLayout1"
-        android:layout_below="@+id/ingresar"
-        android:layout_marginLeft="15dp"
-        android:layout_marginTop="34dp"
-        android:text="No tengo cuenta"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
     <Button
         android:id="@+id/register"
         android:layout_width="wrap_content"
@@ -98,5 +87,16 @@
         android:layout_toRightOf="@+id/olvideUser"
         android:onClick="onRegister"
         android:text="Crear Cuenta" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignRight="@+id/olvideUser"
+        android:layout_below="@+id/ingresar"
+        android:layout_marginRight="13dp"
+        android:layout_marginTop="36dp"
+        android:text="No tengo cuenta"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
 
 </RelativeLayout>

@@ -34,11 +34,11 @@
          
         <EditText
             android:id="@+id/pasajerosConductor"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="false"
-            android:textSize="15sp"
-            android:ems="13" />
+            android:ems="13"
+            android:textSize="15sp" />
         
         <TextView
             android:id="@+id/lblNombreConductor"
@@ -47,19 +47,26 @@
             android:text="Nombre Ruta" />
         
          <EditText
-            android:id="@+id/nombreConductor"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:textSize="15sp"
-            android:ems="13" />
+             android:id="@+id/nombreConductor"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content"
+             android:editable="false"
+             android:ems="13"
+             android:textSize="15sp" />
 
-	    <LinearLayout
-	        android:id="@+id/horaYFehaRowConductor"
-	    	android:layout_width="match_parent"
-	    	android:layout_height="wrap_content"
-	    	android:orientation="horizontal">
-	        
+	    <GridLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:columnCount="2"
+            android:rowCount="1" >
+	    	
+	        <LinearLayout 
+	            android:id="@+id/lblHoraFormulario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_gravity="left"
+                android:layout_row="0">
 	        <TextView
 	            android:id="@+id/lblHoraConductor"
 	            android:layout_width="wrap_content"
@@ -67,28 +74,39 @@
 	            android:text="Hora" />
 	        
 	         <EditText
-	            android:id="@+id/horaConductor"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:editable="false"
-	            android:textSize="15sp"
-	            android:ems="5" />
+	             android:id="@+id/horaConductor"
+	             android:layout_width="110dp"
+	             android:layout_height="wrap_content"
+	             android:editable="false"
+	             android:ems="5"
+	             android:textSize="15sp" />
+
+	         </LinearLayout>
 	        
-	         <TextView
-	            android:id="@+id/lblFechaConductor"
+	        <LinearLayout
+	            android:id="@+id/lblFechaFormulario"
 	            android:layout_width="wrap_content"
 	            android:layout_height="wrap_content"
-	            android:text="Fecha" />
+	            android:layout_column="1"
+	            android:layout_gravity="fill_horizontal"
+	            android:layout_row="0" >
+
+	            <TextView
+	                android:id="@+id/lblFechaConductor"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="Fecha" />
 	         
 			<EditText
-	            android:id="@+id/fechaConductor"
-	            android:layout_width="wrap_content"
-	            android:layout_height="wrap_content"
-	            android:editable="false"
-	            android:textSize="15sp"
-	            android:ems="11" />
-	
-	    </LinearLayout>
+			    android:id="@+id/fechaConductor"
+			    android:layout_width="110dp"
+			    android:layout_height="wrap_content"
+			    android:editable="false"
+			    android:ems="11"
+			    android:textSize="15sp" />
+
+			</LinearLayout>
+	    </GridLayout>
 	    
 		<LinearLayout
 		    android:id="@+id/cupoYPlacaRowConductor"
@@ -104,11 +122,11 @@
 	
 	        <EditText
 	            android:id="@+id/cupoConductor"
-	            android:layout_width="wrap_content"
+	            android:layout_width="110dp"
 	            android:layout_height="wrap_content"
 	            android:editable="false"
-	            android:textSize="15sp"
-	            android:ems="5" />
+	            android:ems="5"
+	            android:textSize="15sp" />
 	        
 	        <TextView
 	            android:id="@+id/lblPlacaConductor"
@@ -118,7 +136,7 @@
 		    
 			<EditText
 	            android:id="@+id/placaConductor"
-	            android:layout_width="wrap_content"
+	            android:layout_width="110dp"
 	            android:layout_height="wrap_content"
 	            android:editable="false"
 	            android:textSize="15sp"
@@ -134,12 +152,12 @@
             android:text="Descripcion" />
 	    
 	     <EditText
-            android:id="@+id/descripcionConductor"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:textSize="15sp"
-            android:ems="15" />
+	         android:id="@+id/descripcionConductor"
+	         android:layout_width="match_parent"
+	         android:layout_height="wrap_content"
+	         android:editable="false"
+	         android:ems="15"
+	         android:textSize="15sp" />
 	     
 	    <LinearLayout 
 			android:id="@+id/botonesIniciarFinalizar"
@@ -147,25 +165,25 @@
 	    	android:layout_height="wrap_content"
 	    	android:orientation="horizontal">
 			
-			<Button 
-		         android:id="@+id/iniciarConductor"
-		         android:layout_width="wrap_content"
-		         android:layout_height="wrap_content"
-		         android:layout_alignParentLeft="true"
-	        	 android:layout_alignParentBottom="true"
-	             android:onClick="onIniciar"
-	             android:ems="9"
-		         android:text="Iniciar"/>
-		     
-		     <Button 
-		         android:id="@+id/finalizarConductor"
-		         android:layout_width="wrap_content"
-		         android:layout_height="wrap_content"
-		         android:layout_alignParentRight="true"
-	        	 android:layout_alignParentBottom="true"
-	             android:onClick="onFinalizar"
-	             android:ems="11"
-		         android:text="Finalizar"/>
+			<Button
+			    android:id="@+id/finalizarConductor"
+			    android:layout_width="120dp"
+			    android:layout_height="wrap_content"
+			    android:layout_alignParentBottom="true"
+			    android:layout_alignParentRight="true"
+			    android:ems="11"
+			    android:onClick="onFinalizar"
+			    android:text="Finalizar" />
+	        
+			<Button
+			    android:id="@+id/iniciarConductor"
+			    android:layout_width="match_parent"
+			    android:layout_height="wrap_content"
+			    android:layout_alignParentBottom="true"
+			    android:layout_alignParentLeft="true"
+			    android:ems="9"
+			    android:onClick="onIniciar"
+			    android:text="Iniciar" />
 		          
 		</LinearLayout>
 		

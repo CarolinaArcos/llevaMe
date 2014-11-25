@@ -48,9 +48,10 @@
                 android:layout_column="0"
                 android:layout_gravity="left|top"
                 android:layout_row="1"
-                android:textSize="16sp"
+                android:ems="10"
                 android:inputType="textCapSentences"
-                android:ems="10" />
+                android:textSize="16sp" />
+
         </GridLayout>
 
         <GridLayout
@@ -79,19 +80,19 @@
 
             <EditText
                 android:id="@+id/horaFormulario"
-                android:layout_width="167dp"
+                android:layout_width="144dp"
                 android:layout_column="0"
                 android:layout_gravity="left|top"
                 android:layout_row="1"
-                android:inputType="time"
-                android:textSize="16sp"
+                android:ems="10"
                 android:hint="HH:MM"
+                android:inputType="time"
                 android:maxLength="5"
-                android:ems="10" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/fechaFormulario"
-                android:layout_width="wrap_content"
+                android:layout_width="144dp"
                 android:layout_column="1"
                 android:layout_gravity="fill_horizontal|top"
                 android:layout_row="1"
@@ -120,15 +121,15 @@
 
             <EditText
                 android:id="@+id/cupoFormulario"
-                android:layout_width="166dp"
+                android:layout_width="144dp"
                 android:layout_height="wrap_content"
                 android:layout_column="0"
                 android:layout_gravity="fill_horizontal"
                 android:layout_row="1"
+                android:ems="10"
                 android:inputType="number"
-                android:textSize="16sp"
                 android:maxLength="2"
-                android:ems="10" />
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/lblPlacaFormulario"
@@ -141,7 +142,7 @@
 
             <EditText
                 android:id="@+id/placaFormulario"
-                android:layout_width="117dp"
+                android:layout_width="144dp"
                 android:layout_height="wrap_content"
                 android:layout_column="1"
                 android:layout_gravity="fill_horizontal"

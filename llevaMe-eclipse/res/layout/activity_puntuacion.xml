@@ -33,38 +33,38 @@
 
             <ImageButton
                 android:id="@+id/imageButton1"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background ="@drawable/btn_llevame"
+                android:background="@drawable/btn_llevame"
                 android:onClick="onLlevameSeccion" />
 
             <ImageButton
                 android:id="@+id/imageButton2"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_llevame_off" 
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn_llevame_off" />
             
             <ImageButton
                 android:id="@+id/imageButton3"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_llevame_off" 
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn_llevame_off" />
             
             <ImageButton
                 android:id="@+id/imageButton4"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_llevame_off" 
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn_llevame_off" />
             
             <ImageButton
                 android:id="@+id/imageButton5"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/btn_llevame_off" 
-                android:layout_marginTop="15dp"/>
+                android:layout_marginTop="15dp"
+                android:background="@drawable/btn_llevame_off" />
 
         </LinearLayout>
     </ScrollView>

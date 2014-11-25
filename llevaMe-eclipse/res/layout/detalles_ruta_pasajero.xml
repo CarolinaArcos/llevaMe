@@ -34,7 +34,7 @@
 
          <EditText
              android:id="@+id/conductorPasajero"
-             android:layout_width="wrap_content"
+             android:layout_width="match_parent"
              android:layout_height="wrap_content"
              android:editable="false"
              android:ems="13"
@@ -51,86 +51,102 @@
 
         <EditText
             android:id="@+id/nombrePasajero"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:editable="false"
             android:ems="13"
             android:textSize="15sp" />
 
-    <LinearLayout
-        android:id="@+id/horaYFehaRowPasajero"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:orientation="horizontal"
-     	>
-        
-        <TextView
-            android:id="@+id/lblHoraPasajero"
-            android:layout_width="wrap_content"
+    <GridLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Hora" />
-        
-         <EditText
-            android:id="@+id/horaPasajero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:textSize="15sp"
-            android:ems="5" />
-        
-         <TextView
-            android:id="@+id/lblFechaPasajero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Fecha" />
-         
-		<EditText
-            android:id="@+id/fechaPasajero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:textSize="15sp"
-            android:ems="11" />
+            android:columnCount="2"
+            android:rowCount="1" >
+	    	
+	        <LinearLayout 
+	            android:id="@+id/lblHoraFormulario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_column="0"
+                android:layout_gravity="left"
+                android:layout_row="0">
+	        <TextView
+	            android:id="@+id/lblHoraPasajero"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Hora" />
+	        
+	         <EditText
+	             android:id="@+id/horaPasajero"
+	             android:layout_width="110dp"
+	             android:layout_height="wrap_content"
+	             android:editable="false"
+	             android:ems="5"
+	             android:textSize="15sp" />
 
-    </LinearLayout>
-    
-	<LinearLayout
-	    android:id="@+id/cupoYPlacaRowPasajero"
-    	android:layout_width="match_parent"
-    	android:layout_height="wrap_content"
-    	android:orientation="horizontal"
-	    >
-		<TextView
-            android:id="@+id/lblCupoPasajero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Cupo" />
+	         </LinearLayout>
+	        
+	        <LinearLayout
+	            android:id="@+id/lblFechaFormulario"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_column="1"
+	            android:layout_gravity="fill_horizontal"
+	            android:layout_row="0" >
 
-        <EditText
-            android:id="@+id/cupoPasajero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:textSize="15sp"
-            android:ems="5" />
-        
-        <TextView
-            android:id="@+id/lblPlacaPasajero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Placa" />
+	            <TextView
+	                android:id="@+id/lblFechaPasajero"
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content"
+	                android:text="Fecha" />
+	         
+			<EditText
+			    android:id="@+id/fechaPasajero"
+			    android:layout_width="110dp"
+			    android:layout_height="wrap_content"
+			    android:editable="false"
+			    android:ems="11"
+			    android:textSize="15sp" />
+
+			</LinearLayout>
+	    </GridLayout>
 	    
-		<EditText
-            android:id="@+id/placaPasajero"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:textSize="15sp"
-            android:ems="11" />
-		
-	</LinearLayout>
+		<LinearLayout
+		    android:id="@+id/cupoYPlacaRowPasajero"
+	    	android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+	    	android:orientation="horizontal">
+			
+			<TextView
+	            android:id="@+id/lblCupoPasajero"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Cupo" />
 	
-		
+	        <EditText
+	            android:id="@+id/cupoPasajero"
+	            android:layout_width="110dp"
+	            android:layout_height="wrap_content"
+	            android:editable="false"
+	            android:ems="5"
+	            android:textSize="15sp" />
+	        
+	        <TextView
+	            android:id="@+id/lblPlacaPasajero"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:text="Placa" />
+		    
+			<EditText
+	            android:id="@+id/placaPasajero"
+	            android:layout_width="110dp"
+	            android:layout_height="wrap_content"
+	            android:editable="false"
+	            android:textSize="15sp"
+	            android:ems="11" />
+			
+		</LinearLayout>
+    		
 	    <TextView
             android:id="@+id/lblDescripcionPasajero"
             android:layout_width="wrap_content"
@@ -138,12 +154,12 @@
             android:text="Descripcion" />
 	    
 	     <EditText
-            android:id="@+id/descripcionPasajero"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:editable="false"
-            android:textSize="15sp"
-            android:ems="15" />
+	         android:id="@+id/descripcionPasajero"
+	         android:layout_width="wrap_content"
+	         android:layout_height="wrap_content"
+	         android:editable="false"
+	         android:ems="15"
+	         android:textSize="15sp" />
 	     
 	     <Button 
 	         android:id="@+id/dejarRutaPasajero"

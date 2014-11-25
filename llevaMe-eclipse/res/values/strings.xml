@@ -18,15 +18,15 @@
     <string name="forgotUser"><u>Olvide mi usuario</u></string>
     <string name="forgotPass"><u>Olvide mi contraseña</u></string>
     <string name="title_activity_invitacion">Invitacion</string>
-    <string name="title_activity_view_map_details">ViewMapDetails</string>
+    <string name="title_activity_view_map_details">Mapa Detalles</string>
     <string name="hello_world">Hello world!</string>
-    <string name="title_activity_view_map_details_passenger">ViewMapDetailsPassenger</string>
+    <string name="title_activity_view_map_details_passenger">Mapa Detalles Pasajero</string>
     <string name="title_activity_amigos">Amigos</string>
     <string name="title_activity_ajustes">Ajustes</string>
-    <string name="title_activity_buscar_usuario">BuscarUsuario</string>
+    <string name="title_activity_buscar_usuario">Buscar Usuario</string>
     <string name="title_activity_resultados">Resultados</string>
-    <string name="title_activity_view_map_details_driver">ViewMapDetailsDriver</string>
-    <string name="title_activity_puntuacion">Puntuacion</string>
-    <string name="title_activity_llevame_seccion">LlevameSeccion</string>
+    <string name="title_activity_view_map_details_driver">Mapa Detalles Conductor</string>
+    <string name="title_activity_puntuacion">Puntuación</string>
+    <string name="title_activity_llevame_seccion">Llevame Sección</string>
 
 </resources>

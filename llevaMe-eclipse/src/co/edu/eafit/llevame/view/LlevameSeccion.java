@@ -1,5 +1,6 @@
-package co.edu.eafit.llevame;
+package co.edu.eafit.llevame.view;
 
+import co.edu.eafit.llevame.R;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
