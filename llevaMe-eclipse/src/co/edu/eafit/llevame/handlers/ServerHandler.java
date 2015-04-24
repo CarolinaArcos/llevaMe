@@ -92,6 +92,25 @@ public class ServerHandler {
 		}
 	}
 	
+	public static String getServerResponsePatch(String url, JSONObject json) {
+		url = IP + url;
+		
+		HttpPatch patch = new HttpPatch(url);
+		 
+		patch.setHeader("content-type", "application/json");
+		
+		try {
+			StringEntity entity = new StringEntity(json.toString());
+			patch.setEntity(entity);
+			
+			HttpResponse resp = httpClient.execute(patch);
+			return EntityUtils.toString(resp.getEntity());
+		} catch (Exception ex) {
+			Log.e("ServicioRest","Error!", ex);
+			return null;
+		}
+	}
+	
 	/**
 	 * Peticion POST con un arreglo JSON
 	 * @param url direccion del recurso, ej: "/rutas"

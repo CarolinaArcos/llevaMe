@@ -1,9 +1,6 @@
 package co.edu.eafit.llevame.view;
 
 import co.edu.eafit.llevame.R;
-import co.edu.eafit.llevame.R.id;
-import co.edu.eafit.llevame.R.layout;
-import co.edu.eafit.llevame.R.menu;
 import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
 import android.app.Activity;
 import android.content.Intent;

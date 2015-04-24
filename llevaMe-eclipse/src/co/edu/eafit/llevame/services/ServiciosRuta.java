@@ -125,8 +125,16 @@ public class ServiciosRuta {
 	}
 	
 	public void iniciarRuta(int idRuta) {
-		String url = "/rutas/"+idRuta+"?estado=true";
-		ServerHandler.getServerResponsePost(url);
+		String url = "/rutas/"+idRuta;
+		try {
+			JSONObject r = new JSONObject();
+			r.put("estado", "true");
+			
+			ServerHandler.getServerResponsePatch(url, r);
+			
+		} catch (Exception ex) {
+			Log.e("ServicioRest","Error!", ex);
+		}
 	}
 	
 	public void finalizarRuta(int idRuta) {

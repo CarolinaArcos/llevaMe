@@ -110,10 +110,6 @@
             android:label="@string/title_activity_menu_tab" >
         </activity>
         <activity
-            android:name=".view.Menu"
-            android:label="@string/title_activity_menu_tab" >
-        </activity>
-        <activity
             android:name=".view.ListEvents"
             android:label="@string/title_activity_list_events" >
         </activity>

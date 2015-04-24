@@ -4,7 +4,7 @@ import android.app.TabActivity;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.TabHost;
 import android.widget.TabHost.TabSpec;
 import co.edu.eafit.llevame.R;
@@ -15,6 +15,7 @@ public class MenuTab extends TabActivity {
 	
 	private int curTab = 0;
 	private TabHost tabHost;
+	private float lastX;
     
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -101,5 +102,51 @@ public class MenuTab extends TabActivity {
     @Override
     public void onBackPressed() {
     	
+    }
+    
+    @Override
+    public boolean onTouchEvent(MotionEvent touchevent) {
+        switch (touchevent.getAction()) {
+        // when user first touches the screen to swap
+        case MotionEvent.ACTION_DOWN: {
+            lastX = touchevent.getX();
+            break;
+        }
+        case MotionEvent.ACTION_UP: {
+            float currentX = touchevent.getX();
+
+            // if left to right swipe on screen
+            if (lastX < currentX) {
+
+                switchTabs(false);
+            }
+
+            // if right to left swipe on screen
+            if (lastX > currentX) {
+                switchTabs(true);
+            }
+
+            break;
+        }
+        }
+        return false;
+    }
+    
+    public void switchTabs(boolean direction) {
+        if (direction) // true = move left
+        {
+            if (tabHost.getCurrentTab() == 0)
+                tabHost.setCurrentTab(tabHost.getTabWidget().getTabCount() - 1);
+            else
+                tabHost.setCurrentTab(tabHost.getCurrentTab() - 1);
+        } else
+        // move right
+        {
+            if (tabHost.getCurrentTab() != (tabHost.getTabWidget()
+                    .getTabCount() - 1))
+                tabHost.setCurrentTab(tabHost.getCurrentTab() + 1);
+            else
+                tabHost.setCurrentTab(0);
+        }
     }
 }
