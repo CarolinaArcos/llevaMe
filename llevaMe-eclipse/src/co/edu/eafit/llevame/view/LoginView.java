@@ -116,7 +116,7 @@ public class LoginView extends Activity {
     			Intent menu = new Intent(LoginView.this, MenuTab.class);
             	startActivity(menu);
     		} else {
-    			toast("Usuario o ContraseÃ±a incorrecto");
+    			toast("Usuario o Contraseña incorrecto");
     		}
     		
     		

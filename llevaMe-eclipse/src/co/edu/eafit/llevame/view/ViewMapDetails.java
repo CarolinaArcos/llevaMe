@@ -53,6 +53,7 @@ public class ViewMapDetails extends FragmentActivity implements OnMarkerClickLis
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_view_map_details);
 		// Initializing
 		nombresDestinos = new ArrayList<String>();

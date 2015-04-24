@@ -63,7 +63,11 @@
 
         <activity
             android:name=".view.ViewMap"
-            android:label="@string/title_activity_view_map" >
+            android:label="@string/title_activity_view_map" 
+            android:parentActivityName=".view.FormularioCrearRuta" >
+            <meta-data
+                android:name="android.support.PARENT_ACIVITY"
+                android:value="co.edu.eafit.llevame.view.FormularioCrearRuta" />
         </activity>
         <activity
             android:name=".view.RutasConductor"
@@ -106,6 +110,10 @@
             android:label="@string/title_activity_menu_tab" >
         </activity>
         <activity
+            android:name=".view.Menu"
+            android:label="@string/title_activity_menu_tab" >
+        </activity>
+        <activity
             android:name=".view.ListEvents"
             android:label="@string/title_activity_list_events" >
         </activity>
@@ -128,7 +136,11 @@
         </activity>
         <activity
             android:name=".view.ViewMapDetails"
-            android:label="@string/title_activity_view_map_details" >
+            android:label="@string/title_activity_view_map_details" 
+            android:parentActivityName=".view.DetallesRuta" >
+            <meta-data
+                android:name="android.support.PARENT_ACIVITY"
+                android:value="co.edu.eafit.llevame.view.DetallesRuta" />
         </activity>
         <activity
             android:name=".view.ViewMapDetailsPassenger"

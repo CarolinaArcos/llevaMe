@@ -5,6 +5,7 @@ import java.util.regex.Pattern;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
@@ -13,6 +14,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
 import co.edu.eafit.llevame.model.Usuario;
 import co.edu.eafit.llevame.services.ServiciosUsuario;
 
@@ -77,7 +79,7 @@ public class RegisterView extends Activity {
 			return false;
 		}
 		if (!validarContenido(dataPassword) || !validarContenido(dataPassword2)) {
-			toast("Los campos ContraseÃ±a Nueva y Confirme ConstraseÃ±a no puede ser vacio");
+			toast("Los campos Contraseña Nueva y Confirme Contraseña no puede ser vacio");
 			return false;
 		}
 		if (!validarContenido(dataCorreo)) {
@@ -87,7 +89,7 @@ public class RegisterView extends Activity {
 		
 		//Validacion contraseÃ±as iguales
 		if(!dataPassword.equals(dataPassword2)){
-			toast("Las contrasenas no coinciden");
+			toast("Las contraseñas no coinciden");
 			return false;
 		}
 		
@@ -98,7 +100,7 @@ public class RegisterView extends Activity {
 		}
 		
 		if (!validarLongitud(dataPassword)) {
-			toast("La contraseÃ±a debe tener minimo 4 caracteres y maximo 20");
+			toast("La contraseña debe tener minimo 4 caracteres y maximo 20");
 			return false;
 		}
 		
@@ -109,7 +111,7 @@ public class RegisterView extends Activity {
 		
 		if (dataUsername.contains("'") || dataUsername.contains("\"") 
 					|| dataPassword.contains("'") || dataPassword.contains("\"")) {
-			toast("Ni el Usuario ni la contraseÃ±a pueden contener comillas");
+			toast("Ni el Usuario ni la contraseña pueden contener comillas");
 			return false;
 		}
 		
@@ -173,7 +175,15 @@ public class RegisterView extends Activity {
     	@Override
     	protected void onPostExecute(Void v){
 			//TODO: logear el usuario (guardar el login en el cel)
-		
+    		// guardar login en local
+			SharedPreferences settings = getSharedPreferences(
+					SharedPreferencesHandler.PREFS_NAME, 0);
+			
+		    SharedPreferences.Editor editor = settings.edit();
+		    editor.putInt(SharedPreferencesHandler.LOGIN_KEY, usr.getId());
+		    editor.commit();
+			
+    		
     		Intent main = new Intent(RegisterView.this, MenuTab.class);
 	    	startActivity(main);
 	    	pDialog.dismiss();

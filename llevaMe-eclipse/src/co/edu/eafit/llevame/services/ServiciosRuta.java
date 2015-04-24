@@ -56,15 +56,15 @@ public class ServiciosRuta {
 	}
 	
 	public Ruta[] getArregloRutasConductor(int idUsuario){
-		return getArregloRutas("/rutas/conductor/"+idUsuario);
+		return getArregloRutas("/usuarios/"+idUsuario+"/rutas/conductor");
 	}
 	
 	public Ruta[] getArregloRutasPasajero(int idUsuario){
-		return getArregloRutas("/rutas/pasajero/"+idUsuario);
+		return getArregloRutas("/usuarios/"+idUsuario+"/rutas/pasajero/");
 	}
 	
 	public Ruta[] getArregloRutas(int idUsuario){
-		return getArregloRutas("/rutas?usr="+idUsuario);
+		return getArregloRutas("/usuarios/"+idUsuario+"/rutas");
 	}
 	
 	private Ruta[] getArregloRutas(String url) {
@@ -120,7 +120,7 @@ public class ServiciosRuta {
 	}
 	
 	public void dejarRuta(int idRuta, int idUsuario) {
-		String url = "/rutas/pasajeros?ruta="+idRuta+"&usuario="+idUsuario;
+		String url = "/rutas/"+idRuta+"/pasajeros/"+idUsuario;
 		ServerHandler.sendDelete(url);
 	}
 	
@@ -193,8 +193,7 @@ public class ServiciosRuta {
 	
 	public void vincularPasajero(int idRuta, int idPasajero, int idUbicacion) {
 		
-		String url = "/rutas/pasajeros?ruta="+idRuta+"&usuario="+idPasajero
-				+"&ubicacion="+idUbicacion;
+		String url = "/rutas/"+idRuta+"/pasajeros/"+idPasajero+"?ubicacion="+idUbicacion;
 		
 		ServerHandler.getServerResponsePost(url);
 	}

@@ -63,6 +63,7 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 	@Override 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 		setContentView(R.layout.activity_view_map);
 		// Initializing
 		nombresDestinos = new ArrayList<String>();
@@ -324,25 +325,30 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 			public void onClick(DialogInterface dialog, int id) {
 				Dialog f = (Dialog) dialog;
 				EditText name = (EditText) f.findViewById(R.id.namePoint);
-				nombresDestinos.add(name.getText().toString());
+				String ubicationName = name.getText().toString();
+				if (ubicationName.equals("")) 
+					launchToast();
+				else {
+					nombresDestinos.add(ubicationName);
 
-				// Creating MarkerOptions
-				MarkerOptions options = new MarkerOptions();
-
-				// Setting the position of the marker
-				options.position(puntoPulsado);
-
-				options.
-				icon(BitmapDescriptorFactory
-						.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
-						.title("Punto de Encuentro")
-						.snippet(nombresDestinos.get(nombresDestinos.size()-1));			
-
-				// Add new marker to the Google Map Android API V2
-				Marker marker = mapa.addMarker(options);
-				markers.add(marker);
-				marker.setDraggable(true);
-				cleanMap();
+					// Creating MarkerOptions
+					MarkerOptions options = new MarkerOptions();
+			
+					// Setting the position of the marker
+					options.position(puntoPulsado);
+			
+					options.
+					icon(BitmapDescriptorFactory
+							.defaultMarker(BitmapDescriptorFactory.HUE_AZURE))
+							.title("Punto de Encuentro")
+							.snippet(nombresDestinos.get(nombresDestinos.size()-1));			
+			
+					// Add new marker to the Google Map Android API V2
+					Marker marker = mapa.addMarker(options);
+					markers.add(marker);
+					marker.setDraggable(true);
+					cleanMap();
+				}
 			}
 		})
 		.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
@@ -353,6 +359,11 @@ public class ViewMap extends FragmentActivity implements OnMapClickListener, OnM
 		builder.create();
 		builder.show();
 	}
+	
+	public void launchToast(){
+		Toast.makeText(this, "Debe ingresar una descripción", Toast.LENGTH_LONG).show();
+	}
+	
 	@Override
 	public void onInfoWindowClick(Marker marker){
 		marker.hideInfoWindow();

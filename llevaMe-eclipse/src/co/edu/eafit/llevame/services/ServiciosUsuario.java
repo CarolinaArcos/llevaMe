@@ -95,8 +95,8 @@ public class ServiciosUsuario {
 		return getUsuariosList(url);
 	}
 	
-	public Usuario[] getPasajeros(int id) {
-		String url = "/rutas/pasajeros?ruta="+id;
+	public Usuario[] getPasajeros(int idRuta) {
+		String url = "/rutas/"+idRuta+"/pasajeros";
 		return getUsuariosList(url);
 	}
 	
