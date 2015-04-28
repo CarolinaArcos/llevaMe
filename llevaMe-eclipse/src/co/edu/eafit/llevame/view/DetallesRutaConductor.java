@@ -10,8 +10,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 import co.edu.eafit.llevame.R;
 import co.edu.eafit.llevame.model.Notificacion;
 import co.edu.eafit.llevame.model.Ruta;
@@ -30,6 +32,9 @@ public class DetallesRutaConductor extends Activity {
 	private EditText cupo;
 	private EditText placa;
 	private EditText descripcion;
+	private Button iniciar;
+	private Button finalizar;
+	private boolean estado;
 	private static int lastId = -3; //id de la ultima ruta vista en detalles
 	private int id = -1;
 	
@@ -71,6 +76,8 @@ public class DetallesRutaConductor extends Activity {
 		cupo = (EditText) findViewById(R.id.cupoConductor);
 		placa = (EditText) findViewById(R.id.placaConductor);
 		descripcion = (EditText) findViewById(R.id.descripcionConductor);
+		iniciar = (Button) findViewById(R.id.iniciarConductor);
+		finalizar = (Button) findViewById(R.id.finalizarConductor);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		
@@ -111,11 +118,19 @@ public class DetallesRutaConductor extends Activity {
 	}
 	
 	public void onIniciar(View view) {
-		new IniciarRuta().execute(""+id);
+		if (estado) Toast.makeText(this, "La ruta "+ruta.getNombre()+" ya se inició", Toast.LENGTH_LONG).show();
+		else {
+			new IniciarRuta().execute(""+id);
+			Toast.makeText(this, "Acabas de iniciar la ruta "+ruta.getNombre(), Toast.LENGTH_LONG).show();
+		}
 	}
 	
 	public void onFinalizar(View view) {
-		new FinalizarRuta().execute(""+id);
+		if(!estado) Toast.makeText(this, "Acabas de cancelar la ruta "+ruta.getNombre(), Toast.LENGTH_LONG).show();
+		else {
+			new FinalizarRuta().execute(""+id);
+			Toast.makeText(this, "Acabas de finalizar la ruta "+ruta.getNombre(), Toast.LENGTH_LONG).show();
+		}
 	}
 	
 	public void volverAMenu() {
@@ -163,7 +178,10 @@ public class DetallesRutaConductor extends Activity {
 			String capacity = Integer.toString(r.getCapacidad());
 			String pla = r.getPlaca();
 			String desctiption = r.getDescripcion();
-
+			estado = r.getEstado();
+			
+			if(!estado) finalizar.setText("Cancelar");
+			if(estado) iniciar.setEnabled(false);
 			nombre.setText(name);
 			fecha.setText(date);
 			hora.setText(hour);
@@ -249,6 +267,10 @@ public class DetallesRutaConductor extends Activity {
 		@Override
 		protected Void doInBackground(String...params) {
 			ServiciosRuta.getInstancia().iniciarRuta(id);
+			for(Usuario u : ruta.getPasajeros()){//enviar notificacion a cada pasajero
+				Notificacion n = new Notificacion(-1, "La ruta "+ruta.getNombre()+" ha iniciado", u.getId());
+				ServiciosEvento.getInstancia().ingresarNotificacion(n);
+			}
 			return null;
 			
 		}
@@ -256,11 +278,6 @@ public class DetallesRutaConductor extends Activity {
 		@Override
 		protected void onPostExecute(Void v){
 			volverAMenu();
-			
-			for(Usuario u : ruta.getPasajeros()){//enviar notificacion a cada pasajero
-				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha iniciado", u.getId());
-				ServiciosEvento.getInstancia().ingresarNotificacion(n);
-			}
 		}
 	}
 	
@@ -274,7 +291,17 @@ public class DetallesRutaConductor extends Activity {
 		@Override
 		protected Void doInBackground(String...params) {
 			ServiciosRuta.getInstancia().finalizarRuta(id);
-			
+			if(estado) {
+				for(Usuario u : ruta.getPasajeros()){//enviar notificacion a cada pasajero
+					Notificacion n = new Notificacion(-1, "La ruta "+ruta.getNombre()+" ha finalizado", u.getId());
+					ServiciosEvento.getInstancia().ingresarNotificacion(n);
+				}
+			} else {
+				for(Usuario u : ruta.getPasajeros()){//enviar notificacion a cada pasajero
+					Notificacion n = new Notificacion(-1, "La ruta "+ruta.getNombre()+" se ha cancelado", u.getId());
+					ServiciosEvento.getInstancia().ingresarNotificacion(n);
+				}
+			}
 			//TODO: enviar notificacion con solicitud para dar puntuacion
 			return null;
 			
@@ -283,11 +310,6 @@ public class DetallesRutaConductor extends Activity {
 		@Override
 		protected void onPostExecute(Void v){
 			volverAMenu();
-			
-			for(Usuario u : ruta.getPasajeros()){//enviar notificacion a cada pasajero
-				Notificacion n = new Notificacion(-1, "La ruta "+nombre+" ha finalizado", u.getId());
-				ServiciosEvento.getInstancia().ingresarNotificacion(n);
-			}
 		}
 	}
 }

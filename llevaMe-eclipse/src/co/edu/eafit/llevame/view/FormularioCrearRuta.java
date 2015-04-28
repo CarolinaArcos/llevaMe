@@ -178,11 +178,11 @@ public class FormularioCrearRuta extends Activity {
 		
 		//Validacion numeros		
 		if(!isNumeric(dataCupo)) {
-			toast("El cupo debe ser un nï¿½ero");
+			toast("El cupo debe ser un número");
 			return false;
 		}
 		if ((!isNumeric(dia)) || (!isNumeric(mes)) || (!isNumeric(year))) {
-			toast("El dia, el mes y el year de la fecha deben ser numeros");
+			toast("El dia, el mes y el año de la fecha deben ser numeros");
 			return false;
 		}
 		if (!isNumeric(hour) || !isNumeric(minute)) {

@@ -42,6 +42,7 @@ public class ServiciosRuta {
 			ruta.setCapacidad(laRuta.getInt("capacidad"));
 			ruta.setPlaca(laRuta.getString("placa"));
 			ruta.setConductor(laRuta.getInt("conductor"));
+			ruta.setEstado(laRuta.getBoolean("estado"));
 			
 			
 			ruta.setPasajeros(ServiciosUsuario.getInstancia().getPasajeros(Integer.parseInt(id)));
@@ -86,6 +87,7 @@ public class ServiciosRuta {
 				oneRuta.setDescripcion(ruta.getString("descripcion"));
 				oneRuta.setCapacidad(ruta.getInt("capacidad"));
 				oneRuta.setPlaca(ruta.getString("placa"));
+				oneRuta.setEstado(ruta.getBoolean("estado"));
 				rutas[i] = oneRuta;
 				
 			}

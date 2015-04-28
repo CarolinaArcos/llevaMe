@@ -7,7 +7,7 @@ public class Ruta {
 	private int capacidad;
 	private String descripcion;
 	private String placa;
-	
+	private boolean estado;
 	private Ubicacion[] recorrido;
 	
 	private int conductor; //id del conductor
@@ -23,7 +23,7 @@ public class Ruta {
 		this.fecha = fecha;
 		this.capacidad = capacidad;
 		this.setPlaca(placa);
-		
+		this.estado = false;
 		this.descripcion = "";
 	}
 	
@@ -34,6 +34,7 @@ public class Ruta {
 		this.setPlaca(placa);
 		this.capacidad = capacidad;
 		this.descripcion = descripcion;
+		this.estado = false;
 	}
 
 	public int getId() {
@@ -106,5 +107,13 @@ public class Ruta {
 
 	public void setPasajeros(Usuario[] pasajeros) {
 		this.pasajeros = pasajeros;
+	}
+	
+	public boolean getEstado(){
+		return estado;
+	}
+	
+	public void setEstado(boolean estado){
+		this.estado = estado;
 	}
 }
