@@ -1,13 +1,16 @@
 package co.edu.eafit.llevame.view;
 
 import java.util.Calendar;
-import java.util.Date;
 
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.InputFilter;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -15,7 +18,13 @@ import android.view.View.OnClickListener;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
+import android.app.DatePickerDialog;
+import android.app.TimePickerDialog;
+import android.app.Dialog;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import co.edu.eafit.llevame.R;
+import co.edu.eafit.llevame.handlers.PartialRegexInputFilter;
 import co.edu.eafit.llevame.handlers.SharedPreferencesHandler;
 import co.edu.eafit.llevame.model.Ruta;
 import co.edu.eafit.llevame.model.Ubicacion;
@@ -27,6 +36,12 @@ public class FormularioCrearRuta extends Activity {
 	private String [] markerSnippet = {""};
 	private double [] markerLat = {0.0};
 	private double [] markerLong = {0.0};
+	private Calendar calendar;
+	private EditText fecha;
+	private EditText hora;
+	private EditText placa;
+	private int year, month, day, hour, min;
+
 	protected static final int REQUEST_CODE = 10;
 	
 	private int idUsrLoggedIn;
@@ -49,6 +64,115 @@ public class FormularioCrearRuta extends Activity {
 		});
 	
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		hora = (EditText) findViewById(R.id.horaFormulario);
+		fecha = (EditText) findViewById(R.id.fechaFormulario);
+		placa = (EditText) findViewById(R.id.placaFormulario);       
+		final String regex = "[A-Z]{3}[0-9]{3}";  
+        
+		placa.setFilters(  
+		    new InputFilter[] {  
+		        new PartialRegexInputFilter(regex)  
+		    }  
+		);  
+		placa.addTextChangedListener(  
+		    new TextWatcher(){  
+		  
+		            @Override  
+		            public void afterTextChanged(Editable s) {  
+		                String value  = s.toString();
+		                
+		                if(value.matches(regex))  
+		                    placa.setTextColor(Color.BLACK);  
+		                else  
+		                    placa.setTextColor(Color.RED);  
+		            }  
+		  
+		            @Override  
+		            public void beforeTextChanged(CharSequence s, int start,  
+		                int count, int after) {}  
+		  
+		            @Override  
+		            public void onTextChanged(CharSequence s, int start,  
+		               int before, int count) {}  
+		             
+		         }  
+		);  
+		
+		calendar = Calendar.getInstance();
+	    year = calendar.get(Calendar.YEAR);
+	    month = calendar.get(Calendar.MONTH);
+	    day = calendar.get(Calendar.DAY_OF_MONTH);
+	    hour = calendar.get(Calendar.HOUR_OF_DAY);
+	    min = calendar.get(Calendar.MINUTE);
+	    showTime(hour, min);
+	    showDate(year, month+1, day);	    
+	}
+	
+	@SuppressWarnings("deprecation")
+	public void setDate(View view) {
+		showDialog(999);
+	}
+	@SuppressWarnings("deprecation")
+	public void setTime(View view) {
+		showDialog(998);
+	}
+
+	private String numberToString(int number) {
+		String num = "";
+		if(number<10) num="0"+number;
+		else num=""+number;
+		return num;
+	}
+	
+	   @Override
+	   protected Dialog onCreateDialog(int id) {
+	      if (id == 999) {
+	         return new DatePickerDialog(this, myDateListener, year, month, day);
+	       }
+	      if (id == 998) {
+	    	  return new TimePickerDialog(this, myTimeListener, hour, min,true);
+		   }
+	      return null;
+	   }
+
+	   private DatePickerDialog.OnDateSetListener myDateListener
+	   = new DatePickerDialog.OnDateSetListener() {
+
+	   @Override
+	   public void onDateSet(DatePicker arg0, int arg1, int arg2, int arg3) {
+	      // TODO Auto-generated method stub
+	      // arg1 = year
+	      // arg2 = month
+	      // arg3 = day
+	      showDate(arg1, arg2+1, arg3);
+	   }
+	   };
+	   
+	   private TimePickerDialog.OnTimeSetListener myTimeListener
+	   = new TimePickerDialog.OnTimeSetListener() {
+
+	@Override
+	public void onTimeSet(TimePicker arg0, int arg1, int arg2) {
+		// TODO Auto-generated method stub
+		// arg1 = hour
+	    // arg2 = minute
+		showTime(arg1,arg2);
+	}
+	   };
+
+	   private void showTime(int hour, int min) {
+		   this.hour = hour;
+		   this.min = min;
+		   
+		   hora.setText(numberToString(hour).concat(":").concat(numberToString(min)));
+		}   
+	   
+	private void showDate(int year, int month, int day) {
+		this.year = year;
+		this.month = month-1;
+		this.day = day;
+		
+		fecha.setText(numberToString(day).concat("/").concat(numberToString(month)).concat("/").concat(numberToString(year)));
 	}
 
 	@Override
@@ -71,10 +195,10 @@ public class FormularioCrearRuta extends Activity {
 		if (correct ==true) {
 			Ruta r = crearRuta();
 			new addRuta(r).execute();
-    		Toast toast = Toast.makeText(this, "Su ruta ha sido creada exitosamente", 3);
+    		Toast toast = Toast.makeText(this, "Su ruta ha sido creada exitosamente", Toast.LENGTH_SHORT);
     		toast.show(); 	
 		} else {
-			Toast toast = Toast.makeText(this, "Formulario Invalido. Favor ingrese los datos correctos", 3);
+			Toast toast = Toast.makeText(this, "Formulario Invalido. Favor ingrese los datos correctos", Toast.LENGTH_SHORT);
 			toast.show();
 		}
 	}
@@ -82,14 +206,12 @@ public class FormularioCrearRuta extends Activity {
 	public Ruta crearRuta() {
 		EditText hora = (EditText) findViewById(R.id.horaFormulario);
 		EditText fecha = (EditText) findViewById(R.id.fechaFormulario);
-		EditText cupo = (EditText) findViewById(R.id.cupoFormulario);
-		EditText placa = (EditText) findViewById(R.id.placaFormulario);
+		EditText cupo = (EditText) findViewById(R.id.cupoFormulario);		
 		EditText descripcion = (EditText) findViewById(R.id.descripcionFormulario);
 		EditText nombre = (EditText) findViewById(R.id.nombreRutaFormulario);
-		
+		EditText placa = (EditText) findViewById(R.id.placaFormulario);
 		String dataHora = hora.getText().toString();
 		String dataFecha = fecha.getText().toString();
-		dataFecha.replace('/', '-');//pasar a AAAA-MM-DD
 		String dataCupo = cupo.getText().toString();
 		int numeroCupo = -1;
 		if(!dataCupo.equals("") && (Integer.parseInt(dataCupo)>0)) numeroCupo = Integer.parseInt(dataCupo);
@@ -133,7 +255,6 @@ public class FormularioCrearRuta extends Activity {
 		EditText fecha = (EditText) findViewById(R.id.fechaFormulario);
 		EditText cupo = (EditText) findViewById(R.id.cupoFormulario);
 		EditText placa = (EditText) findViewById(R.id.placaFormulario);
-		EditText descripcion = (EditText) findViewById(R.id.descripcionFormulario);
 		EditText nombre = (EditText) findViewById(R.id.nombreRutaFormulario);
 		
 		String dataName = nombre.getText().toString();
@@ -141,71 +262,52 @@ public class FormularioCrearRuta extends Activity {
 		String dataHora = hora.getText().toString(); //HH:mm
 		String dataCupo = cupo.getText().toString();
 		String dataPlaca = placa.getText().toString();
-		String dataDescripcion = descripcion.getText().toString();
 		
-		//Validacion que no sean vacï¿½o
+		final String regex = "[A-Z]{3}[0-9]{3}";
+		
+		//Validacion que no sean vacios
 		if(!validarContenido(dataName)) {
-			toast("El Nombre no puede ser vacï¿½o");
+			toast("El Nombre no puede ser vacío");
 			return false;
 		}
 		if(!validarContenido(dataFecha)) {
-			toast("La Fecha no puede ser vacï¿½o");
+			toast("La Fecha no puede ser vacío");
 			return false;
 		}
 		if(!validarContenido(dataHora)) {
-			toast("La Hora no puede ser vacï¿½o");
+			toast("La Hora no puede ser vacío");
 			return false;
 		}
 		if(!validarContenido(dataCupo)) {
-			toast("El Cupo no puede ser vacï¿½o");
+			toast("El Cupo no puede ser vacío");
 			return false;
 		}
 		if(!validarContenido(dataPlaca)) {
-			toast("La Placa no puede ser vacï¿½o");
+			toast("La Placa no puede ser vacío");
 			return false;
 		}
-		//Validacion longitud
-		if (!validarLongitudHoraFecha(dataHora,dataFecha)) {
-			toast("El formato de la Fecha o la Hora no es correcto");
-			return false;
-		}
-		
-		String dia = dataFecha.substring(8);
-		String mes = dataFecha.substring(5,7);
-		String year = dataFecha.substring(0,4);
-		String hour = dataHora.substring(0,2);
-		String minute = dataHora.substring(3);
 		
 		//Validacion numeros		
 		if(!isNumeric(dataCupo)) {
 			toast("El cupo debe ser un número");
 			return false;
 		}
-		if ((!isNumeric(dia)) || (!isNumeric(mes)) || (!isNumeric(year))) {
-			toast("El dia, el mes y el año de la fecha deben ser numeros");
-			return false;
-		}
-		if (!isNumeric(hour) || !isNumeric(minute)) {
-			toast("La hora y los minutos deben ser numeros");
-			return false;
-		}
+		
 		//Validacion rangos
-		if (Integer.parseInt(dia)>31 || Integer.parseInt(mes)>12 || 
-				Integer.parseInt(hour)>24 || Integer.parseInt(minute)>59 || 
-				Integer.parseInt(dataCupo)<=0){
-			toast("Valores en Hora, Fecha y/o Cupo incorrectos");
+		if (Integer.parseInt(dataCupo)<=0){
+			toast("Valor del Cupo incorrecto");
 			return false;
 		}
-		//Validacion caracteres
-		if ((dataFecha.charAt(4)!='/' && dataFecha.charAt(4)!='-')
-			|| (dataFecha.charAt(7)!='/' && dataFecha.charAt(7)!='-')
-			|| dataHora.charAt(2)!=':') {
-			toast("Formato de Hora y/o Fecha incorrecto");
+		
+		//Validacion placa
+		if(!dataPlaca.matches(regex)) {
+			toast("Formato de Placa incorrecto");
 			return false;
 		}
+		
 		//Validacion fecha y hora futuras
-		if (validarFechaFuruta(year, mes, dia, hour, minute)) {
-			toast("Fecha incorrecta, el dia ingresado ya paso");
+		if (validarFechaFutura(year, month, day, hour, min)) {
+			toast("Hora y/o Fecha incorrecta, la hora y/o el dia ingresado ya paso");
 			return false;
 		}
 		
@@ -225,29 +327,18 @@ public class FormularioCrearRuta extends Activity {
 		return true;
 	}
 	
-	public boolean validarFechaFuruta(String year, String mes, String dia, 
-			String hour, String minute) {
-		
-		Date tiempoActual = Calendar.getInstance().getTime();
-		Calendar cal = Calendar.getInstance();
-		cal.set(Integer.parseInt(year), Integer.parseInt(mes),
-				Integer.parseInt(dia), Integer.parseInt(hour), Integer.parseInt(minute));
-		Date calIngresado = cal.getTime();
-		boolean after = tiempoActual.after(calIngresado);
-		if (after == false) {
-			return false;
-		}
-		return true;
-	}
+	public boolean validarFechaFutura(int year, int month, int day, 
+			int hour, int minute) {
 
-	public boolean validarLongitudHoraFecha(String hora, String fecha) {
-		if(hora.length()!=5) return false;
-		if(fecha.length()!=10) return false;
+		Calendar tiempoActual = Calendar.getInstance();
+		Calendar dateTime = Calendar.getInstance();
+		dateTime.set(year, month, day, hour, minute);
+		if(tiempoActual.before(dateTime)) return false;
 		return true;
 	}
 	
 	public void toast(String mensaje) {
-		Toast toast = Toast.makeText(this,mensaje, 3);
+		Toast toast = Toast.makeText(this,mensaje, Toast.LENGTH_SHORT);
 		toast.show();
 	}
 	

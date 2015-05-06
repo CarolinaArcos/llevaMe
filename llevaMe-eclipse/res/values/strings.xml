@@ -28,5 +28,8 @@
     <string name="title_activity_view_map_details_driver">Mapa Detalles Conductor</string>
     <string name="title_activity_puntuacion">Puntuación</string>
     <string name="title_activity_llevame_seccion">Llevame Sección</string>
+    <string name="gps_network_not_enabled">El servicio de ubicación esta deshabilitado</string>
+    <string name="open_location_settings">Abrir ajustes de localización</string>
+    <string name="cancel">Cancelar</string>
 
 </resources>

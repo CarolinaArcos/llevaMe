@@ -126,7 +126,10 @@ public class DetallesRutaConductor extends Activity {
 	}
 	
 	public void onFinalizar(View view) {
-		if(!estado) Toast.makeText(this, "Acabas de cancelar la ruta "+ruta.getNombre(), Toast.LENGTH_LONG).show();
+		if(!estado) {
+			new FinalizarRuta().execute(""+id);
+			Toast.makeText(this, "Acabas de cancelar la ruta "+ruta.getNombre(), Toast.LENGTH_LONG).show();
+		}
 		else {
 			new FinalizarRuta().execute(""+id);
 			Toast.makeText(this, "Acabas de finalizar la ruta "+ruta.getNombre(), Toast.LENGTH_LONG).show();
